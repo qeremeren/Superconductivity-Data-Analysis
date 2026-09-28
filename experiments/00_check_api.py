@@ -24,6 +24,7 @@ from tabpfn_client import TabPFNRegressor, estimate_cost, get_api_usage
 from tabpfn_client.estimator import _limit_for_model_path
 
 from src import config, data
+from src.budget import authorize, requests_for_predict
 
 OUT = config.RESULTS_DIR / "00_api_check.json"
 RAW_OUT = config.RESULTS_DIR / "00_api_check_outputs.npz"
@@ -96,7 +97,7 @@ def abs_diff(a, b):
     return {"max_K": float(d.max()), "median_K": float(np.median(d))}
 
 
-def live_calls(engineered, target):
+def live_calls(engineered, target, budget):
     """One fit and two predict requests on the same 100 rows: output_type="full"
     and a dense quantile grid. "full" is capped at 400 rows per request, so later
     phases want the quantile route if it agrees with the full distribution.
@@ -111,9 +112,11 @@ def live_calls(engineered, target):
 
     reg = TabPFNRegressor(model_path=config.TABPFN_MODEL_PATH, random_state=0)
     reg.fit(engineered.iloc[train_idx], target.iloc[train_idx])
+    budget.charge(requests_for_predict(len(X_test), "full"), output_type="full")
     full = reg.predict(X_test, output_type="full")
     # The docs FAQ names this `last_meta`; tabpfn-client 0.6.1 only has `_last_meta`.
     meta_full, timings_full = dict(reg._last_meta), reg.get_timings()
+    budget.charge(1, output_type="quantiles")
     dense = reg.predict(X_test, output_type="quantiles", quantiles=QUANTILE_GRID.tolist())
     meta_dense = dict(reg._last_meta)
 
@@ -220,8 +223,10 @@ def main():
         write_report(report)
         return
 
+    tokens = report["cost_estimates"]["live_smoke_check"]["estimated_cost"]
+    budget = authorize("p0_api_check", n_requests=2, tokens_per_request=tokens)
     report["usage_before"] = get_api_usage()
-    report["live_smoke_check"] = live_calls(engineered, target)
+    report["live_smoke_check"] = live_calls(engineered, target, budget)
     report["usage_after"] = get_api_usage()
     try:
         report["live_smoke_check"]["analysis"] = analyze(np.load(RAW_OUT))

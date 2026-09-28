@@ -56,7 +56,9 @@ Metrics:
 - Pool-based active learning over deduplicated materials.
 - Start: small random labeled set with no material above 77 K.
 - Each round: fit on labeled set, predict the pool, pick a batch by acquisition function, reveal true Tc.
-- Acquisitions: random, greedy mean (XGBoost), greedy mean (TabPFN), probability Tc > 77 K (TabPFN), UCB / expected improvement (TabPFN).
+- Main acquisitions (TabPFN): expected improvement over the current best, and the upper-quantile (q90) score. Comparisons: greedy mean (TabPFN), greedy mean (XGBoost), random.
+- P(Tc > 77 K) is reported as a metric, not used as an acquisition: a 99-level quantile grid cannot resolve it below 1%.
+- Every billed TabPFN request goes through `src/budget.py` (`authorize()` / `RunBudget.charge()`); a run projected to exceed its cap is refused.
 - Metric: number of distinct >77 K materials found vs. experiments spent; rounds to the first hit.
 - Hard variant: remove cuprates from the initial set entirely and see whether the loop finds them.
 - Multiple seeds, plotted with confidence bands. Budget API calls before running (batches reduce call count).
