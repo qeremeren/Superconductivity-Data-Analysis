@@ -98,8 +98,12 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
   refuses any request beyond the number authorized. Every billed request is logged, before it is
   sent, to `results/api_ledger.jsonl` (committed). Phase 0's 5 requests are backfilled there.
 - Assumptions behind the counts: one request per fit; the discovery loop costs one request per
-  round per (seed, acquisition) trajectory regardless of pool size; 20 rounds, 10 seeds, and 3
-  TabPFN acquisitions (EI, q90, greedy mean). Change `PLAN` and regenerate if these change.
+  round per (seed, acquisition) trajectory regardless of pool size; 20 rounds. The pilot runs EI
+  and q90 on both scenarios with 3 seeds; the main and hard runs use 10 seeds and 2 TabPFN
+  acquisitions (the pilot's winner plus greedy mean), with caps that allow keeping both EI and
+  q90 if the pilot is inconclusive. If Phase 4 code is not ready before the Oct 1 reset, the pilot
+  moves to the post-Oct-1 pool, which still fits (15.0M at cap against 19.0M usable).
+  Change `PLAN` and regenerate if these change.
 
 <!-- budget-table:start -->
 | Phase | Experiment | Planned requests | Hard cap | Tokens at cap | Pool | Basis |
@@ -108,35 +112,41 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 1 | `p1_data_audit` | 0 | 0 | 0 | - | no API calls |
 | 2 | `p2_output_check` | 4 | 6 | 60,000 | pre-Oct-1 | main output with a midpoint grid; grid-size limit |
 | 2 | `p2_random_protocol` | 50 | 60 | 600,000 | pre-Oct-1 | 25 random splits x 2 feature sets |
-| 2 | `p2_grouped` | 50 | 60 | 600,000 | pre-Oct-1 | 5 folds x 5 repeats, grouped by composition, x 2 sets |
+| 2 | `p2_grouped` | 50 | 60 | 600,000 | pre-Oct-1 | 25 grouped 2/3-1/3 splits x 2 feature sets |
 | 2 | `p2_leave_family_out` | 6 | 8 | 80,000 | pre-Oct-1 | 3 held-out families x 2 feature sets |
 | 3 | `p3_learning_curves` | 50 | 60 | 600,000 | pre-Oct-1 | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 60,000 | pre-Oct-1 | 'full' vs quantile grid on 400 rows, 2 splits |
-| 4 | `p4_pilot` | 60 | 70 | 700,000 | pre-Oct-1 | 1 seed x 3 TabPFN acquisitions x 20 rounds |
-| 4 | `p4_standard` | 600 | 660 | 6,600,000 | post-Oct-1 | 10 seeds x 3 TabPFN acquisitions x 20 rounds |
-| 4 | `p4_hard` | 600 | 660 | 6,600,000 | post-Oct-1 | same, no cuprates in the initial labeled set |
+| 4 | `p4_pilot` | 240 | 260 | 2,600,000 | pre-Oct-1 | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
+| 4 | `p4_main` | 400 | 620 | 6,200,000 | post-Oct-1 | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
+| 4 | `p4_hard` | 400 | 620 | 6,200,000 | post-Oct-1 | non-cuprate pool and top-1% target, same design |
 
 | Pool | Limit | Used at snapshot | Usable (minus 1M reserve) | Capped plan | Headroom | Headroom (requests) |
 |---|---:|---:|---:|---:|---:|---:|
-| pre-Oct-1 | 20,000,000 | 4,930,000 | 14,070,000 | 2,700,000 | 11,370,000 | 1,137 |
-| post-Oct-1 | 20,000,000 | 0 | 19,000,000 | 13,200,000 | 5,800,000 | 580 |
+| pre-Oct-1 | 20,000,000 | 4,930,000 | 14,070,000 | 4,600,000 | 9,470,000 | 947 |
+| post-Oct-1 | 20,000,000 | 0 | 19,000,000 | 12,400,000 | 6,600,000 | 660 |
 <!-- budget-table:end -->
 
-## 2026-09-28 — Discovery loop design (decided)
+## 2026-09-28 — Discovery loop design (decided, revised the same day)
 
-- Main acquisitions (TabPFN):
-  - Expected improvement over the best Tc observed so far in the labeled set:
-    EI(x) = E[max(Y - y*, 0)] ~ (1/L) sum_i max(Q(tau_i) - y*, 0) on the midpoint grid.
+- Pool: one row per scaled composition (element fractions summing to 1), Tc = median over its
+  duplicate rows.
+- Targets:
+  - Main scenario: the top 1% of Tc in the full pool.
+  - Hard scenario: the top 1% of Tc among non-cuprates, with a non-cuprate-only pool.
+  - Why not 77 K: it is a far larger share of the pool than 1% (Phase 1 gives the exact base
+    rate), so random search finds a hit within a few picks and cannot separate the methods.
+- Start: a small random labeled set containing no target material.
+- Main acquisitions (TabPFN), compared in the pilot, which picks the one for the main runs:
+  - Expected improvement with reference y* = min(best Tc observed so far, top-1% threshold):
+    EI(x) = E[max(Y - y*, 0)] ~ (1/L) sum_i max(Q(tau_i) - y*, 0) on the midpoint grid. Capping
+    the reference at the threshold keeps EI rewarding new target-level materials after the first
+    hit, instead of only materials that beat the record.
   - Upper-quantile score q90 = Q(0.9).
 - Comparisons: greedy mean (TabPFN), greedy mean (XGBoost), random.
-- P(Tc > 77 K) is reported each round (predicted hit probability vs realized hits) but not used
-  as an acquisition: with an L-level quantile grid it cannot be resolved below about 1/L (1% at
-  99 levels), so most of the pool would tie.
+- Metrics: distinct target materials found vs experiments spent; rounds to the first hit;
+  both against random search's expected tries-to-hit, (N + 1)/(K + 1) for K targets in a pool
+  of N. P(Tc > 77 K) is reported each round (predicted hit probability vs realized hits) but not
+  used as an acquisition: with an L-level quantile grid it cannot be resolved below about 1/L.
 - All TabPFN scores in a round come from the same quantile-grid request.
-- Open, to decide in Phase 4 with Phase 1's numbers:
-  - Incumbent after the first >77 K hit. EI over the current best then rewards beating the
-    record, while the headline metric counts distinct >77 K materials. Option: use
-    y* = min(current best, 77 K).
-  - Difficulty. If >77 K materials are common in the deduplicated pool, random search finds one
-    within a few picks and "rounds to first hit" cannot separate the methods. Phase 1 measures
-    the base rates.
+- Superseded earlier the same day: target Tc > 77 K; EI over the current best; hard variant =
+  "no cuprates in the initial set" (the pool still contained them, so random found them at once).

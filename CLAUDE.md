@@ -44,7 +44,7 @@ Do NOT: add crystal structure, pressure, new data sources, or a superconductor/n
 ## Evaluation protocol
 Splits (all defined once in `src/splits.py`, saved to `data/splits/`):
 1. `random` — the paper's exact protocol (2/3 train / 1/3 test, 25 repeats, RMSE = sqrt(mean of MSEs)), run for both XGBoost and TabPFN. Used only for apples-to-apples comparison with the published numbers.
-2. `grouped` — grouped by formula so duplicates never cross train/test. **Primary benchmark.**
+2. `grouped` — grouped by scaled composition (element fractions summing to 1) so duplicates never cross train/test; 2/3 train / 1/3 test of rows, 25 repeats, matching `random` so the only difference is grouping. **Primary benchmark.**
 3. `leave-family-out` — hold out whole families (cuprates: Cu>0 and O>0; iron-based: Fe>0 and (As>0 or Se>0); everything else). Tests extrapolation.
 
 Metrics:
@@ -53,14 +53,14 @@ Metrics:
 - Learning curves: train sizes 100, 300, 1k, 3k, 10k, full. Repeat each size with multiple seeds and report mean ± std.
 
 ## Discovery loop (the headline experiment)
-- Pool-based active learning over deduplicated materials.
-- Start: small random labeled set with no material above 77 K.
+- Pool-based active learning over deduplicated materials: one row per scaled composition, Tc = median over its duplicates.
+- Target: the top 1% of Tc in the pool (main scenario), and the top 1% of Tc among non-cuprates with a non-cuprate-only pool (hard scenario). Tc > 77 K is too common in the pool to separate methods (Phase 1 numbers in NOTES.md).
+- Start: small random labeled set with no target material.
 - Each round: fit on labeled set, predict the pool, pick a batch by acquisition function, reveal true Tc.
-- Main acquisitions (TabPFN): expected improvement over the current best, and the upper-quantile (q90) score. Comparisons: greedy mean (TabPFN), greedy mean (XGBoost), random.
+- Main acquisitions (TabPFN): expected improvement with reference min(current best, top-1% threshold), and the upper-quantile (q90) score; the pilot decides which one carries the main runs. Comparisons: greedy mean (TabPFN), greedy mean (XGBoost), random.
 - P(Tc > 77 K) is reported as a metric, not used as an acquisition: a 99-level quantile grid cannot resolve it below 1%.
 - Every billed TabPFN request goes through `src/budget.py` (`authorize()` / `RunBudget.charge()`); a run projected to exceed its cap is refused.
-- Metric: number of distinct >77 K materials found vs. experiments spent; rounds to the first hit.
-- Hard variant: remove cuprates from the initial set entirely and see whether the loop finds them.
+- Metric: number of distinct target materials found vs. experiments spent; rounds to the first hit; compared against random search's expected tries-to-hit.
 - Multiple seeds, plotted with confidence bands. Budget API calls before running (batches reduce call count).
 
 ## Repo layout

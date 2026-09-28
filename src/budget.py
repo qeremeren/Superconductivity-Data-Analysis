@@ -62,13 +62,13 @@ PLAN = [
     Planned(1, "p1_data_audit", 0, 0, "-", "no API calls"),
     Planned(2, "p2_output_check", 4, 6, PRE, "main output with a midpoint grid; grid-size limit"),
     Planned(2, "p2_random_protocol", 50, 60, PRE, "25 random splits x 2 feature sets"),
-    Planned(2, "p2_grouped", 50, 60, PRE, "5 folds x 5 repeats, grouped by composition, x 2 sets"),
+    Planned(2, "p2_grouped", 50, 60, PRE, "25 grouped 2/3-1/3 splits x 2 feature sets"),
     Planned(2, "p2_leave_family_out", 6, 8, PRE, "3 held-out families x 2 feature sets"),
     Planned(3, "p3_learning_curves", 50, 60, PRE, "5 sizes (100-10k) x 5 seeds x 2 sets"),
     Planned(3, "p3_quantile_vs_full", 4, 6, PRE, "'full' vs quantile grid on 400 rows, 2 splits"),
-    Planned(4, "p4_pilot", 60, 70, PRE, "1 seed x 3 TabPFN acquisitions x 20 rounds"),
-    Planned(4, "p4_standard", 600, 660, POST, "10 seeds x 3 TabPFN acquisitions x 20 rounds"),
-    Planned(4, "p4_hard", 600, 660, POST, "same, no cuprates in the initial labeled set"),
+    Planned(4, "p4_pilot", 240, 260, PRE, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
+    Planned(4, "p4_main", 400, 620, POST, "top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3)"),
+    Planned(4, "p4_hard", 400, 620, POST, "non-cuprate pool and top-1% target, same design"),
 ]
 PLAN_BY_NAME = {p.experiment: p for p in PLAN}
 

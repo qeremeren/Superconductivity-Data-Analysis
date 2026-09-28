@@ -54,10 +54,10 @@ def test_experiment_cap_counts_earlier_spend(ledger):
 def test_daily_cap_counts_todays_spend_only(ledger):
     near_cap = budget.DAILY_CAP_TOKENS - 50_000
     spend(ledger, "p4_pilot", 1, ts="2026-09-28T23:00:00+00:00", tokens=near_cap)
-    authorize("p4_standard", 10, 10_000, usage=PLENTY, ledger=ledger, now=NOW)
+    authorize("p4_main", 10, 10_000, usage=PLENTY, ledger=ledger, now=NOW)
     spend(ledger, "p4_pilot", 1, ts="2026-09-29T01:00:00+00:00", tokens=near_cap)
     with pytest.raises(BudgetExceeded, match="daily cap"):
-        authorize("p4_standard", 10, 10_000, usage=PLENTY, ledger=ledger, now=NOW)
+        authorize("p4_main", 10, 10_000, usage=PLENTY, ledger=ledger, now=NOW)
 
 
 def test_monthly_pool_keeps_a_reserve(ledger):
