@@ -3,6 +3,7 @@ import io
 import zipfile
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from src import data
@@ -45,6 +46,51 @@ def test_files_are_row_aligned():
     elements = unique_m.columns[: data.N_ELEMENTS]
     n_nonzero = (unique_m[elements] > 0).sum(axis=1)
     np.testing.assert_array_equal(train["number_of_elements"], n_nonzero)
+
+
+def _compositions(rows: list[dict]) -> pd.DataFrame:
+    df = pd.DataFrame(0.0, index=range(len(rows)), columns=list(data.ELEMENTS))
+    for i, row in enumerate(rows):
+        for element, amount in row.items():
+            df.loc[i, element] = amount
+    return df
+
+
+def test_composition_key_ignores_scaling_but_not_stoichiometry():
+    df = _compositions(
+        [
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 7},
+            {"Y": 0.5, "Ba": 1, "Cu": 1.5, "O": 3.5},
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 6.9},
+        ]
+    )
+    key = data.composition_key(df)
+    assert key[0] == key[1]
+    assert key[0] != key[2]
+    assert key[0] == "O:0.538462 Cu:0.230769 Y:0.076923 Ba:0.153846"
+
+
+def test_family_rules():
+    df = _compositions(
+        [
+            {"La": 2, "Cu": 1, "O": 4},
+            {"Ba": 1, "Fe": 2, "As": 2},
+            {"Fe": 1, "Se": 1},
+            {"Nb": 3, "Cu": 1},
+            {"Fe": 1, "O": 1},
+            {"Mg": 1, "B": 2},
+        ]
+    )
+    expected = ["cuprate", "iron-based", "iron-based", "other", "other", "other"]
+    assert list(data.family(df)) == expected
+
+
+@needs_data
+def test_family_definitions_do_not_overlap_in_data():
+    um = data.load_unique_m()
+    cuprate = (um["Cu"] > 0) & (um["O"] > 0)
+    iron = (um["Fe"] > 0) & ((um["As"] > 0) | (um["Se"] > 0))
+    assert not (cuprate & iron).any()
 
 
 def _fake_zip(files: dict[str, bytes]) -> bytes:

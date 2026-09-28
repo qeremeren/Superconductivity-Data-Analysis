@@ -14,6 +14,7 @@ import zipfile
 from datetime import UTC, datetime
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,7 +40,17 @@ TARGET = "critical_temp"
 FORMULA = "material"
 N_ROWS = 21_263
 N_ENGINEERED_FEATURES = 81
-N_ELEMENTS = 86
+
+# The element columns of unique_m.csv, in file (periodic-table) order.
+ELEMENTS = tuple(
+    "H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As "
+    "Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd "
+    "Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn".split()
+)
+N_ELEMENTS = len(ELEMENTS)
+
+CUPRATE, IRON_BASED, OTHER = "cuprate", "iron-based", "other"
+KEY_DECIMALS = 6
 
 
 def sha256_of(path: Path) -> str:
@@ -120,8 +131,41 @@ def load_unique_m(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
     """Element composition (86 columns) plus critical_temp and the formula string."""
     df = _read_csv("unique_m.csv", raw_dir)
     assert df.shape == (N_ROWS, N_ELEMENTS + 2), df.shape
+    assert tuple(df.columns[:N_ELEMENTS]) == ELEMENTS
     assert list(df.columns[-2:]) == [TARGET, FORMULA]
     return df
+
+
+def composition_fractions(unique_m: pd.DataFrame) -> pd.DataFrame:
+    """Element fractions summing to 1 per row, so scaled formulas coincide."""
+    counts = unique_m[list(ELEMENTS)]
+    return counts.div(counts.sum(axis=1), axis=0)
+
+
+def composition_key(unique_m: pd.DataFrame) -> pd.Series:
+    """Scaled-composition key such as "O:0.538462 Cu:0.230769 Y:0.076923 Ba:0.153846".
+
+    Rows with the same key are one material for grouping and deduplication:
+    YBa2Cu3O7 and Y0.5Ba1Cu1.5O3.5 share a key, whatever the formula spelling.
+    """
+    fractions = composition_fractions(unique_m).round(KEY_DECIMALS).to_numpy()
+    names = np.array(ELEMENTS)
+
+    def key(row: np.ndarray) -> str:
+        present = row > 0
+        pairs = zip(names[present], row[present], strict=True)
+        return " ".join(f"{e}:{v:.{KEY_DECIMALS}f}" for e, v in pairs)
+
+    return pd.Series([key(row) for row in fractions], index=unique_m.index, name="composition_key")
+
+
+def family(unique_m: pd.DataFrame) -> pd.Series:
+    """Cuprate: Cu > 0 and O > 0. Iron-based: Fe > 0 and (As > 0 or Se > 0).
+    Other: everything else. Cuprate wins if both match (none do in this data)."""
+    cuprate = (unique_m["Cu"] > 0) & (unique_m["O"] > 0)
+    iron = (unique_m["Fe"] > 0) & ((unique_m["As"] > 0) | (unique_m["Se"] > 0))
+    labels = np.select([cuprate, iron], [CUPRATE, IRON_BASED], default=OTHER)
+    return pd.Series(labels, index=unique_m.index, name="family")
 
 
 if __name__ == "__main__":
