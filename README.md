@@ -27,7 +27,7 @@ a key. To make live API calls:
 
 ```bash
 cp .env.example .env   # then paste your key from https://platform.priorlabs.ai/account/api-keys
-make check-api         # free cost estimates; `make check-api LIVE=1` adds one tiny live call
+make check-api         # free cost estimates; `make check-api LIVE=1` adds a ~20k-token live check
 ```
 
 `.env` is git-ignored. Live calls are opt-in via `TABPFN_LIVE=1` or an experiment's `--live` flag.
