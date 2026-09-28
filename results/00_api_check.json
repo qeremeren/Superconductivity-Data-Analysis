@@ -1,0 +1,278 @@
+{
+  "created_at": "2026-09-28T22:47:31+00:00",
+  "python": "3.12.14",
+  "tabpfn_client": "0.6.1",
+  "model_path": "v3.5_default",
+  "model_version": "v3.5",
+  "client_known_models": [
+    "v3.5-fast_default",
+    "v3.5_default",
+    "v3_default",
+    "v2.6_default",
+    "v2.5_default",
+    "v2_default",
+    "v2.5_low-skew",
+    "v2.5_quantiles",
+    "v2.5_real-variant",
+    "v2.5_real",
+    "v2.5_small-samples",
+    "v2.5_variant",
+    "auto",
+    "default",
+    "2noar4o2",
+    "5wof9ojf",
+    "09gpqh39",
+    "wyl4o83o"
+  ],
+  "cost_estimates": {
+    "random_split_engineered": {
+      "estimated_cost": 10000,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 14175,
+        "raw_columns": 81,
+        "test_rows": 7088,
+        "model_version": "v3.5",
+        "operation": "predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    },
+    "random_split_composition": {
+      "estimated_cost": 10000,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 14175,
+        "raw_columns": 86,
+        "test_rows": 7088,
+        "model_version": "v3.5",
+        "operation": "predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    },
+    "learning_curve_100_engineered": {
+      "estimated_cost": 10000,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 100,
+        "raw_columns": 81,
+        "test_rows": 7088,
+        "model_version": "v3.5",
+        "operation": "predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    },
+    "discovery_round_100_labeled": {
+      "estimated_cost": 10000,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 100,
+        "raw_columns": 86,
+        "test_rows": 21163,
+        "model_version": "v3.5",
+        "operation": "predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    },
+    "live_smoke_check": {
+      "estimated_cost": 10000,
+      "pricing_version": "quota_v3",
+      "inputs": {
+        "train_rows": 200,
+        "raw_columns": 81,
+        "test_rows": 100,
+        "model_version": "v3.5",
+        "operation": "predict",
+        "n_estimators": 8,
+        "thinking_effort": null
+      }
+    }
+  },
+  "server_limits": {
+    "train_set_max_rows": 1000000,
+    "train_set_max_cells": 200000000,
+    "train_set_max_upload_cells": 400000000,
+    "test_set_max_rows": 1000000,
+    "max_classes": 160,
+    "max_cols": 20000,
+    "test_set_max_rows_w_full_regression_output": 400,
+    "predict_row_pairs_budget": 250000000000,
+    "test_set_max_cells": 200000000
+  },
+  "usage_before": "Currently, you have used 4910000 of the allowed limit of 20000000 credits. The limit will reset at 2026-10-01 00:00:00 UTC.",
+  "live_smoke_check": {
+    "n_train": 200,
+    "n_test": 100,
+    "meta_full": {
+      "test_set_num_rows": 100,
+      "test_set_num_cols": 81,
+      "n_estimators": 8,
+      "billing_model_version": "v3.5",
+      "execution_mode": "standard",
+      "cache_outcome": "not_requested",
+      "task": "regression",
+      "package_version": "9.0.0",
+      "tabpfn_config": {
+        "categorical_features_indices": [],
+        "average_before_softmax": false,
+        "random_state": 0,
+        "inference_config": {
+          "TRANSFORM_DATES": false,
+          "TRANSFORM_TEXT": false
+        },
+        "inference_precision": "auto",
+        "ignore_pretraining_limits": false,
+        "fit_mode": "fit_preprocessors",
+        "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+      }
+    },
+    "meta_quantiles": {
+      "test_set_num_rows": 100,
+      "test_set_num_cols": 81,
+      "n_estimators": 8,
+      "billing_model_version": "v3.5",
+      "execution_mode": "standard",
+      "cache_outcome": "not_requested",
+      "task": "regression",
+      "package_version": "9.0.0",
+      "tabpfn_config": {
+        "categorical_features_indices": [],
+        "average_before_softmax": false,
+        "random_state": 0,
+        "inference_config": {
+          "TRANSFORM_DATES": false,
+          "TRANSFORM_TEXT": false
+        },
+        "inference_precision": "auto",
+        "ignore_pretraining_limits": false,
+        "fit_mode": "fit_preprocessors",
+        "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+      }
+    },
+    "timings_full": {
+      "fit": {
+        "elapsed_s": 4.276,
+        "queue_wait_s": 3.877,
+        "train_set_transform_s": 0.399,
+        "fit_s": 0.0
+      },
+      "predict": {
+        "test_set_transform_queue_wait_s": 3.906,
+        "test_set_transform_s": 0.248,
+        "predict_queue_wait_s": 1.105,
+        "predict_s": 0.3
+      }
+    },
+    "full_output": {
+      "mean": {
+        "type": "ndarray",
+        "shape": [
+          100
+        ],
+        "dtype": "float64"
+      },
+      "median": {
+        "type": "ndarray",
+        "shape": [
+          100
+        ],
+        "dtype": "float64"
+      },
+      "mode": {
+        "type": "ndarray",
+        "shape": [
+          100
+        ],
+        "dtype": "float64"
+      },
+      "quantiles": {
+        "type": "ndarray",
+        "shape": [
+          9,
+          100
+        ],
+        "dtype": "float64"
+      },
+      "logits": {
+        "type": "ndarray",
+        "shape": [
+          100,
+          5000
+        ],
+        "dtype": "float64"
+      },
+      "borders": {
+        "type": "ndarray",
+        "shape": [
+          5001
+        ],
+        "dtype": "float64"
+      }
+    },
+    "quantiles_output": {
+      "type": "list",
+      "len": 99,
+      "items": [
+        {
+          "type": "ndarray",
+          "shape": [
+            100
+          ],
+          "dtype": "float64"
+        },
+        {
+          "type": "ndarray",
+          "shape": [
+            100
+          ],
+          "dtype": "float64"
+        },
+        {
+          "type": "ndarray",
+          "shape": [
+            100
+          ],
+          "dtype": "float64"
+        }
+      ]
+    },
+    "analysis": {
+      "n_buckets": 5000,
+      "borders_shape": [
+        5001
+      ],
+      "borders_monotonic": true,
+      "borders_range_K": [
+        -4610.9326171875,
+        4679.1748046875
+      ],
+      "mean_all_finite": true,
+      "reconstructed_vs_server": {
+        "mean": {
+          "max_K": 0.009995146572777003,
+          "median_K": 0.001177492908974287
+        },
+        "deciles_from_full": {
+          "max_K": 2.161910094855557e-05,
+          "median_K": 8.831163169631395e-07
+        },
+        "dense_grid_interior_5_95": {
+          "max_K": 6.494057990380497e-05,
+          "median_K": 9.090779418130523e-07
+        },
+        "dense_grid_all_levels": {
+          "max_K": 0.0003811248679852497,
+          "median_K": 9.252020234384872e-07
+        }
+      },
+      "full_vs_quantiles_request_at_deciles": {
+        "max_K": 0.0,
+        "median_K": 0.0
+      }
+    }
+  },
+  "usage_after": "Currently, you have used 4930000 of the allowed limit of 20000000 credits. The limit will reset at 2026-10-01 00:00:00 UTC."
+}
