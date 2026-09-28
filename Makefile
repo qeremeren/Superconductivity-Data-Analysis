@@ -13,7 +13,7 @@ lint:
 	uv run ruff check .
 
 check-api:  ## Free cost estimates; add LIVE=1 for one tiny live fit/predict (~10k tokens)
-	uv run python experiments/00_check_api.py $(if $(LIVE),--live,)
+	uv run python -m experiments.00_check_api $(if $(LIVE),--live,)
 
 requirements:  ## Export pinned requirements.txt for pip users
 	uv export --no-hashes --no-dev --no-emit-project -o requirements.txt
