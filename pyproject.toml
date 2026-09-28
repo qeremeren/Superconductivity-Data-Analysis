@@ -1,0 +1,38 @@
+[project]
+name = "supercon-tabpfn"
+version = "0.1.0"
+description = "Superconductor Tc prediction and simulated materials discovery with TabPFN-3.5"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2,<=2.3.3",  # upper bound comes from tabpfn-client
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    "xgboost>=2.1",
+    "matplotlib>=3.9",
+    "tabpfn-client[viz]==0.6.1",
+    "python-dotenv>=1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

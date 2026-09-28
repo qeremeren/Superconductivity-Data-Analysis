@@ -1,0 +1,28 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Raw data (downloaded by `make data`; UCI CC BY 4.0)
+data/raw/
+
+# Model weights must never be committed
+*.ckpt
+*.safetensors
+*.pt
+*.pth
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
