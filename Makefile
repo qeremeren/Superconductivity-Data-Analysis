@@ -1,10 +1,13 @@
-.PHONY: setup data test lint check-api requirements
+.PHONY: setup data splits test lint check-api requirements
 
 setup:  ## Create the locked environment (Python 3.12 via uv)
 	uv sync
 
 data:  ## Download and verify the UCI superconductivity data into data/raw/
 	uv run python -m src.data
+
+splits:  ## Regenerate the saved train/test splits in data/splits/
+	uv run python -m src.splits
 
 test:
 	uv run pytest
