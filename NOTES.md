@@ -150,3 +150,65 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 - All TabPFN scores in a round come from the same quantile-grid request.
 - Superseded earlier the same day: target Tc > 77 K; EI over the current best; hard variant =
   "no cuprates in the initial set" (the pool still contained them, so random found them at once).
+
+## 2026-09-28 — Phase 1: data audit
+
+Source for every number here: `results/01_audit/summary.json` (key path in brackets), written
+by `experiments/01_data_audit.py`; figures in `results/01_audit/figures/`; walkthrough in
+`notebooks/01_eda.ipynb`. `make audit` reproduces all outputs byte for byte.
+
+### Decisions (approved)
+- Material = scaled composition (element fractions summing to 1, rounded to 1e-6):
+  `src/data.py:composition_key`. Discovery pool Tc = median over a material's rows.
+- `grouped` split = 25 seeded 2/3-1/3 row splits with whole materials on one side, mirroring
+  `random`, so the only difference is grouping. Both saved in `data/splits/` (`src/splits.py`).
+
+### Findings
+- Alignment [alignment]: both files have 21,263 rows; `critical_temp` is identical in every
+  row; `number_of_elements` matches the nonzero element count in every row.
+- Materials [overview, duplicates]: 21,263 rows are 15,164 materials; 2,422 materials occur
+  more than once and cover 8,521 rows. 351 materials appear under several formula spellings.
+  The largest group is YBa2Cu3O7 with 110 rows. 1,001 rows report Tc below 1 K.
+- Label noise [duplicates]: within-material Tc SD is 8.03 K pooled (median 1.30 K); the widest
+  spread is 125 K (H2S: 60 to 185 K, pressure not recorded). Predicting each duplicated row by
+  the mean of its other rows gives RMSE 9.45 K on those rows.
+- RMSE floor [duplicates.rmse_floor_any_composition_model_K]: 4.30 K over all rows. The 81
+  engineered features are identical within every material [features], so no model on these
+  features (or on composition) can do better than predicting each material's mean Tc.
+- Leakage [leakage], 25-split means:
+  - random: 34.8% of test rows have an exact duplicate in train; 56.7% have a training
+    composition within L1 0.01 (YBa2Cu3O7 vs YBa2Cu3O6.9 is 0.0072); 1-NN RMSE 11.20 K.
+  - grouped: no exact duplicates by construction, but 40.7% of test rows are still within
+    L1 0.01 of a training composition, and 21.4% have an oxygen-only variant in train (41.1% of
+    cuprate test rows); 1-NN RMSE 11.80 K.
+  - So grouping removes exact duplicates but leaves most near-duplicate leakage, and a
+    memorizing 1-NN baseline loses only 0.6 K. Expect grouped and random model RMSEs to be
+    close; the question is answered properly in Phase 2.
+- Discovery pool [discovery_pool]:
+  - All 15,164 materials: 2,626 above 77 K (17.3%; random search needs 5.8 tries on average).
+    Top 1%: Tc >= 119 K, 154 materials (152 cuprates, 2 other), random ~97.8 tries.
+  - Non-cuprates, 7,654 materials: top 1% is Tc >= 45.6 K, 77 materials (59 iron-based,
+    18 other), random ~98.1 tries. Only 11 non-cuprates are above 77 K.
+- Suspect entries [discovery_pool.suspect_materials], flagged by rule, nothing removed: 17
+  materials. 12 are oxides with Ba or Sr but no Cu above 40 K whose formulas look like cuprates
+  with Cu dropped (e.g. `Y1Ba23O` for YBa2Cu3O; `Bi2Sr2Ca2O` for Bi-2223). The rest are
+  non-cuprates above 77 K. Unverified annotations: `H1Br3C61`/`H1Cl3C61` match C60/CHBr3 and
+  C60/CHCl3 (the retracted 2001 Schoen reports of 117 K and 80 K); `H2S1` is a high-pressure
+  result; `Na0.05W1O3` and `H1W1O3` are unconfirmed tungsten-bronze claims. Without the 17, the
+  non-cuprate top 1% is Tc >= 44.0 K, 79 materials, 76 of them iron-based.
+- Oxygen [oxygen]: 1,927 formulas give no oxygen amount (e.g. `Y1Ba2Cu3O`) and `unique_m.csv`
+  encodes all of them as O = 1; 1,901 are cuprates (18% of cuprate rows). Their features are
+  computed from the wrong stoichiometry, and grouping treats them as different materials from
+  the fully specified formula. Their median Tc is 77.8 K vs 59.3 K for cuprates with an oxygen
+  amount. (69.1% of cuprate rows have an integer O count, but that includes these 1,901.)
+- Top feature [features.range_ThermalConductivity_mode_by_family]: 98.5% of cuprate rows have
+  `range_ThermalConductivity` = 399.973 exactly (Cu minus O thermal conductivity), vs at most
+  24.3% on any single value for iron-based and 3.5% for other. Consistent with the hypothesis
+  that it acts as a cuprate detector; the formal test is Phase 5.
+
+### Open questions (need a decision)
+1. Suspect entries: exclude the 17 flagged materials from the discovery pools? Benchmarks keep
+   all rows either way, for comparability with Hamidieh.
+2. Near-duplicate leakage: add a stricter split that groups by composition ignoring oxygen,
+   as a sensitivity check next to `grouped` (about 50 more requests in Phase 2)?
+3. Missing-oxygen rows: keep them as they are (the paper did) and report it as a limitation?
