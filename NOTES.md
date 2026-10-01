@@ -269,3 +269,13 @@ written by `experiments/02_local_models.py` and `experiments/02_metrics.py`. No 
 - The 1-NN composition lookup scores 11.20 K on the random split, within 1.8 K of XGBoost.
 - Leave-family-out errors are large for every model (e.g. XGBoost on held-out cuprates: RMSE
   46-54 K, R² below 0): composition models do not extrapolate to an unseen family.
+- Check (2026-10-02): published-settings XGBoost scores 10.85 K on `grouped_no_oxygen` with both
+  feature sets by coincidence of rounding: 10.8452 K (composition) vs 10.8545 K (engineered).
+  The prediction files differ (no identical predictions; mean |difference| 3.7 K, correlation
+  0.983) and per-split RMSE differs on all 25 splits (split-to-split SD 0.42 vs 0.77 K).
+
+### Requirement carried into Phase 3
+- Leave-family-out results must include TabPFN's interval coverage and width on the held-out
+  family (50/80/90/95%), next to in-distribution coverage: "does the model know when it is
+  extrapolating?" is a key question for the write-up. The committed TabPFN summaries for the
+  leave-family-out folds hold the quantiles needed (`q0.025` ... `q0.975`).
