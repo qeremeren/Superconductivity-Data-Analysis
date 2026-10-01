@@ -97,8 +97,12 @@ def nn_distance_ecdf(nn, summary):
     fig, ax = plt.subplots(figsize=(7.2, 4.2))
     # (x, vertical offset, alignment) per label: above the random curve, below-right
     # of the grouped curve, where the two are furthest apart.
-    placement = {"random": (2.5e-3, 0.05, "center"), "grouped": (3e-3, -0.08, "left")}
-    for kind in ("random", "grouped"):
+    placement = {
+        "random": (2.5e-3, 0.05, "center"),
+        "grouped": (1.2e-3, 0.12, "right"),
+        "grouped_no_oxygen": (2e-2, -0.08, "left"),
+    }
+    for kind in placement:
         d = np.sort(nn.loc[nn.split_kind == kind, "nn_distance"].to_numpy())
         y = np.arange(1, len(d) + 1) / len(d)
         ax.step(d, y, where="post", color=SPLIT_COLORS[kind], label=f"{kind} split")
@@ -135,8 +139,8 @@ def discovery_pool(pool, summary):
     fig, axes = plt.subplots(2, 1, figsize=(7.2, 5.8), sharex=True)
     bins = np.arange(0, 150, 2.5)
     panels = (
-        ("all", pool, FAMILIES, "All materials"),
-        ("non_cuprate", pool[pool.family != data.CUPRATE], FAMILIES[1:], "Non-cuprates only"),
+        ("main", pool[pool.in_main], FAMILIES, "Main scenario: all materials"),
+        ("hard", pool[pool.in_hard], FAMILIES[1:], "Hard scenario: non-cuprates only"),
     )
     for ax, (name, sub, fams, heading) in zip(axes, panels, strict=True):
         stats = dp[name]
@@ -150,6 +154,7 @@ def discovery_pool(pool, summary):
             linewidth=0.6,
         )
         ax.set_yscale("log")
+        ax.set_ylim(bottom=0.7)  # a bin holding one material stays visible
         ax.set_ylabel("Materials")
         ax.set_title(f"{heading} · {stats['materials']:,} materials", fontsize=9, pad=4)
         top = stats["top_1pct"]
@@ -158,11 +163,11 @@ def discovery_pool(pool, summary):
             f"top 1%: ≥ {top['threshold_K']:g} K, {top['hits']} materials,\n"
             f" random search ≈ {top['random_expected_tries_to_first_hit']:.0f} tries to first hit"
         )
-        if name == "non_cuprate":
-            clean = dp["non_cuprate_excluding_suspects"]["top_1pct"]
+        if name == "hard":
+            before = dp["non_cuprate_including_excluded"]["top_1pct"]
             label += (
-                f"\n without the {len(dp['suspect_materials'])} flagged entries: "
-                f"≥ {clean['threshold_K']:g} K, {clean['hits']} materials"
+                f"\n before the exclusions: ≥ {before['threshold_K']:g} K, "
+                f"{before['hits']} materials"
             )
         reference_line(ax, top["threshold_K"], label, y=0.80)
     handles = [plt.Rectangle((0, 0), 1, 1, color=FAMILY_COLORS[f]) for f in FAMILIES]
@@ -178,8 +183,9 @@ def discovery_pool(pool, summary):
     axes[-1].set_xlabel("Median reported Tc per material (K)")
     title(
         fig,
-        "Discovery pool: one row per composition",
-        "Log y-scale, stacked by family. Targets for the discovery loop in Phase 4.",
+        "Discovery pools: one row per composition",
+        f"Log y-scale, stacked by family. {len(dp['excluded_materials'])} flagged materials "
+        "excluded (data/discovery_exclusions.csv).",
     )
     fig.tight_layout(rect=(0, 0, 1, 0.9))
     return fig

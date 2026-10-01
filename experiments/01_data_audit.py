@@ -3,7 +3,8 @@
 Writes results/01_audit/:
   summary.json    every number reported from this phase
   duplicates.csv  one row per scaled composition that occurs more than once
-  pool.csv        the deduplicated discovery pool (median Tc per composition)
+  pool.csv        every material (median Tc), its exclusion reasons, and its
+                  membership and target status in the main and hard pools
   nn_split0.csv   per test row nearest-train-composition data for split 0 of
                   each split kind (feeds the figures)
 
@@ -19,11 +20,10 @@ import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cdist
 
-from src import config, data, splits
+from src import config, data, discovery, splits
 
 OUT_DIR = config.RESULTS_DIR / "01_audit"
 T77 = 77.0
-TOP_FRACTION = 0.01
 NN_THRESHOLDS = (0.01, 0.02, 0.05, 0.1)
 NN_CHUNK = 1000
 FAMILIES = (data.CUPRATE, data.IRON_BASED, data.OTHER)
@@ -133,12 +133,6 @@ def duplicates(um, key, fam) -> tuple[dict, pd.DataFrame]:
     return summary, dup
 
 
-def nonoxygen_key(um) -> pd.Series:
-    """Composition with oxygen removed and the rest rescaled: two materials with the
-    same key differ only in oxygen content (e.g. YBa2Cu3O6.9 vs YBa2Cu3O7)."""
-    return data.composition_key(um[list(data.ELEMENTS)].assign(O=0.0))
-
-
 def split_leakage(fractions, key, nonox, tc, fam, masks, kind) -> tuple[dict, pd.DataFrame]:
     """Nearest train composition (L1 on element fractions) for every test row."""
     key, nonox, fam = key.to_numpy(), nonox.to_numpy(), fam.to_numpy()
@@ -169,7 +163,7 @@ def split_leakage(fractions, key, nonox, tc, fam, masks, kind) -> tuple[dict, pd
                 for k, nk in zip(key[is_test], nonox[is_test], strict=True)
             ]
         )
-        assert kind != "grouped" or not (set(key[is_test]) & train_full)
+        assert kind == "random" or not (set(key[is_test]) & train_full)
 
         rec = {
             "exact_duplicate_in_train": float(exact_in_train.mean()),
@@ -215,71 +209,48 @@ def target_stats(tc, threshold) -> dict:
     }
 
 
-def suspect_reasons(um, fam) -> pd.Series:
-    """Rule-based flags for entries to review before the discovery pools use them.
-    Nothing is removed here; the pool reports its targets with and without them."""
-    tc = um[data.TARGET]
-    no_cu_oxide = (fam == data.OTHER) & (um["O"] > 0) & ((um["Ba"] > 0) | (um["Sr"] > 0))
-    no_cu_oxide &= um["Cu"] == 0
-    rules = {
-        "cuprate-like oxide without Cu, Tc > 40 K": no_cu_oxide & (tc > 40),
-        "non-cuprate above 77 K": (fam != data.CUPRATE) & (tc > T77),
+def pool_stats(pool: pd.DataFrame) -> dict:
+    tc = pool.tc_median.to_numpy()
+    threshold = discovery.top_threshold(tc)
+    top = pool[pool.tc_median >= threshold]
+    above77 = tc > T77
+    return {
+        "materials": len(pool),
+        "above_77K": {
+            "hits": int(above77.sum()),
+            "base_rate": float(above77.mean()),
+            "random_expected_tries_to_first_hit": (len(tc) + 1) / (above77.sum() + 1),
+        },
+        "top_1pct": {
+            **target_stats(tc, threshold),
+            "hits_by_family": top.family.value_counts().to_dict(),
+            "hit_tc_range_K": [float(top.tc_median.min()), float(top.tc_median.max())],
+        },
     }
-    return pd.Series(
-        ["; ".join(r for r, m in rules.items() if m[i]) for i in um.index], index=um.index
-    )
 
 
-def discovery_pool(um, key, fam) -> tuple[dict, pd.DataFrame]:
-    tc = um[data.TARGET]
-    reasons = suspect_reasons(um, fam)
-    g = pd.DataFrame(
-        {"key": key, "tc": tc, "family": fam, "formula": um[data.FORMULA], "why": reasons}
-    )
-    grp = g.groupby("key")
-    pool = pd.DataFrame(
-        {
-            "family": grp["family"].first(),
-            "tc_median": grp["tc"].median(),
-            "n_rows": grp.size(),
-            "example_formula": grp["formula"].first(),
-            "suspect": grp["why"].agg(lambda s: "; ".join(sorted({r for r in s if r}))),
-        }
-    )
-    non_cuprate = pool[pool.family != data.CUPRATE]
+def discovery_pools(um) -> tuple[dict, pd.DataFrame]:
+    """The two Phase 4 pools (suspect materials excluded), plus both before exclusion."""
+    mats = discovery.materials(um)
+    pools = {
+        "main": discovery.build_pool(um, "main"),
+        "hard": discovery.build_pool(um, "hard"),
+        "all_including_excluded": mats,
+        "non_cuprate_including_excluded": mats[mats.family != data.CUPRATE],
+    }
     out = {
-        "suspect_materials": pool.loc[
-            pool.suspect != "", ["example_formula", "family", "tc_median", "suspect"]
-        ]
-        .sort_values("tc_median", ascending=False)
-        .to_dict(orient="records")
+        "excluded_materials": discovery.exclusions(um)[
+            ["formulas", "family", "tc_median", "suspect"]
+        ].to_dict(orient="records")
     }
-    pools = (
-        ("all", pool),
-        ("non_cuprate", non_cuprate),
-        ("non_cuprate_excluding_suspects", non_cuprate[non_cuprate.suspect == ""]),
-    )
-    for name, sub in pools:
-        tc = sub.tc_median.to_numpy()
-        k = math.ceil(TOP_FRACTION * len(tc))
-        top_threshold = np.sort(tc)[::-1][k - 1]
-        above77 = tc > T77
-        top = sub[sub.tc_median >= top_threshold]
-        out[name] = {
-            "materials": len(sub),
-            "above_77K": {
-                "hits": int(above77.sum()),
-                "base_rate": float(above77.mean()),
-                "random_expected_tries_to_first_hit": (len(tc) + 1) / (above77.sum() + 1),
-            },
-            "top_1pct": {
-                **target_stats(tc, top_threshold),
-                "hits_by_family": top.family.value_counts().to_dict(),
-                "hit_tc_range_K": [float(top.tc_median.min()), float(top.tc_median.max())],
-            },
-        }
-        pool[f"top1_{name}"] = pool.index.isin(top.index)
-    return out, pool
+    table = mats.copy()
+    for name, pool in pools.items():
+        out[name] = pool_stats(pool)
+        if name in discovery.SCENARIOS:
+            threshold = out[name]["top_1pct"]["threshold_K"]
+            table[f"in_{name}"] = table.index.isin(pool.index)
+            table[f"target_{name}"] = table[f"in_{name}"] & (table.tc_median >= threshold)
+    return out, table
 
 
 def modal_share(x) -> dict:
@@ -314,9 +285,7 @@ def oxygen_stoichiometry(um, key, fam) -> dict:
     cup = um[fam == data.CUPRATE]
     integer = np.isclose(cup["O"], np.round(cup["O"]), atol=1e-9)
     mats = pd.Series(integer, index=cup.index).groupby(key[fam == data.CUPRATE]).first()
-    # "O" followed by neither an amount nor a lowercase letter (Os): the source gave
-    # no oxygen content, and unique_m.csv encodes it as O = 1.
-    bare_o = um[data.FORMULA].str.contains(r"O(?![a-z\d.])", regex=True)
+    bare_o = data.oxygen_amount_missing(um)
     tc = um[data.TARGET]
     return {
         "rows_oxygen_amount_missing": int(bare_o.sum()),
@@ -344,20 +313,20 @@ def main():
     train, um = data.load_train(), data.load_unique_m()
     key, fam = data.composition_key(um), data.family(um)
     fractions = data.composition_fractions(um).to_numpy()
-    nonox = nonoxygen_key(um)
+    nonox = data.composition_key_without_oxygen(um)
 
     summary = {"alignment": alignment(train, um), "overview": overview(um, key)}
     summary["families"] = by_family(um, key, fam)
     summary["duplicates"], dup = duplicates(um, key, fam)
     summary["leakage"] = {"l1_distance_example": l1_example()}
     nn_rows = []
-    for kind in ("random", "grouped"):
+    for kind in ("random", "grouped", "grouped_no_oxygen"):
         stats, rows = split_leakage(
             fractions, key, nonox, um[data.TARGET], fam, splits.load(kind), kind
         )
         summary["leakage"][kind] = stats
         nn_rows.append(rows)
-    summary["discovery_pool"], pool = discovery_pool(um, key, fam)
+    summary["discovery_pool"], pool = discovery_pools(um)
     summary["features"] = feature_checks(train, key, fam)
     summary["oxygen"] = oxygen_stoichiometry(um, key, fam)
 

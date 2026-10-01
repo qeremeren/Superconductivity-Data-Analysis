@@ -126,114 +126,174 @@
       "other:oxygen_only_variant_in_train": 0.01610056355615175,
       "one_nn_rmse_K": 11.799497370482863,
       "n_splits": 25
+    },
+    "grouped_no_oxygen": {
+      "exact_duplicate_in_train": 0.0,
+      "oxygen_only_variant_in_train": 0.0,
+      "nn_distance_median": 0.01744387233163526,
+      "nn_distance_below_0.01": 0.3726294266346496,
+      "nn_distance_below_0.02": 0.527955425355083,
+      "nn_distance_below_0.05": 0.7219069647624048,
+      "nn_distance_below_0.1": 0.8285387815497204,
+      "cuprate:nn_distance_below_0.02": 0.7053713128268018,
+      "cuprate:oxygen_only_variant_in_train": 0.0,
+      "iron-based:nn_distance_below_0.02": 0.5473647059267283,
+      "iron-based:oxygen_only_variant_in_train": 0.0,
+      "other:nn_distance_below_0.02": 0.30767121949269555,
+      "other:oxygen_only_variant_in_train": 0.0,
+      "one_nn_rmse_K": 12.821772841324991,
+      "n_splits": 25
     }
   },
   "discovery_pool": {
-    "suspect_materials": [
+    "excluded_materials": [
       {
-        "example_formula": "H2S1",
+        "formulas": "H2S1",
         "family": "other",
         "tc_median": 122.5,
         "suspect": "non-cuprate above 77 K"
       },
       {
-        "example_formula": "H1W1O3",
+        "formulas": "H1W1O3",
         "family": "other",
         "tc_median": 120.0,
         "suspect": "non-cuprate above 77 K"
       },
       {
-        "example_formula": "H1Br3C61",
+        "formulas": "H1Br3C61",
         "family": "other",
         "tc_median": 115.0,
         "suspect": "non-cuprate above 77 K"
       },
       {
-        "example_formula": "Bi2Sr2Ca2O",
+        "formulas": "Bi2Sr2Ca2O",
         "family": "other",
         "tc_median": 109.0,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "Bi1.6Pb0.4Sr2Ca3.6O",
+        "formulas": "Bi1.6Pb0.4Sr2Ca3.6O",
         "family": "other",
         "tc_median": 102.0,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "Na0.05W1O3",
+        "formulas": "Na0.05W1O3",
         "family": "other",
         "tc_median": 91.0,
         "suspect": "non-cuprate above 77 K"
       },
       {
-        "example_formula": "Y1Ba23O",
+        "formulas": "Y1Ba23O",
         "family": "other",
         "tc_median": 90.4,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "Hg0.8Mo0.2Sr2Y0.35Ca0.65Ca2O6",
+        "formulas": "Hg0.8Mo0.2Sr2Y0.35Ca0.65Ca2O6",
         "family": "other",
         "tc_median": 85.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "Nd1Ba1.9La0.1O6.86",
+        "formulas": "Nd1Ba1.9La0.1O6.86",
         "family": "other",
         "tc_median": 83.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "H1Cl3C61",
+        "formulas": "H1Cl3C61",
         "family": "other",
         "tc_median": 80.0,
         "suspect": "non-cuprate above 77 K"
       },
       {
-        "example_formula": "Nd1Ba1.8La0.2O6.81",
+        "formulas": "Nd1Ba1.8La0.2O6.81",
         "family": "other",
         "tc_median": 78.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
       },
       {
-        "example_formula": "Hg0.8Mo0.2Sr2Y0.6Ca0.4Ca2O6",
+        "formulas": "Hg0.8Mo0.2Sr2Y0.6Ca0.4Ca2O6",
         "family": "other",
         "tc_median": 74.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       },
       {
-        "example_formula": "Hg0.8Mo0.2Sr2Y0.5Ca0.5Ca2O6",
+        "formulas": "Hg0.8Mo0.2Sr2Y0.5Ca0.5Ca2O6",
         "family": "other",
         "tc_median": 73.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       },
       {
-        "example_formula": "Y0.8Pr0.2Ba23O7.6",
+        "formulas": "Y0.8Pr0.2Ba23O7.6",
         "family": "other",
         "tc_median": 66.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       },
       {
-        "example_formula": "Y1Ba2Ca2.85Fe0.15S0.15O",
+        "formulas": "Y1Ba2Ca2.85Fe0.15S0.15O",
         "family": "other",
         "tc_median": 61.4,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       },
       {
-        "example_formula": "Nd1Ba1.7La0.3O6.77",
+        "formulas": "Nd1Ba1.7La0.3O6.77",
         "family": "other",
         "tc_median": 57.5,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       },
       {
-        "example_formula": "Y1Ba2Ca2.55Fe0.3S0.3O",
+        "formulas": "Y1Ba2Ca2.55Fe0.3S0.3O",
         "family": "other",
         "tc_median": 41.0,
         "suspect": "cuprate-like oxide without Cu, Tc > 40 K"
       }
     ],
-    "all": {
+    "main": {
+      "materials": 15147,
+      "above_77K": {
+        "hits": 2615,
+        "base_rate": 0.17264144715125107,
+        "random_expected_tries_to_first_hit": 5.790519877675841
+      },
+      "top_1pct": {
+        "threshold_K": 119.0,
+        "hits": 152,
+        "base_rate": 0.01003499042714729,
+        "random_expected_tries_to_first_hit": 99.00653594771242,
+        "hits_by_family": {
+          "cuprate": 152
+        },
+        "hit_tc_range_K": [
+          119.0,
+          143.0
+        ]
+      }
+    },
+    "hard": {
+      "materials": 7637,
+      "above_77K": {
+        "hits": 0,
+        "base_rate": 0.0,
+        "random_expected_tries_to_first_hit": 7638.0
+      },
+      "top_1pct": {
+        "threshold_K": 44.0,
+        "hits": 79,
+        "base_rate": 0.010344376063899437,
+        "random_expected_tries_to_first_hit": 95.475,
+        "hits_by_family": {
+          "iron-based": 76,
+          "other": 3
+        },
+        "hit_tc_range_K": [
+          44.0,
+          55.6
+        ]
+      }
+    },
+    "all_including_excluded": {
       "materials": 15164,
       "above_77K": {
         "hits": 2626,
@@ -255,7 +315,7 @@
         ]
       }
     },
-    "non_cuprate": {
+    "non_cuprate_including_excluded": {
       "materials": 7654,
       "above_77K": {
         "hits": 11,
@@ -274,28 +334,6 @@
         "hit_tc_range_K": [
           45.6,
           122.5
-        ]
-      }
-    },
-    "non_cuprate_excluding_suspects": {
-      "materials": 7637,
-      "above_77K": {
-        "hits": 0,
-        "base_rate": 0.0,
-        "random_expected_tries_to_first_hit": 7638.0
-      },
-      "top_1pct": {
-        "threshold_K": 44.0,
-        "hits": 79,
-        "base_rate": 0.010344376063899437,
-        "random_expected_tries_to_first_hit": 95.475,
-        "hits_by_family": {
-          "iron-based": 76,
-          "other": 3
-        },
-        "hit_tc_range_K": [
-          44.0,
-          55.6
         ]
       }
     }

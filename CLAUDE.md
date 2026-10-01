@@ -46,14 +46,15 @@ Splits (all defined once in `src/splits.py`, saved to `data/splits/`):
 1. `random` — the paper's exact protocol (2/3 train / 1/3 test, 25 repeats, RMSE = sqrt(mean of MSEs)), run for both XGBoost and TabPFN. Used only for apples-to-apples comparison with the published numbers.
 2. `grouped` — grouped by scaled composition (element fractions summing to 1) so duplicates never cross train/test; 2/3 train / 1/3 test of rows, 25 repeats, matching `random` so the only difference is grouping. **Primary benchmark.**
 3. `leave-family-out` — hold out whole families (cuprates: Cu>0 and O>0; iron-based: Fe>0 and (As>0 or Se>0); everything else). Tests extrapolation.
+4. `grouped_no_oxygen` — sensitivity check: like `grouped`, but groups by composition with oxygen dropped, so all oxygen variants of a material stay on one side.
 
 Metrics:
-- Point: RMSE, MAE, R², overall and per Tc band (<10 K, 10–77 K, >77 K).
+- Point: RMSE, MAE, R², overall and per Tc band (<10 K, 10–77 K, >77 K), and separately on rows whose formula gives no oxygen amount (encoded as O = 1; kept in the data, reported as a limitation).
 - Distributional (TabPFN vs. XGBoost with quantile regression or conformal intervals): CRPS where available, 80%/95% interval coverage and width, calibration plot.
 - Learning curves: train sizes 100, 300, 1k, 3k, 10k, full. Repeat each size with multiple seeds and report mean ± std.
 
 ## Discovery loop (the headline experiment)
-- Pool-based active learning over deduplicated materials: one row per scaled composition, Tc = median over its duplicates.
+- Pool-based active learning over deduplicated materials: one row per scaled composition, Tc = median over its duplicates. The 17 rule-flagged materials in `data/discovery_exclusions.csv` are left out of the pools (benchmarks keep them).
 - Target: the top 1% of Tc in the pool (main scenario), and the top 1% of Tc among non-cuprates with a non-cuprate-only pool (hard scenario). Tc > 77 K is too common in the pool to separate methods (Phase 1 numbers in NOTES.md).
 - Start: small random labeled set with no target material.
 - Each round: fit on labeled set, predict the pool, pick a batch by acquisition function, reveal true Tc.
