@@ -55,6 +55,15 @@ def test_grouped_split_has_no_material_leakage_in_data():
     _no_group_on_both_sides(groups, splits.load("grouped"))
 
 
+@needs_data
+def test_oxygen_variants_never_cross_in_grouped_no_oxygen():
+    um = data.load_unique_m()
+    masks = splits.load("grouped_no_oxygen")
+    _no_group_on_both_sides(data.composition_key_without_oxygen(um), masks)
+    _no_group_on_both_sides(data.composition_key(um), masks)  # implied, but check it
+    assert np.allclose(masks.mean(axis=1), 1 / 3, atol=0.01)
+
+
 @pytest.mark.skip(reason="leave-family-out split is added in Phase 2")
 def test_leave_family_out_holds_out_whole_families():
     """Cuprates (Cu>0 and O>0), iron-based (Fe>0 and (As>0 or Se>0)), everything else."""

@@ -1,8 +1,12 @@
 """Train/test splits, defined once here and saved to data/splits/.
 
-random:  the paper's protocol: 2/3 train / 1/3 test of rows, 25 repeats.
-grouped: the same proportions and repeats, but each scaled-composition group
-         goes wholly to one side, so no material is in both train and test.
+random:             the paper's protocol: 2/3 train / 1/3 test of rows, 25 repeats.
+grouped:            the same proportions and repeats, but each scaled-composition
+                    group goes wholly to one side, so no material is in both
+                    train and test. The primary benchmark.
+grouped_no_oxygen:  sensitivity check; groups by composition with oxygen dropped,
+                    so all oxygen variants of a material (O6.9, O7, and formulas
+                    with no oxygen amount) stay on one side.
 The leave-family-out split is added in Phase 2.
 
 `python -m src.splits` (or `make splits`) regenerates and saves them; a test
@@ -51,8 +55,12 @@ def grouped_splits(groups, seeds=SEEDS) -> np.ndarray:
 
 
 def build_all() -> dict[str, np.ndarray]:
-    groups = data.composition_key(data.load_unique_m())
-    return {"random": random_splits(len(groups)), "grouped": grouped_splits(groups)}
+    um = data.load_unique_m()
+    return {
+        "random": random_splits(len(um)),
+        "grouped": grouped_splits(data.composition_key(um)),
+        "grouped_no_oxygen": grouped_splits(data.composition_key_without_oxygen(um)),
+    }
 
 
 def save(masks: np.ndarray, kind: str, splits_dir: Path = SPLITS_DIR) -> None:
