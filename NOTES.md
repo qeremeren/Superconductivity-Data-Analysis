@@ -292,3 +292,35 @@ split 0, engineered features, 14,175 training and 7,088 test rows.
 - Consequence for Phase 4: a 999-level grid would resolve tail probabilities such as
   P(Tc > 77 K) or the top-1% exceedance to about 0.1% instead of 1%. The benchmark keeps the
   planned 107 levels.
+
+## 2026-10-02 — Phase 2, step 4: TabPFN-3.5 on all splits (156 requests, 1.56M tokens)
+
+Source: `results/02_benchmark/tabpfn/` (per-row summaries + request records),
+`metrics.csv`, `paired.json`; `experiments/02_tabpfn.py --live --workers 4`, ~22 min.
+- All 156 requests succeeded. Live usage after the run: 1,600,000 tokens this month (= 160
+  ledger requests x 10,000, including the output check). `make benchmark` (no API) finds all
+  156 cached with matching fingerprints; every summary's rows and true Tc match its split.
+- Committed summaries total 67 MB (largest file under 1 MB), above the ~40 MB estimate.
+
+### Results so far (tuned XGBoost still running; 25 splits, RMSE = sqrt(mean MSE))
+| RMSE (K) | random | grouped | grouped_no_oxygen |
+|---|---:|---:|---:|
+| TabPFN, composition | 8.70 | 8.97 | 9.95 |
+| TabPFN, engineered | 8.72 | 9.01 | 10.54 |
+| XGBoost published, engineered | 9.42 | 9.76 | 10.85 |
+| XGBoost published, composition | 9.65 | 10.04 | 10.85 |
+| 1-NN lookup, composition | 11.20 | 11.80 | 12.82 |
+| Linear, engineered | 17.62 | 17.75 | 18.01 |
+- Paired per split, TabPFN beats published-settings XGBoost on the same feature set in 25/25
+  splits for random and grouped (mean RMSE gap 0.71-1.07 K) and on grouped_no_oxygen in 25/25
+  (composition, -0.91 K) and 18/25 (engineered, -0.34 K).
+- Leave-family-out: every model fails to extrapolate (held-out cuprates: RMSE 46-58 K for all
+  models); TabPFN is not an exception. Coverage on the held-out family is Phase 3's question.
+
+### Leakage checks before believing the gap (grouped split, all free)
+- TabPFN's advantage over XGBoost is larger on test rows with no close training composition
+  (split 0, L1 >= 0.05: 8.22 vs 9.60 K, engineered) than on rows with a near-duplicate
+  (L1 < 0.01: 9.47 vs 9.91 K). Memorization or leakage would show the opposite.
+- TabPFN predicts 6.1% of grouped test rows within 0.1 K (XGBoost 2.9%), but these are almost
+  all low-Tc materials (13.3% of rows below 10 K vs 2.1% above): sharper predictions where Tc is
+  a few kelvin, not leaked labels.

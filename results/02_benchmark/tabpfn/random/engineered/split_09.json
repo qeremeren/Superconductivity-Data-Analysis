@@ -1,0 +1,46 @@
+{
+ "fingerprint": "deda13ec6a6619e6710e419bfe4d14cb1c0fdc8abb826f31ddffbe4ed13c6e08",
+ "created_at": "2026-10-01T22:23:19+00:00",
+ "model_path": "v3.5_default",
+ "tabpfn_client": "0.6.1",
+ "seed": 9,
+ "n_train": 14175,
+ "n_test": 7088,
+ "server_meta": {
+  "test_set_num_rows": 7088,
+  "test_set_num_cols": 81,
+  "n_estimators": 8,
+  "billing_model_version": "v3.5",
+  "execution_mode": "standard",
+  "cache_outcome": "not_requested",
+  "task": "regression",
+  "package_version": "9.0.0",
+  "tabpfn_config": {
+   "categorical_features_indices": [],
+   "average_before_softmax": false,
+   "random_state": 9,
+   "inference_config": {
+    "TRANSFORM_DATES": false,
+    "TRANSFORM_TEXT": false
+   },
+   "inference_precision": "auto",
+   "ignore_pretraining_limits": false,
+   "fit_mode": "fit_preprocessors",
+   "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+  }
+ },
+ "timings": {
+  "fit": {
+   "elapsed_s": 1.821,
+   "queue_wait_s": 1.272,
+   "train_set_transform_s": 0.549,
+   "fit_s": 0.0
+  },
+  "predict": {
+   "test_set_transform_queue_wait_s": 0.102,
+   "test_set_transform_s": 0.328,
+   "predict_queue_wait_s": 0.101,
+   "predict_s": 4.379
+  }
+ }
+}

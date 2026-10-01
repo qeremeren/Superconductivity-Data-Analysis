@@ -23,6 +23,19 @@
    "n_splits": 25
   }
  },
+ "tabpfn": {
+  "paper": null,
+  "composition": {
+   "rmse": 8.704081180142275,
+   "r2": 0.9353644057412156,
+   "n_splits": 25
+  },
+  "engineered": {
+   "rmse": 8.715867429437845,
+   "r2": 0.9351907124287665,
+   "n_splits": 25
+  }
+ },
  "xgb_hamidieh": {
   "paper": {
    "rmse": 9.5,

@@ -204,3 +204,85 @@ xgb_hamidieh,random,engineered,all splits,family: cuprate,25,3505.6800,12.4348,0
 xgb_hamidieh,random,engineered,all splits,family: iron-based,25,562.4800,6.7942,0.3272,4.4688,0.1987,0.7075,0.0250
 xgb_hamidieh,random,engineered,all splits,family: other,25,3019.8400,4.5134,0.5362,1.9029,0.0609,0.7138,0.0589
 xgb_hamidieh,random,engineered,all splits,oxygen amount missing,25,636.9600,14.2211,0.5467,9.6915,0.3136,0.7878,0.0172
+tabpfn,grouped,composition,all splits,all,25,7087.7600,8.9712,0.2432,4.9627,0.1303,0.9312,0.0036
+tabpfn,grouped,composition,all splits,Tc < 10 K,25,2570.0800,4.5318,0.5194,1.8922,0.1465,-1.8528,0.6579
+tabpfn,grouped,composition,all splits,10-77 K,25,3215.7200,10.4691,0.3675,6.4916,0.1806,0.7264,0.0191
+tabpfn,grouped,composition,all splits,Tc > 77 K,25,1301.9600,11.2697,0.6511,7.2523,0.3611,0.2281,0.0822
+tabpfn,grouped,composition,all splits,family: cuprate,25,3522.2800,11.7053,0.2857,7.7886,0.1777,0.8578,0.0079
+tabpfn,grouped,composition,all splits,family: iron-based,25,559.6800,7.1799,0.6280,4.8255,0.3185,0.6840,0.0515
+tabpfn,grouped,composition,all splits,family: other,25,3005.8000,4.4347,0.7787,1.6770,0.1061,0.7271,0.0709
+tabpfn,grouped,composition,all splits,oxygen amount missing,25,645.6000,12.8957,0.5548,8.8205,0.3355,0.8207,0.0176
+tabpfn,grouped,engineered,all splits,all,25,7087.7600,9.0101,0.2399,4.9275,0.1343,0.9306,0.0035
+tabpfn,grouped,engineered,all splits,Tc < 10 K,25,2570.0800,4.3724,0.4326,1.8682,0.1307,-1.6574,0.5219
+tabpfn,grouped,engineered,all splits,10-77 K,25,3215.7200,10.4432,0.3866,6.4404,0.2087,0.7277,0.0200
+tabpfn,grouped,engineered,all splits,Tc > 77 K,25,1301.9600,11.6216,0.7501,7.2392,0.4501,0.1811,0.0811
+tabpfn,grouped,engineered,all splits,family: cuprate,25,3522.2800,11.8511,0.2346,7.7251,0.1713,0.8542,0.0069
+tabpfn,grouped,engineered,all splits,family: iron-based,25,559.6800,6.7124,0.5863,4.5415,0.2756,0.7238,0.0450
+tabpfn,grouped,engineered,all splits,family: other,25,3005.8000,4.3016,0.7597,1.7223,0.1293,0.7443,0.0627
+tabpfn,grouped,engineered,all splits,oxygen amount missing,25,645.6000,12.7984,0.4741,8.5466,0.2908,0.8234,0.0160
+tabpfn,grouped_no_oxygen,composition,all splits,all,25,7087.5200,9.9452,0.5780,5.4216,0.2960,0.9168,0.0078
+tabpfn,grouped_no_oxygen,composition,all splits,Tc < 10 K,25,2530.5600,5.0277,0.5622,2.0028,0.1252,-2.5128,0.7466
+tabpfn,grouped_no_oxygen,composition,all splits,10-77 K,25,3192.9200,12.0874,1.0195,7.3874,0.6023,0.6361,0.0590
+tabpfn,grouped_no_oxygen,composition,all splits,Tc > 77 K,25,1364.0400,11.2955,1.1856,7.2157,0.5307,0.1983,0.1674
+tabpfn,grouped_no_oxygen,composition,all splits,family: cuprate,25,3578.8000,13.0783,0.6955,8.5757,0.3615,0.8209,0.0222
+tabpfn,grouped_no_oxygen,composition,all splits,family: iron-based,25,553.8800,7.0835,0.7116,4.8233,0.3607,0.6856,0.0509
+tabpfn,grouped_no_oxygen,composition,all splits,family: other,25,2954.8400,4.4651,0.8185,1.6975,0.0943,0.7159,0.0878
+tabpfn,grouped_no_oxygen,composition,all splits,oxygen amount missing,25,645.0800,13.0462,0.5010,8.8709,0.3129,0.8169,0.0188
+tabpfn,grouped_no_oxygen,engineered,all splits,all,25,7087.5200,10.5432,1.1367,5.5896,0.5039,0.9069,0.0170
+tabpfn,grouped_no_oxygen,engineered,all splits,Tc < 10 K,25,2530.5600,4.8715,0.5548,1.9519,0.1414,-2.2974,0.7022
+tabpfn,grouped_no_oxygen,engineered,all splits,10-77 K,25,3192.9200,13.1008,1.9960,7.7980,1.0546,0.5729,0.1268
+tabpfn,grouped_no_oxygen,engineered,all splits,Tc > 77 K,25,1364.0400,11.6301,1.2764,7.2398,0.6197,0.1516,0.1720
+tabpfn,grouped_no_oxygen,engineered,all splits,family: cuprate,25,3578.8000,14.0053,1.4288,8.9036,0.7160,0.7942,0.0458
+tabpfn,grouped_no_oxygen,engineered,all splits,family: iron-based,25,553.8800,6.7711,0.7010,4.5972,0.3371,0.7122,0.0523
+tabpfn,grouped_no_oxygen,engineered,all splits,family: other,25,2954.8400,4.2909,0.6123,1.7249,0.0958,0.7376,0.0572
+tabpfn,grouped_no_oxygen,engineered,all splits,oxygen amount missing,25,645.0800,12.9142,0.5705,8.5669,0.3555,0.8205,0.0213
+tabpfn,leave_family_out,composition,cuprate,all,1,10532.0000,50.1813,,41.6043,,-1.5929,
+tabpfn,leave_family_out,composition,cuprate,Tc < 10 K,1,352.0000,13.0670,,10.4038,,-24.9357,
+tabpfn,leave_family_out,composition,cuprate,10-77 K,1,6296.0000,30.8101,,25.1857,,-1.3948,
+tabpfn,leave_family_out,composition,cuprate,Tc > 77 K,1,3884.0000,72.6230,,71.0467,,-30.8616,
+tabpfn,leave_family_out,composition,cuprate,family: cuprate,1,10532.0000,50.1813,,41.6043,,-1.5929,
+tabpfn,leave_family_out,composition,cuprate,oxygen amount missing,1,1901.0000,56.0307,,48.0856,,-2.3431,
+tabpfn,leave_family_out,composition,iron-based,all,1,1682.0000,19.9803,,15.8813,,-1.5131,
+tabpfn,leave_family_out,composition,iron-based,Tc < 10 K,1,290.0000,3.6779,,2.9159,,-1.3345,
+tabpfn,leave_family_out,composition,iron-based,10-77 K,1,1392.0000,21.8989,,18.5825,,-2.7121,
+tabpfn,leave_family_out,composition,iron-based,family: iron-based,1,1682.0000,19.9803,,15.8813,,-1.5131,
+tabpfn,leave_family_out,composition,iron-based,oxygen amount missing,1,14.0000,35.4746,,32.2779,,-6.8469,
+tabpfn,leave_family_out,composition,other,all,1,9049.0000,30.9150,,28.4406,,-12.3818,
+tabpfn,leave_family_out,composition,other,Tc < 10 K,1,7087.0000,32.4681,,30.2899,,-154.5715,
+tabpfn,leave_family_out,composition,other,10-77 K,1,1951.0000,24.0424,,21.5930,,-6.1522,
+tabpfn,leave_family_out,composition,other,Tc > 77 K,1,11.0000,67.2823,,51.5475,,-4.3497,
+tabpfn,leave_family_out,composition,other,family: other,1,9049.0000,30.9150,,28.4406,,-12.3818,
+tabpfn,leave_family_out,composition,other,oxygen amount missing,1,12.0000,25.0579,,20.2600,,0.5065,
+tabpfn,leave_family_out,engineered,cuprate,all,1,10532.0000,48.9743,,40.7042,,-1.4696,
+tabpfn,leave_family_out,engineered,cuprate,Tc < 10 K,1,352.0000,12.6770,,9.9549,,-23.4105,
+tabpfn,leave_family_out,engineered,cuprate,10-77 K,1,6296.0000,30.5746,,24.7495,,-1.3584,
+tabpfn,leave_family_out,engineered,cuprate,Tc > 77 K,1,3884.0000,70.5260,,69.3536,,-29.0482,
+tabpfn,leave_family_out,engineered,cuprate,family: cuprate,1,10532.0000,48.9743,,40.7042,,-1.4696,
+tabpfn,leave_family_out,engineered,cuprate,oxygen amount missing,1,1901.0000,48.8929,,41.7373,,-1.5456,
+tabpfn,leave_family_out,engineered,iron-based,all,1,1682.0000,21.4543,,17.4989,,-1.8976,
+tabpfn,leave_family_out,engineered,iron-based,Tc < 10 K,1,290.0000,3.7956,,3.1284,,-1.4863,
+tabpfn,leave_family_out,engineered,iron-based,10-77 K,1,1392.0000,23.5198,,20.4927,,-3.2819,
+tabpfn,leave_family_out,engineered,iron-based,family: iron-based,1,1682.0000,21.4543,,17.4989,,-1.8976,
+tabpfn,leave_family_out,engineered,iron-based,oxygen amount missing,1,14.0000,35.2942,,31.4404,,-6.7673,
+tabpfn,leave_family_out,engineered,other,all,1,9049.0000,20.0347,,18.1158,,-4.6201,
+tabpfn,leave_family_out,engineered,other,Tc < 10 K,1,7087.0000,21.5960,,20.4464,,-67.8278,
+tabpfn,leave_family_out,engineered,other,10-77 K,1,1951.0000,11.7112,,9.3859,,-0.6970,
+tabpfn,leave_family_out,engineered,other,Tc > 77 K,1,11.0000,73.4267,,64.8973,,-5.3714,
+tabpfn,leave_family_out,engineered,other,family: other,1,9049.0000,20.0347,,18.1158,,-4.6201,
+tabpfn,leave_family_out,engineered,other,oxygen amount missing,1,12.0000,31.7350,,24.7942,,0.2085,
+tabpfn,random,composition,all splits,all,25,7088.0000,8.7041,0.2024,4.7229,0.0699,0.9354,0.0029
+tabpfn,random,composition,all splits,Tc < 10 K,25,2573.8800,4.2520,0.3561,1.6784,0.0682,-1.5253,0.4298
+tabpfn,random,composition,all splits,10-77 K,25,3214.4800,10.1614,0.2888,6.1942,0.1132,0.7411,0.0148
+tabpfn,random,composition,all splits,Tc > 77 K,25,1299.6400,11.0402,0.6248,7.1098,0.2248,0.2654,0.0849
+tabpfn,random,composition,all splits,family: cuprate,25,3505.6800,11.5031,0.2192,7.6057,0.1110,0.8636,0.0059
+tabpfn,random,composition,all splits,family: iron-based,25,562.4800,6.4955,0.3165,4.2412,0.1560,0.7328,0.0214
+tabpfn,random,composition,all splits,family: other,25,3019.8400,4.0441,0.6570,1.4661,0.0590,0.7718,0.0629
+tabpfn,random,composition,all splits,oxygen amount missing,25,636.9600,13.0005,0.5352,8.8136,0.2593,0.8226,0.0159
+tabpfn,random,engineered,all splits,all,25,7088.0000,8.7159,0.2106,4.6526,0.0743,0.9352,0.0030
+tabpfn,random,engineered,all splits,Tc < 10 K,25,2573.8800,4.2699,0.4124,1.6355,0.0713,-1.5472,0.4979
+tabpfn,random,engineered,all splits,10-77 K,25,3214.4800,10.1522,0.2723,6.1456,0.1193,0.7416,0.0138
+tabpfn,random,engineered,all splits,Tc > 77 K,25,1299.6400,11.0989,0.6831,6.9324,0.2649,0.2578,0.0901
+tabpfn,random,engineered,all splits,family: cuprate,25,3505.6800,11.5528,0.2419,7.5181,0.1244,0.8624,0.0065
+tabpfn,random,engineered,all splits,family: iron-based,25,562.4800,6.2991,0.3381,4.0862,0.1604,0.7486,0.0242
+tabpfn,random,engineered,all splits,family: other,25,3019.8400,3.9983,0.6110,1.4318,0.0557,0.7772,0.0536
+tabpfn,random,engineered,all splits,oxygen amount missing,25,636.9600,12.8891,0.6125,8.5571,0.2765,0.8256,0.0175
