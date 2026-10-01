@@ -168,6 +168,18 @@ def family(unique_m: pd.DataFrame) -> pd.Series:
     return pd.Series(labels, index=unique_m.index, name="family")
 
 
+FEATURE_SETS = ("engineered", "composition")
+
+
+def feature_sets(train: pd.DataFrame, unique_m: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """engineered: the paper's 81 features. composition: the 86 element fractions
+    (summing to 1 per row), so scaled formulas get identical inputs."""
+    return {
+        "engineered": train.drop(columns=[TARGET]),
+        "composition": composition_fractions(unique_m),
+    }
+
+
 def composition_key_without_oxygen(unique_m: pd.DataFrame) -> pd.Series:
     """Scaled composition after dropping oxygen: all oxygen variants of a material
     (YBa2Cu3O6.9, YBa2Cu3O7, and YBa2Cu3O with no amount given) share one key."""

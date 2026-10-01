@@ -1,0 +1,144 @@
+"""Point and distributional metrics, and how they are aggregated over splits.
+
+Aggregation follows Hamidieh (2018): RMSE over repeated splits is
+sqrt(mean of per-split MSEs), not the mean of per-split RMSEs.
+
+Distributional metrics work from a quantile grid. QUANTILE_LEVELS is the 100-level
+midpoint grid tau_i = (i - 0.5)/100, on which expectations over the predictive
+distribution are a midpoint rule, plus the levels needed for 50/80/90/95%
+intervals. CRPS uses the midpoint levels only; PIT and P(Tc > t) interpolate the
+quantile function over all levels and are therefore clamped to [0.005, 0.995].
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+
+MIDPOINT_LEVELS = np.round((np.arange(100) + 0.5) / 100, 3)
+INTERVAL_LEVELS = (0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95)
+QUANTILE_LEVELS = np.unique(np.concatenate([MIDPOINT_LEVELS, INTERVAL_LEVELS]))
+# Quantiles kept in the committed per-row summaries.
+SUMMARY_LEVELS = (0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.975)
+INTERVALS = {"50%": (0.25, 0.75), "80%": (0.1, 0.9), "90%": (0.05, 0.95), "95%": (0.025, 0.975)}
+
+TC_BANDS = {"Tc < 10 K": (-np.inf, 10.0), "10-77 K": (10.0, 77.0), "Tc > 77 K": (77.0, np.inf)}
+
+
+def point(y, pred) -> dict:
+    y, pred = np.asarray(y, float), np.asarray(pred, float)
+    err = pred - y
+    mse = float(np.mean(err**2))
+    ss_tot = float(np.sum((y - y.mean()) ** 2))
+    return {
+        "n": len(y),
+        "mse": mse,
+        "rmse": float(np.sqrt(mse)),
+        "mae": float(np.mean(np.abs(err))),
+        "r2": float(1 - np.sum(err**2) / ss_tot) if ss_tot > 0 else float("nan"),
+    }
+
+
+def band_masks(y) -> dict[str, np.ndarray]:
+    """Bands by true Tc: below 10 K, 10 to 77 K inclusive, above 77 K."""
+    y = np.asarray(y, float)
+    return {
+        "Tc < 10 K": y < 10,
+        "10-77 K": (y >= 10) & (y <= 77),
+        "Tc > 77 K": y > 77,
+    }
+
+
+def subgroup_masks(y, family, oxygen_missing) -> dict[str, np.ndarray]:
+    """Every row group a metric is reported on: all rows, Tc bands, families, and rows
+    whose formula gives no oxygen amount."""
+    family = np.asarray(family)
+    groups = {"all": np.ones(len(family), dtype=bool), **band_masks(y)}
+    for name in ("cuprate", "iron-based", "other"):
+        groups[f"family: {name}"] = family == name
+    groups["oxygen amount missing"] = np.asarray(oxygen_missing, dtype=bool)
+    return groups
+
+
+def aggregate(per_split: pd.DataFrame, by: list[str]) -> pd.DataFrame:
+    """Combine per-split point metrics (columns n, mse, mae, r2) over splits.
+
+    rmse = sqrt(mean mse) as in the paper; mae and r2 are mean and std over splits;
+    rmse_split_std is the spread of the per-split RMSEs.
+    """
+    g = per_split.groupby(by, sort=False)
+    out = pd.DataFrame(
+        {
+            "n_splits": g.size(),
+            "rows_per_split": g["n"].mean(),
+            "rmse": np.sqrt(g["mse"].mean()),
+            "rmse_split_std": g["mse"].apply(
+                lambda m: float(np.std(np.sqrt(m), ddof=1)) if len(m) > 1 else np.nan
+            ),
+            "mae": g["mae"].mean(),
+            "mae_std": g["mae"].std(),
+            "r2": g["r2"].mean(),
+            "r2_std": g["r2"].std(),
+        }
+    )
+    return out.reset_index()
+
+
+def paired(a: pd.Series, b: pd.Series) -> dict:
+    """Per-split comparison of a metric where lower is better (e.g. RMSE): a vs b,
+    aligned on the split index."""
+    a, b = a.align(b, join="inner")
+    diff = a - b
+    return {
+        "n_splits": len(diff),
+        "mean_diff": float(diff.mean()),
+        "std_diff": float(diff.std(ddof=1)) if len(diff) > 1 else float("nan"),
+        "a_better_splits": int((diff < 0).sum()),
+        "b_better_splits": int((diff > 0).sum()),
+    }
+
+
+def crps(quantiles: np.ndarray, levels: np.ndarray, y) -> np.ndarray:
+    """CRPS per row from quantiles on the midpoint grid: 2 * mean of pinball losses.
+
+    quantiles: (n, len(levels)); only the MIDPOINT_LEVELS columns are used.
+    """
+    cols = np.isin(np.round(levels, 3), MIDPOINT_LEVELS)
+    if cols.sum() != len(MIDPOINT_LEVELS):
+        raise ValueError("quantiles must include every midpoint level")
+    q, tau = quantiles[:, cols], np.asarray(levels)[cols]
+    y = np.asarray(y, float)[:, None]
+    pinball = ((y < q).astype(float) - tau) * (q - y)
+    return 2 * pinball.mean(axis=1)
+
+
+def cdf_at(quantiles: np.ndarray, levels: np.ndarray, x) -> np.ndarray:
+    """Predictive CDF at x per row, by linear interpolation of the quantile function.
+    Values beyond the outermost quantiles are clamped to the outermost levels."""
+    levels = np.asarray(levels, float)
+    x = np.broadcast_to(np.asarray(x, float), (len(quantiles),))
+    out = np.empty(len(quantiles))
+    for i, (q, xi) in enumerate(zip(quantiles, x, strict=True)):
+        q_sorted = np.maximum.accumulate(q)  # guard against tiny non-monotonicity
+        out[i] = np.interp(xi, q_sorted, levels)
+    return out
+
+
+def interval(lo, hi, y) -> dict:
+    y = np.asarray(y, float)
+    lo, hi = np.asarray(lo, float), np.asarray(hi, float)
+    return {"coverage": float(np.mean((y >= lo) & (y <= hi))), "width": float(np.mean(hi - lo))}
+
+
+def summarize_distribution(mean, quantiles: np.ndarray, levels: np.ndarray, y) -> pd.DataFrame:
+    """The per-row summary committed for TabPFN: mean, quantiles at SUMMARY_LEVELS,
+    CRPS, PIT and P(Tc > 77 K)."""
+    levels = np.round(np.asarray(levels, float), 3)
+    out = {"mean": np.asarray(mean, float)}
+    for lvl in SUMMARY_LEVELS:
+        (col,) = np.flatnonzero(levels == lvl)
+        out[f"q{lvl:g}"] = quantiles[:, col]
+    out["crps"] = crps(quantiles, levels, y)
+    out["pit"] = cdf_at(quantiles, levels, y)
+    out["p_above_77K"] = 1 - cdf_at(quantiles, levels, 77.0)
+    return pd.DataFrame(out).astype("float32")

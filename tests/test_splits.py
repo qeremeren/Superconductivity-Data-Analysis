@@ -64,6 +64,11 @@ def test_oxygen_variants_never_cross_in_grouped_no_oxygen():
     assert np.allclose(masks.mean(axis=1), 1 / 3, atol=0.01)
 
 
-@pytest.mark.skip(reason="leave-family-out split is added in Phase 2")
 def test_leave_family_out_holds_out_whole_families():
-    """Cuprates (Cu>0 and O>0), iron-based (Fe>0 and (As>0 or Se>0)), everything else."""
+    families = np.array(["cuprate", "other", "iron-based", "cuprate", "other"])
+    masks = splits.leave_family_out(families)
+    assert masks.shape == (3, 5)
+    assert (masks.sum(axis=0) == 1).all()  # every row is tested exactly once
+    for fold, name in enumerate(splits.FAMILY_ORDER):
+        assert set(families[masks[fold]]) == {name}
+        assert name not in set(families[~masks[fold]])

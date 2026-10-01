@@ -7,7 +7,8 @@ grouped:            the same proportions and repeats, but each scaled-compositio
 grouped_no_oxygen:  sensitivity check; groups by composition with oxygen dropped,
                     so all oxygen variants of a material (O6.9, O7, and formulas
                     with no oxygen amount) stay on one side.
-The leave-family-out split is added in Phase 2.
+leave_family_out:   3 folds; each holds out one family (cuprate, iron-based,
+                    other) as the test set and trains on the other two.
 
 `python -m src.splits` (or `make splits`) regenerates and saves them; a test
 checks that the saved files equal a fresh regeneration.
@@ -54,18 +55,34 @@ def grouped_splits(groups, seeds=SEEDS) -> np.ndarray:
     return masks
 
 
+FAMILY_ORDER = (data.CUPRATE, data.IRON_BASED, data.OTHER)
+
+
+def leave_family_out(families) -> np.ndarray:
+    """Boolean is_test masks, shape (3, n_rows): fold i tests on FAMILY_ORDER[i]."""
+    families = np.asarray(families)
+    return np.stack([families == f for f in FAMILY_ORDER])
+
+
 def build_all() -> dict[str, np.ndarray]:
     um = data.load_unique_m()
     return {
         "random": random_splits(len(um)),
         "grouped": grouped_splits(data.composition_key(um)),
         "grouped_no_oxygen": grouped_splits(data.composition_key_without_oxygen(um)),
+        "leave_family_out": leave_family_out(data.family(um)),
     }
 
 
 def save(masks: np.ndarray, kind: str, splits_dir: Path = SPLITS_DIR) -> None:
     splits_dir.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(splits_dir / f"{kind}.npz", is_test=masks, seeds=np.array(SEEDS))
+    seeds = np.array(SEEDS[: len(masks)])
+    np.savez_compressed(splits_dir / f"{kind}.npz", is_test=masks, seeds=seeds)
+
+
+def seeds(kind: str, splits_dir: Path = SPLITS_DIR) -> np.ndarray:
+    with np.load(splits_dir / f"{kind}.npz") as f:
+        return f["seeds"]
 
 
 def load(kind: str, splits_dir: Path = SPLITS_DIR) -> np.ndarray:
