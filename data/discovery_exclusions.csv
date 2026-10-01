@@ -1,0 +1,18 @@
+composition_key,family,tc_median,n_rows,formulas,suspect
+H:0.666667 S:0.333333,other,122.5,2,H2S1,non-cuprate above 77 K
+H:0.200000 O:0.600000 W:0.200000,other,120,1,H1W1O3,non-cuprate above 77 K
+H:0.015385 C:0.938462 Br:0.046154,other,115,1,H1Br3C61,non-cuprate above 77 K
+O:0.142857 Ca:0.285714 Sr:0.285714 Bi:0.285714,other,109,1,Bi2Sr2Ca2O,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+O:0.116279 Ca:0.418605 Sr:0.232558 Pb:0.046512 Bi:0.186047,other,102,1,Bi1.6Pb0.4Sr2Ca3.6O,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+O:0.740741 Na:0.012346 W:0.246914,other,91,1,Na0.05W1O3,non-cuprate above 77 K
+O:0.040000 Y:0.040000 Ba:0.920000,other,90.4,1,Y1Ba23O,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+O:0.500000 Ca:0.220833 Sr:0.166667 Y:0.029167 Mo:0.016667 Hg:0.066667,other,85.5,1,Hg0.8Mo0.2Sr2Y0.35Ca0.65Ca2O6,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+O:0.695740 Ba:0.192698 La:0.010142 Nd:0.101420,other,83.5,1,Nd1Ba1.9La0.1O6.86,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+H:0.015385 C:0.938462 Cl:0.046154,other,80,1,H1Cl3C61,non-cuprate above 77 K
+O:0.694190 Ba:0.183486 La:0.020387 Nd:0.101937,other,78.5,1,Nd1Ba1.8La0.2O6.81,"cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+O:0.500000 Ca:0.200000 Sr:0.166667 Y:0.050000 Mo:0.016667 Hg:0.066667,other,74.5,1,Hg0.8Mo0.2Sr2Y0.6Ca0.4Ca2O6,"cuprate-like oxide without Cu, Tc > 40 K"
+O:0.500000 Ca:0.208333 Sr:0.166667 Y:0.041667 Mo:0.016667 Hg:0.066667,other,73.5,1,Hg0.8Mo0.2Sr2Y0.5Ca0.5Ca2O6,"cuprate-like oxide without Cu, Tc > 40 K"
+O:0.240506 Y:0.025316 Ba:0.727848 Pr:0.006329,other,66.5,1,Y0.8Pr0.2Ba23O7.6,"cuprate-like oxide without Cu, Tc > 40 K"
+O:0.139860 S:0.020979 Ca:0.398601 Fe:0.020979 Y:0.139860 Ba:0.279720,other,61.4,1,Y1Ba2Ca2.85Fe0.15S0.15O,"cuprate-like oxide without Cu, Tc > 40 K"
+O:0.692938 Ba:0.174002 La:0.030706 Nd:0.102354,other,57.5,1,Nd1Ba1.7La0.3O6.77,"cuprate-like oxide without Cu, Tc > 40 K"
+O:0.139860 S:0.041958 Ca:0.356643 Fe:0.041958 Y:0.139860 Ba:0.279720,other,41,1,Y1Ba2Ca2.55Fe0.3S0.3O,"cuprate-like oxide without Cu, Tc > 40 K"

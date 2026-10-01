@@ -168,5 +168,36 @@ def family(unique_m: pd.DataFrame) -> pd.Series:
     return pd.Series(labels, index=unique_m.index, name="family")
 
 
+def composition_key_without_oxygen(unique_m: pd.DataFrame) -> pd.Series:
+    """Scaled composition after dropping oxygen: all oxygen variants of a material
+    (YBa2Cu3O6.9, YBa2Cu3O7, and YBa2Cu3O with no amount given) share one key."""
+    return composition_key(unique_m[list(ELEMENTS)].assign(O=0.0))
+
+
+def oxygen_amount_missing(unique_m: pd.DataFrame) -> pd.Series:
+    """Formula has an "O" with no amount (e.g. Y1Ba2Cu3O); unique_m.csv encodes it as O = 1.
+    "O" followed by a lowercase letter is another element (Os)."""
+    return unique_m[FORMULA].str.contains(r"O(?![a-z\d.])", regex=True).rename("oxygen_missing")
+
+
+def suspect_reasons(unique_m: pd.DataFrame) -> pd.Series:
+    """Rule-based reasons a row is doubtful as a discovery target ("" if none).
+
+    Oxides with Ba or Sr but no Cu above 40 K look like cuprates whose formula lost
+    its Cu (e.g. Y1Ba23O for YBa2Cu3O). Non-cuprates above 77 K are rare enough to
+    review one by one. Used to exclude materials from the discovery pools only.
+    """
+    tc, fam = unique_m[TARGET], family(unique_m)
+    oxide = (fam == OTHER) & (unique_m["O"] > 0) & ((unique_m["Ba"] > 0) | (unique_m["Sr"] > 0))
+    masks = {
+        "cuprate-like oxide without Cu, Tc > 40 K": oxide & (unique_m["Cu"] == 0) & (tc > 40),
+        "non-cuprate above 77 K": (fam != CUPRATE) & (tc > 77),
+    }
+    reasons = pd.Series("", index=unique_m.index, name="suspect")
+    for reason, mask in masks.items():
+        reasons[mask] = np.where(reasons[mask] == "", reason, reasons[mask] + "; " + reason)
+    return reasons
+
+
 if __name__ == "__main__":
     download()

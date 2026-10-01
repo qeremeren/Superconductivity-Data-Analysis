@@ -85,6 +85,42 @@ def test_family_rules():
     assert list(data.family(df)) == expected
 
 
+def test_oxygen_free_key_merges_oxygen_variants_only():
+    df = _compositions(
+        [
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 7},
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 6.9},
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 1},  # formula gave no oxygen amount
+            {"Y": 1, "Ba": 2, "Cu": 2.9, "O": 7},
+        ]
+    )
+    key = data.composition_key_without_oxygen(df)
+    assert key[0] == key[1] == key[2]
+    assert key[0] != key[3]
+
+
+def test_oxygen_amount_missing():
+    formulas = ["Y1Ba2Cu3O", "Y1Ba2Cu3O7", "Bi2Sr2Ca1Cu2O8.2", "Os1B2", "Nb1O", "Ba1Fe2As2"]
+    flags = data.oxygen_amount_missing(pd.DataFrame({"material": formulas}))
+    assert list(flags) == [True, False, False, False, True, False]
+
+
+def test_suspect_reasons():
+    df = _compositions(
+        [
+            {"Y": 1, "Ba": 23, "O": 1},  # Y1Ba23O: cuprate formula with Cu dropped
+            {"Ba": 0.6, "K": 0.4, "Bi": 1, "O": 3},  # genuine non-cuprate oxide, ~30 K
+            {"H": 2, "S": 1},
+            {"Y": 1, "Ba": 2, "Cu": 3, "O": 7},
+        ]
+    ).assign(critical_temp=[90.4, 30.0, 185.0, 92.0], material="")
+    reasons = data.suspect_reasons(df)
+    assert reasons[0] == "cuprate-like oxide without Cu, Tc > 40 K; non-cuprate above 77 K"
+    assert reasons[1] == ""
+    assert reasons[2] == "non-cuprate above 77 K"
+    assert reasons[3] == ""
+
+
 @needs_data
 def test_family_definitions_do_not_overlap_in_data():
     um = data.load_unique_m()
