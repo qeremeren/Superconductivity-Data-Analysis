@@ -35,6 +35,13 @@ def live_requested(cli_flag: bool = False) -> bool:
     return cli_flag or os.getenv("TABPFN_LIVE", "").strip().lower() in ("1", "true")
 
 
+def record_spend() -> bool:
+    """Whether billed requests are also appended to the committed spend record
+    (set TABPFN_RECORD_SPEND=1; only the project author should)."""
+    load_env()
+    return os.getenv("TABPFN_RECORD_SPEND", "").strip().lower() in ("1", "true")
+
+
 def require_tabpfn_token() -> None:
     """Fail early, with instructions, if an API call is about to run without a key.
 

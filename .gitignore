@@ -26,3 +26,9 @@ __pycache__/
 .DS_Store
 .idea/
 .vscode/
+
+# Local TabPFN raw outputs (full quantile grids); only per-row summaries are committed
+results/cache/
+
+# Per-clone API budget ledger (the guard reads only this; see src/budget.py)
+.budget/

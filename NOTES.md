@@ -97,8 +97,13 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
   the daily cap, or if the run would eat into the last 1M tokens of the live monthly pool
   (read from the API; the run is refused if usage cannot be read), or past the live daily
   allowance. The returned `RunBudget`
-  refuses any request beyond the number authorized. Every billed request is logged, before it is
-  sent, to `results/api_ledger.jsonl` (committed). Phase 0's 5 requests are backfilled there.
+  refuses any request beyond the number authorized.
+- Ledgers (changed 2026-10-02 for Phase 6 reproducibility): the guard reads only the per-clone,
+  gitignored `.budget/ledger.jsonl`, so the author's spend never counts against someone else's
+  re-run; their own account limits come from the live API. Every billed request is logged
+  there before it is sent. The committed `results/api_ledger.jsonl` is the author's provenance
+  record, appended only when `TABPFN_RECORD_SPEND=1` (set in the author's `.env`) and never
+  read by the guard. Phase 0's 5 requests are in both.
 - Assumptions behind the counts: one request per fit; the discovery loop costs one request per
   round per (seed, acquisition) trajectory regardless of pool size; 20 rounds. The pilot runs EI
   and q90 on both scenarios with 3 seeds; the main and hard runs use 10 seeds and 2 TabPFN

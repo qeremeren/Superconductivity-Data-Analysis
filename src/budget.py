@@ -4,12 +4,20 @@ and a hard cap that refuses any run projected to exceed its allowance.
 Every billed call goes through a RunBudget obtained from authorize(), which
 refuses the run if
   (a) the experiment is not in PLAN, or its hard cap would be exceeded once the
-      requests already in the ledger are counted,
-  (b) the projected tokens plus today's ledger total exceed the daily cap, or
-  (c) the projected tokens exceed the live monthly pool minus a reserve.
+      requests already in this clone's ledger are counted,
+  (b) the projected tokens plus today's ledger total exceed the daily cap, or the
+      live daily allowance of the caller's account, or
+  (c) the projected tokens exceed the caller's live monthly pool minus a reserve.
 RunBudget.charge() then refuses any request beyond the number authorized, so a
 runaway loop stops before it is billed. Requests are logged before they are
 sent, so a failed call is over-counted rather than missed.
+
+Two files, so nobody's spend counts against anyone else's re-run:
+  LEDGER        .budget/ledger.jsonl, per clone and gitignored. The only file the
+                guard reads.
+  SPEND_RECORD  results/api_ledger.jsonl, committed: the project author's record of
+                billed requests, for provenance. Appended to only when
+                TABPFN_RECORD_SPEND=1; never read by the guard.
 
 `python -m src.budget` prints the plan; `--update-notes` rewrites it in NOTES.md.
 """
@@ -26,7 +34,8 @@ from pathlib import Path
 
 from src import config
 
-LEDGER = config.RESULTS_DIR / "api_ledger.jsonl"
+LEDGER = config.ROOT / ".budget" / "ledger.jsonl"
+SPEND_RECORD = config.RESULTS_DIR / "api_ledger.jsonl"
 USAGE_LOG = config.RESULTS_DIR / "api_usage.jsonl"  # live usage readings, via --snapshot
 NOTES = config.ROOT / "NOTES.md"
 API_CHECK = config.RESULTS_DIR / "00_api_check.json"
@@ -130,6 +139,7 @@ class RunBudget:
     max_requests: int
     tokens_per_request: int
     ledger: Path = LEDGER
+    record: Path | None = None
     used: int = 0
 
     def charge(self, requests: int = 1, **detail) -> None:
@@ -139,16 +149,16 @@ class RunBudget:
                 f"{self.experiment}: run authorized for {self.max_requests} requests, "
                 f"{self.used} used, {requests} more requested"
             )
-        append_ledger(
-            {
-                "ts": datetime.now(UTC).isoformat(timespec="seconds"),
-                "experiment": self.experiment,
-                "requests": requests,
-                "tokens_estimated": requests * self.tokens_per_request,
-                **detail,
-            },
-            self.ledger,
-        )
+        entry = {
+            "ts": datetime.now(UTC).isoformat(timespec="seconds"),
+            "experiment": self.experiment,
+            "requests": requests,
+            "tokens_estimated": requests * self.tokens_per_request,
+            **detail,
+        }
+        append_ledger(entry, self.ledger)
+        if self.record is not None:
+            append_ledger(entry, self.record)
         self.used += requests
 
 
@@ -159,9 +169,16 @@ def authorize(
     *,
     usage: dict | None = None,
     ledger: Path = LEDGER,
+    record: Path | None = None,
     now: datetime | None = None,
 ) -> RunBudget:
-    """Refuse (raise BudgetExceeded) unless the whole run fits every cap."""
+    """Refuse (raise BudgetExceeded) unless the whole run fits every cap.
+
+    With the default ledger and TABPFN_RECORD_SPEND=1, charges are also appended to
+    the committed SPEND_RECORD. A ledger passed explicitly (tests) never records.
+    """
+    if record is None and ledger == LEDGER and config.record_spend():
+        record = SPEND_RECORD
     now = now or datetime.now(UTC)
     plan = PLAN_BY_NAME.get(experiment)
     if plan is None:
@@ -203,7 +220,7 @@ def authorize(
             f"{limit - used:,} remaining minus the {POOL_RESERVE_TOKENS:,} reserve "
             f"(resets {usage.get('reset_time')})"
         )
-    return RunBudget(experiment, n_requests, tokens_per_request, ledger)
+    return RunBudget(experiment, n_requests, tokens_per_request, ledger, record)
 
 
 def pool_snapshot() -> dict[str, tuple[int, int, str]]:

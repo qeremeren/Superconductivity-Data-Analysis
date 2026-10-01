@@ -8,15 +8,19 @@ can find materials above 77 K with fewer simulated experiments.
 No results are reported yet. Every number in the final README will come from code in this repo
 and a file in `results/`.
 
-## Setup
+## Quickstart
 
-Requires [uv](https://docs.astral.sh/uv/). On macOS, XGBoost also needs `brew install libomp`.
+Requires [uv](https://docs.astral.sh/uv/). No API key is needed to reproduce the results.
 
 ```bash
-make setup   # Python 3.12 environment from uv.lock
-make data    # download and checksum-verify the UCI data into data/raw/
-make test
+brew install libomp   # macOS only: OpenMP runtime for XGBoost
+make setup            # Python 3.12 environment from uv.lock
+make reproduce        # download + checksum-verify the data, rebuild splits, results,
+                      # figures and notebooks from committed caches, run the tests
 ```
+
+`make data`, `make splits`, `make audit`, `make notebooks` and `make test` run the steps one
+at a time.
 
 pip users can install from `requirements.txt` (exported from the lock) into a Python 3.12 environment.
 

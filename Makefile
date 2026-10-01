@@ -1,4 +1,4 @@
-.PHONY: setup data splits audit notebooks test lint check-api requirements
+.PHONY: setup data splits audit notebooks reproduce test lint check-api requirements
 
 setup:  ## Create the locked environment (Python 3.12 via uv)
 	uv sync
@@ -15,6 +15,13 @@ audit:  ## Phase 1 data audit and figures (no API calls) -> results/01_audit/
 
 notebooks:  ## Execute every notebook in place (they only read results/)
 	uv run --group notebooks python -c "import glob, nbclient, nbformat; [nbformat.write(nbclient.execute(nbformat.read(p, 4), cwd='notebooks'), p) for p in sorted(glob.glob('notebooks/*.ipynb'))]"
+
+reproduce:  ## Rebuild everything from committed caches; no API key needed (grows each phase)
+	$(MAKE) data
+	$(MAKE) splits
+	$(MAKE) audit
+	$(MAKE) notebooks
+	uv run pytest
 
 test:
 	uv run pytest

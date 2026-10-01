@@ -64,6 +64,13 @@ Metrics:
 - Metric: number of distinct target materials found vs. experiments spent; rounds to the first hit; compared against random search's expected tries-to-hit.
 - Multiple seeds, plotted with confidence bands. Budget API calls before running (batches reduce call count).
 
+## Phase 6 requirements (keep every phase compatible with these from now on)
+- `make reproduce` works from a fresh clone with **no API key**: downloads the data, rebuilds the splits, and regenerates every result, table, figure and notebook from the committed caches. It never calls the TabPFN API; a missing cache file is an error, never a silent live call. Each phase extends the target as it lands.
+- The budget guard must not count the author's spend against anyone else's re-run. The guard reads only the per-clone ledger `.budget/ledger.jsonl` (gitignored) and the caller's own live API usage. The committed `results/api_ledger.jsonl` is the author's provenance record: appended only when `TABPFN_RECORD_SPEND=1` and never read by the guard.
+- README quickstart includes `brew install libomp` for macOS (XGBoost's OpenMP runtime).
+- The data download verifies a checksum (SHA-256 of each CSV, pinned in `src/data.py`).
+- A GitHub Actions workflow runs `make reproduce` on a fresh Ubuntu clone and checks that results are unchanged (figures excepted: fonts differ by OS).
+
 ## Repo layout
 ```
 data/            download script output (gitignored raw), splits/

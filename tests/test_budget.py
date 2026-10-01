@@ -1,3 +1,4 @@
+import subprocess
 from datetime import UTC, datetime
 
 import pytest
@@ -118,9 +119,30 @@ def test_run_refuses_requests_beyond_authorization_and_logs_first(ledger):
     assert entries[0]["output_type"] == "main"
 
 
-def test_committed_ledger_is_within_plan():
+def test_guard_ledger_is_per_clone_and_not_committed():
+    assert budget.LEDGER != budget.SPEND_RECORD
+    ignored = subprocess.run(
+        ["git", "check-ignore", "-q", str(budget.LEDGER)], cwd=budget.config.ROOT, check=False
+    )
+    assert ignored.returncode == 0, ".budget/ must be gitignored"
+
+
+def test_explicit_ledger_never_writes_the_spend_record(ledger, monkeypatch):
+    monkeypatch.setenv("TABPFN_RECORD_SPEND", "1")
+    run = authorize("p2_output_check", 1, 10_000, usage=PLENTY, ledger=ledger, now=NOW)
+    assert run.record is None
+
+
+def test_charge_appends_to_the_record_when_given(ledger, tmp_path):
+    record = tmp_path / "record.jsonl"
+    run = budget.RunBudget("p2_output_check", 1, 10_000, ledger, record)
+    run.charge(output_type="main")
+    assert budget.read_ledger(ledger) == budget.read_ledger(record)
+
+
+def test_committed_spend_record_is_within_plan():
     spent = {}
-    for e in budget.read_ledger():
+    for e in budget.read_ledger(budget.SPEND_RECORD):
         spent[e["experiment"]] = spent.get(e["experiment"], 0) + e["requests"]
     for experiment, requests in spent.items():
         assert experiment in budget.PLAN_BY_NAME
