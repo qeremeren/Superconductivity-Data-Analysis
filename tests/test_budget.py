@@ -27,7 +27,7 @@ def test_plan_is_consistent():
     assert len(names) == len(set(names))
     for p in budget.PLAN:
         assert p.cap >= p.requests >= 0
-        assert p.pool in (budget.PRE, budget.POST, "-")
+        assert p.pool in (budget.SEP, budget.OCT, "-")
 
 
 def test_full_output_is_billed_per_400_rows():
@@ -67,6 +67,24 @@ def test_monthly_pool_keeps_a_reserve(ledger):
     short = {"current_usage": limit - budget.POOL_RESERVE_TOKENS - 50_000, "usage_limit": limit}
     with pytest.raises(BudgetExceeded, match="monthly pool"):
         authorize("p4_pilot", 10, 10_000, usage=short, ledger=ledger, now=NOW)
+
+
+def test_live_daily_allowance_is_respected(ledger):
+    usage = {**PLENTY, "daily_token_limit": 15_000_000, "daily_tokens_used": 14_950_000}
+    with pytest.raises(BudgetExceeded, match="live daily"):
+        authorize("p4_pilot", 10, 10_000, usage=usage, ledger=ledger, now=NOW)
+    authorize("p4_pilot", 5, 10_000, usage=usage, ledger=ledger, now=NOW)
+
+
+def test_monthly_fields_take_precedence(ledger):
+    usage = {
+        "monthly_token_limit": 20_000_000,
+        "monthly_tokens_used": 19_500_000,
+        "usage_limit": 20_000_000,
+        "current_usage": 0,
+    }
+    with pytest.raises(BudgetExceeded, match="monthly pool"):
+        authorize("p4_pilot", 1, 10_000, usage=usage, ledger=ledger, now=NOW)
 
 
 def test_unlimited_pool_passes(ledger):

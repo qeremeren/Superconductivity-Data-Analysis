@@ -27,6 +27,7 @@ from pathlib import Path
 from src import config
 
 LEDGER = config.RESULTS_DIR / "api_ledger.jsonl"
+USAGE_LOG = config.RESULTS_DIR / "api_usage.jsonl"  # live usage readings, via --snapshot
 NOTES = config.ROOT / "NOTES.md"
 API_CHECK = config.RESULTS_DIR / "00_api_check.json"
 
@@ -36,11 +37,12 @@ MIN_TOKENS_PER_REQUEST = 10_000
 # Server limit test_set_max_rows_w_full_regression_output; the client splits
 # larger output_type="full" calls into separately billed requests.
 FULL_OUTPUT_ROWS_PER_REQUEST = 400
-DAILY_CAP_TOKENS = 15_000_000  # account setting, raised by the user on 2026-09-28
+DAILY_CAP_TOKENS = 15_000_000  # account setting; the live daily limit is checked too
 POOL_RESERVE_TOKENS = 1_000_000  # never plan into the last 1M tokens of a monthly pool
-MONTHLY_RESET = datetime(2026, 10, 1, tzinfo=UTC)
 
-PRE, POST = "pre-Oct-1", "post-Oct-1"
+# Monthly pools. September's closed on 2026-10-01; October's resets 2026-11-01, after
+# the 2026-10-06 deadline, so it is the only pool left for Phases 2-6.
+SEP, OCT = "Sep (closed)", "Oct"
 
 
 class BudgetExceeded(RuntimeError):
@@ -58,17 +60,18 @@ class Planned:
 
 
 PLAN = [
-    Planned(0, "p0_api_check", 5, 7, PRE, "spent: 2 recorded + 3 in crashed runs"),
+    Planned(0, "p0_api_check", 5, 7, SEP, "spent: 2 recorded + 3 in crashed runs"),
     Planned(1, "p1_data_audit", 0, 0, "-", "no API calls"),
-    Planned(2, "p2_output_check", 4, 6, PRE, "main output with a midpoint grid; grid-size limit"),
-    Planned(2, "p2_random_protocol", 50, 60, PRE, "25 random splits x 2 feature sets"),
-    Planned(2, "p2_grouped", 50, 60, PRE, "25 grouped 2/3-1/3 splits x 2 feature sets"),
-    Planned(2, "p2_leave_family_out", 6, 8, PRE, "3 held-out families x 2 feature sets"),
-    Planned(3, "p3_learning_curves", 50, 60, PRE, "5 sizes (100-10k) x 5 seeds x 2 sets"),
-    Planned(3, "p3_quantile_vs_full", 4, 6, PRE, "'full' vs quantile grid on 400 rows, 2 splits"),
-    Planned(4, "p4_pilot", 240, 260, PRE, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
-    Planned(4, "p4_main", 400, 620, POST, "top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3)"),
-    Planned(4, "p4_hard", 400, 620, POST, "non-cuprate pool and top-1% target, same design"),
+    Planned(2, "p2_output_check", 4, 6, OCT, "main output with a midpoint grid; grid-size limit"),
+    Planned(2, "p2_random_protocol", 50, 60, OCT, "25 random splits x 2 feature sets"),
+    Planned(2, "p2_grouped", 50, 60, OCT, "25 grouped 2/3-1/3 splits x 2 feature sets"),
+    Planned(2, "p2_grouped_no_oxygen", 50, 60, OCT, "sensitivity: same, oxygen variants grouped"),
+    Planned(2, "p2_leave_family_out", 6, 8, OCT, "3 held-out families x 2 feature sets"),
+    Planned(3, "p3_learning_curves", 50, 60, OCT, "5 sizes (100-10k) x 5 seeds x 2 sets"),
+    Planned(3, "p3_quantile_vs_full", 4, 6, OCT, "'full' vs quantile grid on 400 rows, 2 splits"),
+    Planned(4, "p4_pilot", 240, 260, OCT, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
+    Planned(4, "p4_main", 400, 620, OCT, "top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3)"),
+    Planned(4, "p4_hard", 400, 620, OCT, "non-cuprate pool and top-1% target, same design"),
 ]
 PLAN_BY_NAME = {p.experiment: p for p in PLAN}
 
@@ -100,12 +103,25 @@ def estimate_tokens(X_train, X_test) -> int:
 
 
 def fetch_usage() -> dict:
-    """Live monthly pool: {"current_usage", "usage_limit", "reset_time"}."""
+    """Live usage: monthly_* and daily_* token limits and use, reset times (free call)."""
     import tabpfn_client
     from tabpfn_client.client import ServiceClient
 
     config.require_tabpfn_token()
     return ServiceClient.get_api_usage(tabpfn_client.get_access_token())
+
+
+def record_usage(usage: dict | None = None, log: Path = USAGE_LOG) -> dict:
+    usage = usage if usage is not None else fetch_usage()
+    entry = {"ts": datetime.now(UTC).isoformat(timespec="seconds"), **usage}
+    append_ledger(entry, log)
+    return entry
+
+
+def _monthly(usage: dict) -> tuple[int, int]:
+    limit = usage.get("monthly_token_limit", usage.get("usage_limit"))
+    used = usage.get("monthly_tokens_used", usage.get("current_usage"))
+    return int(limit), int(used)
 
 
 @dataclass
@@ -173,7 +189,14 @@ def authorize(
             usage = fetch_usage()
         except Exception as exc:
             raise BudgetExceeded(f"could not read live API usage, refusing: {exc}") from exc
-    limit, used = int(usage["usage_limit"]), int(usage["current_usage"])
+    if "daily_token_limit" in usage and int(usage["daily_token_limit"]) != -1:
+        left_today = int(usage["daily_token_limit"]) - int(usage["daily_tokens_used"])
+        if projected > left_today:
+            raise BudgetExceeded(
+                f"{experiment}: {projected:,} projected tokens exceed the live daily "
+                f"allowance of {left_today:,} left today"
+            )
+    limit, used = _monthly(usage)
     if limit != -1 and projected > limit - used - POOL_RESERVE_TOKENS:
         raise BudgetExceeded(
             f"{experiment}: {projected:,} projected tokens exceed the monthly pool's "
@@ -183,13 +206,18 @@ def authorize(
     return RunBudget(experiment, n_requests, tokens_per_request, ledger)
 
 
-def pool_snapshot() -> dict[str, tuple[int, int]]:
-    """(limit, used) per pool. Pre-Oct-1 comes from the last recorded usage in
-    results/00_api_check.json; post-Oct-1 assumes the same monthly limit, unused."""
+def pool_snapshot() -> dict[str, tuple[int, int, str]]:
+    """(limit, used, as-of) per pool. September: the last reading in
+    results/00_api_check.json. October: the latest reading in results/api_usage.jsonl
+    taken after the reset (`python -m src.budget --snapshot`)."""
     report = json.loads(API_CHECK.read_text())
     m = re.search(r"used (\d+) of the allowed limit of (\d+)", report["usage_after"])
-    used, limit = int(m.group(1)), int(m.group(2))
-    return {PRE: (limit, used), POST: (limit, 0)}
+    sep = (int(m.group(2)), int(m.group(1)), report["created_at"][:10])
+    october = [e for e in read_ledger(USAGE_LOG) if e["ts"] >= "2026-10-01"]
+    if not october:
+        raise RuntimeError("no October usage reading; run `python -m src.budget --snapshot`")
+    latest = october[-1]
+    return {SEP: sep, OCT: (*_monthly(latest), latest["ts"])}
 
 
 def render_table() -> str:
@@ -207,19 +235,21 @@ def render_table() -> str:
     snapshot = pool_snapshot()
     rows += [
         "",
-        "| Pool | Limit | Used at snapshot | Usable (minus 1M reserve) | Capped plan "
-        "| Headroom | Headroom (requests) |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) "
+        "| Capped plan | Planned | Headroom at cap (requests) |",
+        "|---|---:|---:|---|---:|---:|---:|---:|",
     ]
-    for pool, (limit, used) in snapshot.items():
+    for pool, (limit, used, as_of) in snapshot.items():
+        if pool == SEP:
+            rows.append(f"| {pool} | {limit:,} | {used:,} | {as_of} | closed | - | - | - |")
+            continue
         usable = limit - used - POOL_RESERVE_TOKENS
         capped = sum(p.cap for p in PLAN if p.pool == pool) * MIN_TOKENS_PER_REQUEST
-        if pool == PRE:  # Phase 0 is already inside "used"
-            capped -= PLAN_BY_NAME["p0_api_check"].cap * MIN_TOKENS_PER_REQUEST
+        planned = sum(p.requests for p in PLAN if p.pool == pool) * MIN_TOKENS_PER_REQUEST
         headroom = usable - capped
         rows.append(
-            f"| {pool} | {limit:,} | {used:,} | {usable:,} | {capped:,} | {headroom:,} "
-            f"| {headroom // MIN_TOKENS_PER_REQUEST:,} |"
+            f"| {pool} | {limit:,} | {used:,} | {as_of} | {usable:,} | {capped:,} "
+            f"| {planned:,} | {headroom:,} ({headroom // MIN_TOKENS_PER_REQUEST:,}) |"
         )
     return "\n".join(rows)
 
@@ -237,7 +267,12 @@ def update_notes(notes: Path = NOTES) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Print the API request budget plan.")
     parser.add_argument("--update-notes", action="store_true", help="rewrite it in NOTES.md")
+    parser.add_argument(
+        "--snapshot", action="store_true", help="append a live usage reading (free call)"
+    )
     args = parser.parse_args()
+    if args.snapshot:
+        print(record_usage())
     if args.update_notes:
         update_notes()
         print(f"Updated the budget table in {NOTES}")
