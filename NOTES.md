@@ -279,3 +279,16 @@ written by `experiments/02_local_models.py` and `experiments/02_metrics.py`. No 
   family (50/80/90/95%), next to in-distribution coverage: "does the model know when it is
   extrapolating?" is a key question for the write-up. The committed TabPFN summaries for the
   leave-family-out folds hold the quantiles needed (`q0.025` ... `q0.975`).
+
+## 2026-10-02 — Phase 2, step 3: API output check (4 requests, 40,000 tokens)
+
+Source: `results/02_benchmark/output_check.json` (`experiments/02_output_check.py`); random
+split 0, engineered features, 14,175 training and 7,088 test rows.
+- `output_type="main"` with a custom quantile grid returns mean, median, mode and the requested
+  quantiles in one request; all rows are monotone. Its mean equals a plain `output_type="mean"`
+  request exactly (max |difference| 0.0 K), so one request per fit gives both.
+- 107-, 199- and 999-level grids are all accepted at the same charge (10,000 tokens each).
+  Wall times 10-23 s per request (63 s for 999 levels, mostly transfer).
+- Consequence for Phase 4: a 999-level grid would resolve tail probabilities such as
+  P(Tc > 77 K) or the top-1% exceedance to about 0.1% instead of 1%. The benchmark keeps the
+  planned 107 levels.

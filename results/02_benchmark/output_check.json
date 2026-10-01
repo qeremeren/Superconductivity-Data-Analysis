@@ -1,0 +1,249 @@
+{
+ "n_train": 14175,
+ "n_test": 7088,
+ "seed": 0,
+ "requests": {
+  "main_107": {
+   "ok": true,
+   "seconds": 22.8,
+   "meta": {
+    "test_set_num_rows": 7088,
+    "test_set_num_cols": 81,
+    "n_estimators": 8,
+    "billing_model_version": "v3.5",
+    "execution_mode": "standard",
+    "cache_outcome": "not_requested",
+    "task": "regression",
+    "package_version": "9.0.0",
+    "tabpfn_config": {
+     "categorical_features_indices": [],
+     "average_before_softmax": false,
+     "random_state": 0,
+     "inference_config": {
+      "TRANSFORM_DATES": false,
+      "TRANSFORM_TEXT": false
+     },
+     "inference_precision": "auto",
+     "ignore_pretraining_limits": false,
+     "fit_mode": "fit_preprocessors",
+     "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+    }
+   },
+   "timings": {
+    "fit": {
+     "elapsed_s": 1.164,
+     "queue_wait_s": 0.645,
+     "train_set_transform_s": 0.519,
+     "fit_s": 0.0
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": 0.83,
+     "test_set_transform_s": 0.355,
+     "predict_queue_wait_s": 0.285,
+     "predict_s": 10.053
+    }
+   },
+   "arrays": {
+    "mean": [
+     7088
+    ],
+    "median": [
+     7088
+    ],
+    "quantiles": [
+     107,
+     7088
+    ]
+   },
+   "keys": [
+    "mean",
+    "median",
+    "mode",
+    "quantiles"
+   ],
+   "quantile_matrix_rows_by_levels": [
+    7088,
+    107
+   ],
+   "monotone_rows_share": 1.0,
+   "rmse_of_mean_K": 8.733848924541803
+  },
+  "mean": {
+   "ok": true,
+   "seconds": 10.4,
+   "meta": {
+    "test_set_num_rows": 7088,
+    "test_set_num_cols": 81,
+    "n_estimators": 8,
+    "billing_model_version": "v3.5",
+    "execution_mode": "standard",
+    "cache_outcome": "not_requested",
+    "task": "regression",
+    "package_version": "9.0.0",
+    "tabpfn_config": {
+     "categorical_features_indices": [],
+     "average_before_softmax": false,
+     "random_state": 0,
+     "inference_config": {
+      "TRANSFORM_DATES": false,
+      "TRANSFORM_TEXT": false
+     },
+     "inference_precision": "auto",
+     "ignore_pretraining_limits": false,
+     "fit_mode": "fit_preprocessors",
+     "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+    }
+   },
+   "timings": {
+    "fit": {
+     "elapsed_s": 1.164,
+     "queue_wait_s": 0.645,
+     "train_set_transform_s": 0.519,
+     "fit_s": 0.0
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": null,
+     "test_set_transform_s": null,
+     "predict_queue_wait_s": 0.123,
+     "predict_s": 9.678
+    }
+   },
+   "arrays": {
+    "mean": [
+     7088
+    ]
+   }
+  },
+  "main_199": {
+   "ok": true,
+   "seconds": 16.7,
+   "meta": {
+    "test_set_num_rows": 7088,
+    "test_set_num_cols": 81,
+    "n_estimators": 8,
+    "billing_model_version": "v3.5",
+    "execution_mode": "standard",
+    "cache_outcome": "not_requested",
+    "task": "regression",
+    "package_version": "9.0.0",
+    "tabpfn_config": {
+     "categorical_features_indices": [],
+     "average_before_softmax": false,
+     "random_state": 0,
+     "inference_config": {
+      "TRANSFORM_DATES": false,
+      "TRANSFORM_TEXT": false
+     },
+     "inference_precision": "auto",
+     "ignore_pretraining_limits": false,
+     "fit_mode": "fit_preprocessors",
+     "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+    }
+   },
+   "timings": {
+    "fit": {
+     "elapsed_s": 1.164,
+     "queue_wait_s": 0.645,
+     "train_set_transform_s": 0.519,
+     "fit_s": 0.0
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": null,
+     "test_set_transform_s": null,
+     "predict_queue_wait_s": 0.11,
+     "predict_s": 4.505
+    }
+   },
+   "arrays": {
+    "mean": [
+     7088
+    ],
+    "median": [
+     7088
+    ],
+    "quantiles": [
+     199,
+     7088
+    ]
+   },
+   "keys": [
+    "mean",
+    "median",
+    "mode",
+    "quantiles"
+   ],
+   "quantile_matrix_rows_by_levels": [
+    7088,
+    199
+   ],
+   "monotone_rows_share": 1.0,
+   "rmse_of_mean_K": 8.733848924541803
+  },
+  "main_999": {
+   "ok": true,
+   "seconds": 63.3,
+   "meta": {
+    "test_set_num_rows": 7088,
+    "test_set_num_cols": 81,
+    "n_estimators": 8,
+    "billing_model_version": "v3.5",
+    "execution_mode": "standard",
+    "cache_outcome": "not_requested",
+    "task": "regression",
+    "package_version": "9.0.0",
+    "tabpfn_config": {
+     "categorical_features_indices": [],
+     "average_before_softmax": false,
+     "random_state": 0,
+     "inference_config": {
+      "TRANSFORM_DATES": false,
+      "TRANSFORM_TEXT": false
+     },
+     "inference_precision": "auto",
+     "ignore_pretraining_limits": false,
+     "fit_mode": "fit_preprocessors",
+     "model_path": "/app/tabpfn_models/tabpfn-v3.5-20260909.safetensors"
+    }
+   },
+   "timings": {
+    "fit": {
+     "elapsed_s": 1.164,
+     "queue_wait_s": 0.645,
+     "train_set_transform_s": 0.519,
+     "fit_s": 0.0
+    },
+    "predict": {
+     "test_set_transform_queue_wait_s": null,
+     "test_set_transform_s": null,
+     "predict_queue_wait_s": 0.093,
+     "predict_s": 5.719
+    }
+   },
+   "arrays": {
+    "mean": [
+     7088
+    ],
+    "median": [
+     7088
+    ],
+    "quantiles": [
+     999,
+     7088
+    ]
+   },
+   "keys": [
+    "mean",
+    "median",
+    "mode",
+    "quantiles"
+   ],
+   "quantile_matrix_rows_by_levels": [
+    7088,
+    999
+   ],
+   "monotone_rows_share": 1.0,
+   "rmse_of_mean_K": 8.733848924541803
+  },
+  "main_mean_vs_plain_mean_max_abs_K": 0.0
+ }
+}

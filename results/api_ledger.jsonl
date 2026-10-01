@@ -1,3 +1,7 @@
 {"ts": "2026-09-28", "experiment": "p0_api_check", "requests": 1, "tokens_estimated": 10000, "output_type": "full", "note": "backfilled; crashed run (last_meta AttributeError after predict); time not recorded"}
 {"ts": "2026-09-28", "experiment": "p0_api_check", "requests": 2, "tokens_estimated": 20000, "note": "backfilled; crashed run (results/ missing at savez after both predicts); time not recorded"}
 {"ts": "2026-09-28T22:47:50+00:00", "experiment": "p0_api_check", "requests": 2, "tokens_estimated": 20000, "note": "backfilled; recorded run, actual charge 20000 per usage_before/after in results/00_api_check.json"}
+{"ts": "2026-10-01T22:17:57+00:00", "experiment": "p2_output_check", "requests": 1, "tokens_estimated": 10000, "check": "main_107", "output_type": "main"}
+{"ts": "2026-10-01T22:18:20+00:00", "experiment": "p2_output_check", "requests": 1, "tokens_estimated": 10000, "check": "mean", "output_type": "mean"}
+{"ts": "2026-10-01T22:18:30+00:00", "experiment": "p2_output_check", "requests": 1, "tokens_estimated": 10000, "check": "main_199", "output_type": "main"}
+{"ts": "2026-10-01T22:18:47+00:00", "experiment": "p2_output_check", "requests": 1, "tokens_estimated": 10000, "check": "main_999", "output_type": "main"}
