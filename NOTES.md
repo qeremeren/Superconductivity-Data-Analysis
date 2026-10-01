@@ -241,3 +241,31 @@ by `experiments/01_data_audit.py`; figures in `results/01_audit/figures/`; walkt
 - The 17 excluded materials are judged by rule, not by checking each source; the rule could
   miss other parse errors (e.g. a cuprate that lost its Cu but has no Ba or Sr).
 - No pressure information: H2S appears at 60 K and 185 K.
+
+## 2026-10-02 — Phase 2, steps 1-2: local baselines and replication
+
+Source: `results/02_benchmark/` (`replication.json`, `metrics.csv`, `per_split_metrics.parquet`),
+written by `experiments/02_local_models.py` and `experiments/02_metrics.py`. No API calls.
+
+### Decisions (approved)
+- Composition features = 86 element fractions; engineered = the paper's 81 features.
+- Published-settings XGBoost uses `tree_method="exact"` (closest to the paper's R xgboost);
+  tuned XGBoost uses `hist`.
+- Nested XGBoost tuning: per split, random search scored on an inner holdout that mirrors the
+  outer split type, early stopping, refit on all training rows. Timed on random split 0
+  (`experiments/02_xgb_tuning.py --time-first`): 2.51 s per trial, 2.58 s per refit; 30 trials
+  on all 156 split/feature jobs projects to 3.38 h, over the ~3 h limit, so the runs use the best
+  of the first 26 trials (trials are sampled in a fixed order and are independent, so this
+  equals a 26-trial search; split 0's record keeps all 30).
+
+### Replication of Hamidieh (2018) on the random split (25 splits, RMSE = sqrt(mean MSE))
+- Published-settings XGBoost, engineered features: RMSE 9.42 K, R² 0.924 (paper: 9.5 K, 0.92).
+- Linear regression, engineered features: RMSE 17.62 K, R² 0.735 (paper: 17.6 K, 0.74).
+- Both within 1% of the published numbers, so the pipeline reproduces the paper's protocol.
+
+### Early observations (local models only; TabPFN and tuned XGBoost not run yet)
+- Grouping changes published-settings XGBoost little: 9.42 K (random) -> 9.76 K (grouped),
+  engineered features. Grouping oxygen variants too costs more: 10.85 K.
+- The 1-NN composition lookup scores 11.20 K on the random split, within 1.8 K of XGBoost.
+- Leave-family-out errors are large for every model (e.g. XGBoost on held-out cuprates: RMSE
+  46-54 K, R² below 0): composition models do not extrapolate to an unseen family.
