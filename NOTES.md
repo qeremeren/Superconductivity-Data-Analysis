@@ -123,8 +123,8 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_leave_family_out` | 6 | 8 | 6 | 80,000 | Oct | 3 held-out families x 2 feature sets |
 | 2 | `p2_thinking_probe` | 2 | 3 | 2 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
 | 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
-| 3 | `p3_learning_curves` | 50 | 60 | 0 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
-| 3 | `p3_quantile_vs_full` | 4 | 6 | 0 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
+| 3 | `p3_learning_curves` | 50 | 60 | 26 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
+| 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
 | 4 | `p4_hard` | 400 | 620 | 0 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 16,112,500 | 10,940,000 | 1,025,340 (102) |
+| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,832,500 | 10,660,000 | 1,305,340 (130) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -416,3 +416,15 @@ two batches of 5 splits). Medium effort, `thinking_metric="rmse"`, `thinking_tim
   say it is dropped), or Thinking's internal validation, grouped by material, selects
   configurations that suit unseen materials less well. Separating these needs extra requests
   (e.g. Thinking without group_col on a few splits); not run.
+
+## 2026-10-02 — Phase 3: accuracy of the quantile-grid summaries (2 requests)
+
+Source: `results/03_uncertainty/quantile_vs_full.json` (`experiments/03_quantile_vs_full.py`):
+`output_type="full"` on the first 400 test rows of grouped splits 0 and 1 (composition), same
+training rows and seed as Phase 2, compared with Phase 2's committed 107-level summaries.
+- Means agree to within 0.014 K, so a row's prediction does not depend on the other test rows.
+- CRPS: median |exact - grid| 0.0009 K (max 0.07 K); mean CRPS 6.179 vs 6.180 K (split 0).
+- Summary quantiles within 0.033 K. PIT within 0.005.
+- P(Tc > 77 K): within 0.005, which is the grid's clamp: 72-79 of 400 rows have an exact
+  probability below 0.5% and the grid reports 0.5%. So grid-based exceedance probabilities are
+  exact down to 0.5% and floored there; Phase 4 can use the accepted 999-level grid for 0.1%.
