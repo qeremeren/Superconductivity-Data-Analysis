@@ -50,8 +50,8 @@ def linear_regression():
     return make_pipeline(StandardScaler(), LinearRegression())
 
 
-def hamidieh_xgb(seed: int) -> XGBRegressor:
-    return XGBRegressor(**HAMIDIEH_XGB, random_state=int(seed), n_jobs=-1)
+def hamidieh_xgb(seed: int, n_jobs: int = -1) -> XGBRegressor:
+    return XGBRegressor(**HAMIDIEH_XGB, random_state=int(seed), n_jobs=n_jobs)
 
 
 # --- nested XGBoost tuning -------------------------------------------------------
@@ -88,7 +88,7 @@ def inner_validation_mask(n_rows: int, groups, seed: int) -> np.ndarray:
     return is_val[inverse]
 
 
-def tune_xgb(X, y, groups, seed: int, n_trials: int) -> dict:
+def tune_xgb(X, y, groups, seed: int, n_trials: int, n_jobs: int = -1) -> dict:
     """Random search on one inner train/validation split of the training rows only.
 
     Returns the best parameters with n_estimators set by early stopping, and every
@@ -106,7 +106,7 @@ def tune_xgb(X, y, groups, seed: int, n_trials: int) -> dict:
             early_stopping_rounds=TUNE_EARLY_STOP,
             tree_method="hist",
             random_state=int(seed),
-            n_jobs=-1,
+            n_jobs=n_jobs,
         )
         model.fit(X[~is_val], y[~is_val], eval_set=[(X[is_val], y[is_val])], verbose=False)
         trials.append(
@@ -120,9 +120,9 @@ def tune_xgb(X, y, groups, seed: int, n_trials: int) -> dict:
     return {"best": best, "trials": trials, "inner_val_rows": int(is_val.sum())}
 
 
-def tuned_xgb(best: dict, seed: int) -> XGBRegressor:
-    params = {k: v for k, v in best.items() if k != "val_rmse"}
-    return XGBRegressor(**params, tree_method="hist", random_state=int(seed), n_jobs=-1)
+def tuned_xgb(best: dict, seed: int, n_jobs: int = -1, **overrides) -> XGBRegressor:
+    params = {k: v for k, v in best.items() if k != "val_rmse"} | overrides
+    return XGBRegressor(**params, tree_method="hist", random_state=int(seed), n_jobs=n_jobs)
 
 
 # --- 1-nearest-neighbour composition lookup ---------------------------------------

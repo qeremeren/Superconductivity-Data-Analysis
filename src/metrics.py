@@ -18,6 +18,11 @@ import pandas as pd
 MIDPOINT_LEVELS = np.round((np.arange(100) + 0.5) / 100, 3)
 INTERVAL_LEVELS = (0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95)
 QUANTILE_LEVELS = np.unique(np.concatenate([MIDPOINT_LEVELS, INTERVAL_LEVELS]))
+# A coarser grid for models that fit one output per quantile (XGBoost quantile regression).
+# Its 20 midpoints (0.025, 0.075, ..., 0.975) are all in MIDPOINT_LEVELS, so TabPFN's CRPS can
+# be computed on exactly the same levels for a like-for-like comparison.
+MIDPOINT_20 = np.round((np.arange(20) + 0.5) / 20, 3)
+LEVELS_27 = np.unique(np.concatenate([MIDPOINT_20, INTERVAL_LEVELS]))
 # Quantiles kept in the committed per-row summaries.
 SUMMARY_LEVELS = (0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.975)
 INTERVALS = {"50%": (0.25, 0.75), "80%": (0.1, 0.9), "90%": (0.05, 0.95), "95%": (0.025, 0.975)}
@@ -98,13 +103,13 @@ def paired(a: pd.Series, b: pd.Series) -> dict:
     }
 
 
-def crps(quantiles: np.ndarray, levels: np.ndarray, y) -> np.ndarray:
-    """CRPS per row from quantiles on the midpoint grid: 2 * mean of pinball losses.
+def crps(quantiles: np.ndarray, levels: np.ndarray, y, midpoints=MIDPOINT_LEVELS) -> np.ndarray:
+    """CRPS per row from quantiles on a midpoint grid: 2 * mean of pinball losses.
 
-    quantiles: (n, len(levels)); only the MIDPOINT_LEVELS columns are used.
+    quantiles: (n, len(levels)); only the columns at `midpoints` are used.
     """
-    cols = np.isin(np.round(levels, 3), MIDPOINT_LEVELS)
-    if cols.sum() != len(MIDPOINT_LEVELS):
+    cols = np.isin(np.round(levels, 3), midpoints)
+    if cols.sum() != len(midpoints):
         raise ValueError("quantiles must include every midpoint level")
     q, tau = quantiles[:, cols], np.asarray(levels)[cols]
     y = np.asarray(y, float)[:, None]
@@ -130,15 +135,17 @@ def interval(lo, hi, y) -> dict:
     return {"coverage": float(np.mean((y >= lo) & (y <= hi))), "width": float(np.mean(hi - lo))}
 
 
-def summarize_distribution(mean, quantiles: np.ndarray, levels: np.ndarray, y) -> pd.DataFrame:
-    """The per-row summary committed for TabPFN: mean, quantiles at SUMMARY_LEVELS,
-    CRPS, PIT and P(Tc > 77 K)."""
+def summarize_distribution(
+    mean, quantiles: np.ndarray, levels: np.ndarray, y, midpoints=MIDPOINT_LEVELS
+) -> pd.DataFrame:
+    """The per-row summary committed for distributional models: mean, quantiles at
+    SUMMARY_LEVELS, CRPS (on `midpoints`), PIT and P(Tc > 77 K)."""
     levels = np.round(np.asarray(levels, float), 3)
     out = {"mean": np.asarray(mean, float)}
     for lvl in SUMMARY_LEVELS:
         (col,) = np.flatnonzero(levels == lvl)
         out[f"q{lvl:g}"] = quantiles[:, col]
-    out["crps"] = crps(quantiles, levels, y)
+    out["crps"] = crps(quantiles, levels, y, midpoints)
     out["pit"] = cdf_at(quantiles, levels, y)
     out["p_above_77K"] = 1 - cdf_at(quantiles, levels, 77.0)
     return pd.DataFrame(out).astype("float32")

@@ -96,3 +96,16 @@ def test_summary_has_expected_columns_and_dtype():
     ]
     assert (out.dtypes == "float32").all()
     assert len(metrics.QUANTILE_LEVELS) == 107
+
+
+def test_crps_on_the_20_level_grid_is_close_to_closed_form():
+    levels = metrics.LEVELS_27
+    mu, sigma = 50.0, 8.0
+    q = np.tile(stats.norm.ppf(levels, mu, sigma), (3, 1))
+    y = np.array([50.0, 40.0, 66.0])
+    z = (y - mu) / sigma
+    exact = sigma * (z * (2 * stats.norm.cdf(z) - 1) + 2 * stats.norm.pdf(z) - 1 / np.sqrt(np.pi))
+    got = metrics.crps(q, levels, y, metrics.MIDPOINT_20)
+    np.testing.assert_allclose(got, exact, rtol=0.06)
+    assert set(metrics.MIDPOINT_20) <= set(metrics.MIDPOINT_LEVELS)
+    assert len(metrics.LEVELS_27) == 27

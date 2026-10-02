@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import os
+import platform
+import socket
 from dataclasses import dataclass
+from importlib.metadata import version
 
 import numpy as np
 import pandas as pd
@@ -71,3 +75,28 @@ def prediction_frame(split: int, test_rows: np.ndarray, pred) -> pd.DataFrame:
             "pred": np.asarray(pred, np.float32),
         }
     )
+
+
+LC_SPLITS = (0, 1, 2, 3, 4)  # grouped splits used for learning curves
+LC_SIZES = (100, 300, 1000, 3000, 10000)  # training rows; the full size is Phase 2
+
+
+def learning_curve_rows(is_test: np.ndarray, split: int, n: int) -> np.ndarray:
+    """The first n of a fixed, seeded permutation of the split's training rows, so the
+    subsets are nested across sizes and identical for every model."""
+    train_rows = np.flatnonzero(~is_test)
+    perm = np.random.default_rng(10_000 + split).permutation(len(train_rows))
+    return np.sort(train_rows[perm[:n]])
+
+
+def machine_info() -> dict:
+    """Which machine ran a job, recorded with every local result."""
+    return {
+        "host": socket.gethostname(),
+        "platform": platform.platform(),
+        "processor": platform.processor() or platform.machine(),
+        "cpu_count": os.cpu_count(),
+        "python": platform.python_version(),
+        "xgboost": version("xgboost"),
+        "numpy": version("numpy"),
+    }

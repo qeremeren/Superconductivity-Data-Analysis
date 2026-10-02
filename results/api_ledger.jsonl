@@ -163,3 +163,12 @@
 {"ts": "2026-10-01T22:40:32+00:00", "experiment": "p2_leave_family_out", "requests": 1, "tokens_estimated": 10000, "job": "leave_family_out/composition/split_02", "output_type": "main"}
 {"ts": "2026-10-02T12:47:43+00:00", "experiment": "p2_thinking_probe", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_fit"}
 {"ts": "2026-10-02T12:49:22+00:00", "experiment": "p2_thinking_probe", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_predict", "output_type": "main"}
+{"ts": "2026-10-02T13:13:06+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_fit"}
+{"ts": "2026-10-02T13:15:14+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_predict", "output_type": "mean"}
+{"ts": "2026-10-02T13:15:28+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_01", "op": "thinking_fit"}
+{"ts": "2026-10-02T13:17:09+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_01", "op": "thinking_predict", "output_type": "mean"}
+{"ts": "2026-10-02T13:17:19+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_02", "op": "thinking_fit"}
+{"ts": "2026-10-02T13:18:59+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_02", "op": "thinking_predict", "output_type": "mean"}
+{"ts": "2026-10-02T13:19:09+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_03", "op": "thinking_fit"}
+{"ts": "2026-10-02T13:20:48+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_03", "op": "thinking_predict", "output_type": "mean"}
+{"ts": "2026-10-02T13:20:59+00:00", "experiment": "p2_thinking", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_04", "op": "thinking_fit"}
