@@ -125,7 +125,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
 | 3 | `p3_learning_curves` | 50 | 60 | 50 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
-| 4 | `p4_grid_check` | 2 | 3 | 0 | 30,000 | Oct | tail-dense vs 999-level grid, one pool |
+| 4 | `p4_grid_check` | 2 | 3 | 2 | 30,000 | Oct | tail-dense vs 999-level grid, one pool |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
 | 4 | `p4_hard` | 400 | 620 | 0 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
@@ -136,7 +136,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,622,500 | 10,440,000 | 995,340 (99) |
+| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,602,500 | 10,420,000 | 1,015,340 (101) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -516,3 +516,41 @@ Prior Labs API. XGBoost uncertainty baselines cover the grouped split and leave-
 - Width tracks error per row (Spearman) only partly: TabPFN 0.57 (other), 0.08 (iron-based),
   0.01 (cuprate); QR 0.04-0.21; conformal undefined (constant width). Engineered features in
   lfo.csv.
+
+## 2026-10-02 — Phase 4 setup: loop, gates, grid check
+
+### Design (decided)
+- Pools: main 15,147 materials (target Tc >= 119 K, 152 targets); hard 7,637 non-cuprates
+  (target Tc >= 44.0 K, 79 targets, 76 iron-based). Composition features. Start: 50 random
+  non-target materials per seed (same start for every method with that seed); 20 rounds of 10
+  (200 "experiments"). Random search: ~2 targets expected in 200 picks.
+- TabPFN acquisitions: EI over y* = min(best Tc so far, threshold); q90; greedy mean. Reported
+  only: P(top 1%) and P(Tc > 77 K). Free baselines: greedy XGBoost (published settings, better
+  than tuned below 1k rows) and random.
+- Pilot: seeds 100-102, both scenarios, EI vs q90. Pre-registered rule: more targets found by
+  round 20 summed over the 6 pilot runs wins; within max(1, 10% of the larger total) both go on.
+  Main: seeds 0-9, winner(s) + greedy TabPFN.
+- Gates between pilot and main (stop on any failure; none looks at which method wins): G1 all
+  pilot runs completed 20 rounds without error; G2 simulated random search (1,000 replicates per
+  scenario, through the same loop code) within 4 standard errors of its exact hypergeometric
+  mean and P(>= 1 hit); G3 every batch only from unlabeled pool materials, start sets target-free,
+  Tc/labels match the data; G4 the budget guard authorizes the main runs.
+- Committed per run: per-round summaries (selected batch with EI, q90, mean, P(top 1%), P(77 K)
+  and revealed Tc; pool totals; binned P(top 1%) vs outcome). Local only: per-material scores
+  every round, raw grids for the first and last round.
+- Note for the write-up (from the leave-family-out results): the hard scenario's targets are
+  mostly iron-based, where TabPFN's held-out uncertainty was weakest. Unlike leave-family-out,
+  the iron-based family is not hidden here (only the targets are). Report it whatever it shows.
+
+### Grid check (2 requests; `results/04_discovery/grid_check.json`)
+Main pool (15,097 unlabeled), fit on pilot seed 100's start set, tail-dense grid (146 levels)
+vs uniform 999-level grid: EI max |diff| 0.005 K (Spearman 0.99999), q90 0.007 K (1.00000),
+P(top 1%) 0.0002 (0.99999); the first batch of 10 is identical for all three. Request time 8.4 s
+vs 34.7 s. Both grids end at the 0.9995 quantile, so both underestimate EI by the same amount
+when y* is more than ~2.5 SD above the predictive mean (test_discovery).
+
+### Dry runs
+`experiments/04_discovery.py all --dry-run` (fake predictor, scratch outputs and ledger) ran the
+whole pipeline; a planted repeated selection tripped G3 and blocked the main runs with 0
+requests; a run cut after round 1 resumed to an identical result charging only the missing
+rounds; a rerun with everything complete charged nothing.

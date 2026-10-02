@@ -235,3 +235,5 @@
 {"ts": "2026-10-02T13:39:08+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_04_n03000", "output_type": "main"}
 {"ts": "2026-10-02T13:39:18+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_04_n10000", "output_type": "main"}
 {"ts": "2026-10-02T13:39:26+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_04_n10000", "output_type": "main"}
+{"ts": "2026-10-02T20:52:28+00:00", "experiment": "p4_grid_check", "requests": 1, "tokens_estimated": 10000, "grid": "tail"}
+{"ts": "2026-10-02T20:52:37+00:00", "experiment": "p4_grid_check", "requests": 1, "tokens_estimated": 10000, "grid": "u999"}
