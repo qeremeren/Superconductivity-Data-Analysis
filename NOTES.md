@@ -125,6 +125,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
 | 3 | `p3_learning_curves` | 50 | 60 | 50 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
+| 4 | `p4_grid_check` | 2 | 3 | 0 | 30,000 | Oct | tail-dense vs 999-level grid, one pool |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
 | 4 | `p4_hard` | 400 | 620 | 0 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
@@ -135,7 +136,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,592,500 | 10,420,000 | 1,025,340 (102) |
+| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,622,500 | 10,440,000 | 995,340 (99) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)

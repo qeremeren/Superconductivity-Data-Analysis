@@ -85,6 +85,7 @@ PLAN = [
     ),
     Planned(3, "p3_learning_curves", 50, 60, OCT, "5 sizes (100-10k) x 5 seeds x 2 sets"),
     Planned(3, "p3_quantile_vs_full", 4, 6, OCT, "'full' vs quantile grid on 400 rows, 2 splits"),
+    Planned(4, "p4_grid_check", 2, 3, OCT, "tail-dense vs 999-level grid, one pool"),
     Planned(4, "p4_pilot", 240, 260, OCT, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
     Planned(4, "p4_main", 400, 620, OCT, "top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3)"),
     Planned(4, "p4_hard", 400, 620, OCT, "non-cuprate pool and top-1% target, same design"),
