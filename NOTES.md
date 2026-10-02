@@ -122,7 +122,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_grouped_no_oxygen` | 50 | 60 | 50 | 600,000 | Oct | sensitivity: same, oxygen variants grouped |
 | 2 | `p2_leave_family_out` | 6 | 8 | 6 | 80,000 | Oct | 3 held-out families x 2 feature sets |
 | 2 | `p2_thinking_probe` | 2 | 3 | 2 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
-| 2 | `p2_thinking` | 20 | 22 | 9 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
+| 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
 | 3 | `p3_learning_curves` | 50 | 60 | 0 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 0 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,600,000 | 2026-10-02T11:41:33+00:00 | 17,400,000 | 16,525,000 | 11,352,500 | 875,000 (87) |
+| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 16,112,500 | 10,940,000 | 1,025,340 (102) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -397,3 +397,22 @@ RMSE (K), 25 splits, sqrt(mean MSE) [metrics.csv]:
 - Open decision: run the add-on with `output_type="mean"` (point metrics only, RMSE/MAE vs
   standard TabPFN on the same splits)? The probe's 3-request cap is used up (2 logged), so this
   needs the plan changed before any request; the guard will refuse it otherwise.
+
+## 2026-10-02 — Phase 2 add-on: TabPFN-3.5-Thinking (point predictions only)
+
+Source: `results/02_benchmark/thinking/grouped/composition/split_00..09` (`experiments/02_thinking.py`,
+two batches of 5 splits). Medium effort, `thinking_metric="rmse"`, `thinking_timeout_s=900`,
+`group_col` = integer material ID (factorized scaled-composition key), composition features.
+- Limitation for the write-up: Thinking regression returns only the predictive mean (HTTP 422
+  for `output_type="main"`), so Thinking has no quantiles, intervals, CRPS or exceedance
+  probabilities here. Everything distributional in this project is standard TabPFN-3.5.
+- Cost and time: 252,160 tokens for 10 splits (live usage 1,610,000 -> 1,862,160): each split is a
+  thinking fit of ~99-128 s plus a ~10-15 s mean prediction. The ledger's per-request estimate
+  (60,865) over-counts this.
+- Result, paired on grouped splits 0-9: Thinking is worse than standard TabPFN on all 10 splits,
+  RMSE 9.69 vs 8.93 K (sqrt mean MSE; mean per-split gap +0.75 K, SD 0.15) and MAE 5.94 vs 4.95 K.
+  Its RMSE is close to tuned XGBoost on the same splits (9.6-10.3 K per split).
+- Not yet explained. Candidates: the material-ID column may be used as a feature (the docs do not
+  say it is dropped), or Thinking's internal validation, grouped by material, selects
+  configurations that suit unseen materials less well. Separating these needs extra requests
+  (e.g. Thinking without group_col on a few splits); not run.

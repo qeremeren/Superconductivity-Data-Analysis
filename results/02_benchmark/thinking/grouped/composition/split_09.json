@@ -1,0 +1,52 @@
+{
+ "fingerprint": "47e11aac864321ff7f8c9fc8d221245531e043f5340c355667dab352eb83275e",
+ "created_at": "2026-10-02T13:32:31+00:00",
+ "model_path": "v3.5_default",
+ "tabpfn_client": "0.6.1",
+ "seed": 9,
+ "n_train": 14180,
+ "n_test": 7083,
+ "server_meta": {
+  "test_set_num_rows": 7083,
+  "test_set_num_cols": 87,
+  "n_estimators": 2,
+  "billing_model_version": "v3.5",
+  "execution_mode": "thinking",
+  "cache_outcome": "not_requested",
+  "task": "regression",
+  "package_version": "9.0.0",
+  "tabpfn_config": {
+   "categorical_features_indices": [],
+   "random_state": 9,
+   "inference_config": {
+    "TRANSFORM_DATES": false,
+    "TRANSFORM_TEXT": false
+   },
+   "ignore_pretraining_limits": false,
+   "fit_mode": "fit_preprocessors",
+   "model_path": "tabpfn-v3.5-20260909.safetensors"
+  },
+  "thinking": {
+   "thinking_effort": "medium",
+   "thinking_metric": "rmse",
+   "thinking_timeout_s": 900
+  },
+  "group_col": "material_id",
+  "fit_wall_seconds": 99.1,
+  "predict_wall_seconds": 15.0
+ },
+ "timings": {
+  "fit": {
+   "elapsed_s": 96.861,
+   "queue_wait_s": 1.17,
+   "train_set_transform_s": 0.5,
+   "fit_s": 95.192
+  },
+  "predict": {
+   "test_set_transform_queue_wait_s": 0.089,
+   "test_set_transform_s": 0.32,
+   "predict_queue_wait_s": 0.081,
+   "predict_s": 13.517
+  }
+ }
+}
