@@ -231,7 +231,8 @@ class TabPFNCache:
                 if str(raw["fingerprint"]) != fp:
                     raise StaleCache(f"{job.name}: raw grid was made from different inputs")
                 record = json.loads(str(raw["record"]))
-                self._write_summary(job, raw["mean"], raw["quantiles"], record)
+                quantiles = raw["quantiles"] if "quantiles" in raw.files else None
+                self._write_summary(job, raw["mean"], quantiles, record)
             return pd.read_parquet(self.summary_path(job))
         return None
 
@@ -251,19 +252,23 @@ class TabPFNCache:
         }
         path = self.raw_path(job)
         path.parent.mkdir(parents=True, exist_ok=True)
+        arrays = {"mean": result["mean"], "levels": np.asarray(metrics.QUANTILE_LEVELS)}
+        if result.get("quantiles") is not None:  # None for mean-only output (Thinking)
+            arrays["quantiles"] = result["quantiles"].astype(np.float32)
         np.savez_compressed(
             path,
-            mean=result["mean"],
-            quantiles=result["quantiles"].astype(np.float32),
-            levels=np.asarray(metrics.QUANTILE_LEVELS),
+            **arrays,
             fingerprint=np.str_(fp),
             record=np.str_(json.dumps(record, default=str)),
         )
 
     def _write_summary(self, job: TabPFNJob, mean, quantiles, record: dict) -> None:
-        summary = metrics.summarize_distribution(
-            mean, np.asarray(quantiles, float), metrics.QUANTILE_LEVELS, job.y_test
-        )
+        if quantiles is None:
+            summary = pd.DataFrame({"mean": np.asarray(mean, np.float32)})
+        else:
+            summary = metrics.summarize_distribution(
+                mean, np.asarray(quantiles, float), metrics.QUANTILE_LEVELS, job.y_test
+            )
         summary.insert(0, "y", np.asarray(job.y_test, np.float32))
         summary.insert(0, "row", np.asarray(job.test_rows, np.int32))
         path = self.summary_path(job)

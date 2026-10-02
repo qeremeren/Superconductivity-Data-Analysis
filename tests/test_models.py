@@ -107,3 +107,14 @@ def test_hamidieh_settings_match_the_paper():
     m = models.hamidieh_xgb(seed=3)
     assert (m.learning_rate, m.max_depth, m.n_estimators) == (0.02, 16, 374)
     assert (m.subsample, m.colsample_bytree, m.min_child_weight) == (0.5, 0.5, 1)
+
+
+def test_mean_only_results_are_cached_without_quantiles(cache, run_budget):
+    def mean_only(X_train, y_train, X_test, seed):
+        return {"mean": np.full(len(X_test), 42.0), "quantiles": None, "meta": {}, "timings": {}}
+
+    job = _job()
+    out = cache.get(job, live=True, budget=run_budget, predict=mean_only)
+    assert list(out.columns) == ["row", "y", "mean"]
+    cache.summary_path(job).unlink()
+    pd.testing.assert_frame_equal(cache.get(job, live=False, predict=mean_only), out)

@@ -1,5 +1,9 @@
 """Phase 2 optional add-on: TabPFN-3.5-Thinking with group_col on the grouped split.
 
+Point predictions only: Thinking regression supports only output_type="mean" (the
+2026-10-02 probe got HTTP 422 for "main"), so the committed summaries hold the mean and
+no distribution.
+
 Thinking spends extra compute at fit time on an internal validation, and group_col
 tells it which rows are the same material, so that validation never splits one.
 The group column is an integer material ID (the factorized composition key), not
@@ -7,7 +11,8 @@ the composition string, so it adds no composition information if the server also
 uses it as a feature. Composition features (standard TabPFN's best set), medium
 effort, RMSE as the thinking metric.
 
---probe runs grouped split 0 only. Without it: grouped splits 0-9. Each split is
+--probe runs grouped split 0 only; --splits picks a batch of grouped splits (default 0-9).
+Each split is
 two billed requests (a thinking fit and a predict), each charged before it is sent.
 Same caching rules as 02_tabpfn: committed per-row summaries under
 results/02_benchmark/thinking/, raw grids local, and no API call without --live.
@@ -25,7 +30,7 @@ import traceback
 import numpy as np
 import pandas as pd
 
-from src import benchmark, budget, config, metrics, models
+from src import benchmark, budget, config, models
 
 GROUP_COL = "material_id"
 FEATURES = "composition"
@@ -69,18 +74,15 @@ def thinking_predict(job: models.TabPFNJob, run_budget, regressor=None) -> dict:
     t = time.perf_counter()
     reg.fit(job.X_train, job.y_train)
     fit_seconds = time.perf_counter() - t
-    run_budget.charge(1, job=job.name, op="thinking_predict", output_type="main")
+    # Thinking regression returns only the mean (HTTP 422 for output_type="main", probe
+    # 2026-10-02), so this add-on has point predictions and no distribution.
+    run_budget.charge(1, job=job.name, op="thinking_predict", output_type="mean")
     t = time.perf_counter()
-    out = reg.predict(
-        job.X_test, output_type="main", quantiles=[float(x) for x in metrics.QUANTILE_LEVELS]
-    )
+    mean = reg.predict(job.X_test, output_type="mean")
     predict_seconds = time.perf_counter() - t
-    q = np.asarray(out["quantiles"], dtype=np.float64)
-    if q.shape == (len(metrics.QUANTILE_LEVELS), len(job.X_test)):
-        q = q.T
     return {
-        "mean": np.asarray(out["mean"], dtype=np.float64),
-        "quantiles": q,
+        "mean": np.asarray(mean, dtype=np.float64),
+        "quantiles": None,
         "meta": {
             **dict(reg._last_meta),
             "thinking": THINKING,
@@ -155,8 +157,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--probe", action="store_true", help="grouped split 0 only")
+    parser.add_argument("--splits", nargs="+", type=int, default=list(SPLITS))
     args = parser.parse_args()
-    jobs = build_jobs(benchmark.load_inputs(), (0,) if args.probe else SPLITS)
+    jobs = build_jobs(benchmark.load_inputs(), (0,) if args.probe else tuple(args.splits))
     experiment = "p2_thinking_probe" if args.probe else "p2_thinking"
     out = run(jobs, config.live_requested(args.live), experiment)
     print(out, flush=True)
