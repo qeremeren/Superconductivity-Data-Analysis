@@ -130,7 +130,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Capped plan | Planned | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 0 | 2026-10-01T21:25:20+00:00 | 19,000,000 | 17,600,000 | 12,540,000 | 1,400,000 (140) |
+| Oct | 20,000,000 | 1,600,000 | 2026-10-02T11:41:33+00:00 | 17,400,000 | 17,600,000 | 12,540,000 | -200,000 (-20) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
