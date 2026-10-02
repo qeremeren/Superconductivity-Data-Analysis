@@ -121,16 +121,34 @@ def lc_tables(per_job):
             tab = rmse.loc[("tabpfn", fs, n_label)]
         except KeyError:
             continue
-        for other in ("xgb_tuned", "xgb_hamidieh"):
-            if (other, fs, n_label) in rmse.index.droplevel("split"):
-                paired.append(
-                    {
-                        "features": fs,
-                        "n_label": n_label,
-                        "b": other,
-                        **metrics.paired(tab, rmse.loc[(other, fs, n_label)]),
-                    }
-                )
+        available = [
+            o
+            for o in ("xgb_tuned", "xgb_hamidieh")
+            if (o, fs, n_label) in rmse.index.droplevel("split")
+        ]
+        for other in available:
+            paired.append(
+                {
+                    "features": fs,
+                    "n_label": n_label,
+                    "b": other,
+                    "b_variant": other,
+                    **metrics.paired(tab, rmse.loc[(other, fs, n_label)]),
+                }
+            )
+        if len(available) == 2:
+            # The better XGBoost at this size: lower mean RMSE over the splits. The choice
+            # uses test results, which favours XGBoost, so this is the conservative baseline.
+            best = min(available, key=lambda o: rmse.loc[(o, fs, n_label)].mean())
+            paired.append(
+                {
+                    "features": fs,
+                    "n_label": n_label,
+                    "b": "xgb_best",
+                    "b_variant": best,
+                    **metrics.paired(tab, rmse.loc[(best, fs, n_label)]),
+                }
+            )
     return curves, pd.DataFrame(paired)
 
 

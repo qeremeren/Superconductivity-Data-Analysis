@@ -412,10 +412,10 @@ two batches of 5 splits). Medium effort, `thinking_metric="rmse"`, `thinking_tim
 - Result, paired on grouped splits 0-9: Thinking is worse than standard TabPFN on all 10 splits,
   RMSE 9.69 vs 8.93 K (sqrt mean MSE; mean per-split gap +0.75 K, SD 0.15) and MAE 5.94 vs 4.95 K.
   Its RMSE is close to tuned XGBoost on the same splits (9.6-10.3 K per split).
-- Not yet explained. Candidates: the material-ID column may be used as a feature (the docs do not
-  say it is dropped), or Thinking's internal validation, grouped by material, selects
-  configurations that suit unseen materials less well. Separating these needs extra requests
-  (e.g. Thinking without group_col on a few splits); not run.
+- Cause not investigated, due to time (decision 2026-10-02). Report the numbers as they are.
+  Untested candidates: the material-ID column may be used as a feature (the docs do not say it
+  is dropped), or Thinking's internal validation, grouped by material, selects configurations
+  that suit unseen materials less well.
 
 ## 2026-10-02 — Phase 3: accuracy of the quantile-grid summaries (2 requests)
 
@@ -474,10 +474,16 @@ Prior Labs API. XGBoost uncertainty baselines cover the grouped split and leave-
 | engineered | TabPFN-3.5 | 18.59 | 15.15 | 12.95 | 11.18 | 9.44 | 9.06 |
 | engineered | XGBoost tuned | 20.32 | 16.94 | 14.19 | 12.00 | 10.09 | 9.70 |
 - TabPFN beats tuned XGBoost at every size: on 5/5 splits in 10 of 12 size/feature cells and
-  4/5 in the other two. The gap is largest with little data (-2.1 K at 100 rows, composition)
-  and shrinks to -0.9 K at full size.
+  4/5 in the other two; -2.1 K at 100 rows (composition), -0.9 K at full size.
 - Tuned XGBoost is worse than the published settings below ~3k rows: its inner validation set
   is 20% of the subset (20 rows at n = 100), so the search overfits the validation noise.
+- Against the better XGBoost variant at each size (lower mean RMSE over the 5 splits; chosen on
+  test results, so this favours XGBoost) [paired.csv, b = xgb_best]: published settings up to
+  1k rows (3k for composition), tuned above. TabPFN still has lower mean RMSE at every size,
+  winning 5/5 splits in 9 of 12 cells and 4/5 in 3, but the small-data gap shrinks: composition
+  -0.65 K at 100 rows, -0.15 K at 300 (near a tie), -0.58 K at 1k, -0.88 K at 3k, -1.02 K at 10k,
+  -0.89 K at full size; engineered -0.82, -1.16, -0.91, -0.81, -0.66, -0.64 K. So the claim is
+  "better at every size by 0.6-1 K from 1k rows up", not "largest gain with little data".
 
 ### Calibration on the grouped split (composition features; engineered similar)
 | | 50% | 80% | 90% | 95% cov. | 95% width | CRPS20 | RMSE |
