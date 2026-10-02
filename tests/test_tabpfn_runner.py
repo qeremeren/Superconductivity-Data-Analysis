@@ -29,6 +29,9 @@ def fake_predict(X_train, y_train, X_test, seed):
 
 @pytest.fixture
 def env(tmp_path, monkeypatch):
+    # The live path checks for a token before sending; the fake predictor never uses it.
+    # Without this the test would pass only on machines that have a real .env.
+    monkeypatch.setenv("TABPFN_TOKEN", "dummy-token-for-tests")
     monkeypatch.setattr(models, "RAW_CACHE", tmp_path / "raw")
     ledger = tmp_path / "ledger.jsonl"
     return {
