@@ -302,7 +302,7 @@ Source: `results/02_benchmark/tabpfn/` (per-row summaries + request records),
   156 cached with matching fingerprints; every summary's rows and true Tc match its split.
 - Committed summaries total 67 MB (largest file under 1 MB), above the ~40 MB estimate.
 
-### Results so far (tuned XGBoost still running; 25 splits, RMSE = sqrt(mean MSE))
+### Interim results before tuned XGBoost finished (superseded by the step 4 summary below)
 | RMSE (K) | random | grouped | grouped_no_oxygen |
 |---|---:|---:|---:|
 | TabPFN, composition | 8.70 | 8.97 | 9.95 |
@@ -324,3 +324,40 @@ Source: `results/02_benchmark/tabpfn/` (per-row summaries + request records),
 - TabPFN predicts 6.1% of grouped test rows within 0.1 K (XGBoost 2.9%), but these are almost
   all low-Tc materials (13.3% of rows below 10 K vs 2.1% above): sharper predictions where Tc is
   a few kelvin, not leaked labels.
+
+### Step 4 complete: tuned XGBoost added (2026-10-02)
+Nested tuning (26 trials per split, 2.82 h of tuning compute over 156 split/feature jobs) ran
+partly in a background task, which hit its time limit after 13 random splits, and was finished
+by the author in a terminal (the script resumes from per-split records). Records:
+`results/02_benchmark/xgb_tuning/`; predictions: `predictions/xgb_tuned/`.
+
+RMSE (K), 25 splits, sqrt(mean MSE) [metrics.csv]:
+| Model | Features | random | grouped | grouped_no_oxygen |
+|---|---|---:|---:|---:|
+| TabPFN-3.5 | composition | 8.70 | 8.97 | 9.95 |
+| TabPFN-3.5 | engineered | 8.72 | 9.01 | 10.54 |
+| XGBoost tuned | engineered | 9.34 | 9.73 | 11.04 |
+| XGBoost tuned | composition | 9.55 | 9.90 | 10.88 |
+| XGBoost published | engineered | 9.42 | 9.76 | 10.85 |
+| XGBoost published | composition | 9.65 | 10.04 | 10.85 |
+| 1-NN lookup | composition | 11.20 | 11.80 | 12.82 |
+| Linear | engineered | 17.62 | 17.75 | 18.01 |
+
+- Tuning barely helps XGBoost: at most ~0.1 K over the published settings, and worse on
+  grouped_no_oxygen with engineered features (11.04 vs 10.85 K). The paper's settings were
+  already near the optimum this search could find.
+- Paired per split [paired.json], TabPFN vs tuned XGBoost on the same features: better on 25/25
+  splits for random and grouped (mean gap -0.63 to -0.93 K), and on grouped_no_oxygen 25/25
+  (composition, -0.94 K) and 19/25 (engineered, -0.53 K, SD 0.68: noisier).
+- MAE gaps are larger than RMSE gaps (grouped, composition: TabPFN 4.96 vs tuned XGBoost 5.79 K).
+- Grouped split by subgroup (RMSE, K; TabPFN composition vs best XGBoost): Tc < 10 K 4.53 vs
+  5.02; 10-77 K 10.47 vs 11.00; Tc > 77 K 11.27 vs 12.74; cuprates 11.71 vs 12.72; iron-based
+  7.18 vs 7.46 (TabPFN engineered 6.71); other 4.43 vs 4.77. TabPFN is ahead in every subgroup.
+- Missing-oxygen rows (646 test rows per grouped split): highest error of any subgroup for every
+  model (TabPFN 12.8-13.0 K, tuned XGBoost 14.1-14.7 K across split kinds), as expected from
+  their wrong stoichiometry; reported separately as planned.
+- Leave-family-out (RMSE, K): no model extrapolates. Held-out cuprates 46-59 K for every model
+  (R² -1.2 to -2.5); iron-based 18-26 K; other 20-327 K (linear on composition explodes).
+  TabPFN is best or near-best on two folds but still far off; Phase 3 asks whether its
+  intervals widen on the held-out family.
+- `make benchmark` rebuilds metrics.csv byte for byte from committed files, with no API calls.

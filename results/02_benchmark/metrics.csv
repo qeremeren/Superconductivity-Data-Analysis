@@ -204,6 +204,88 @@ xgb_hamidieh,random,engineered,all splits,family: cuprate,25,3505.6800,12.4348,0
 xgb_hamidieh,random,engineered,all splits,family: iron-based,25,562.4800,6.7942,0.3272,4.4688,0.1987,0.7075,0.0250
 xgb_hamidieh,random,engineered,all splits,family: other,25,3019.8400,4.5134,0.5362,1.9029,0.0609,0.7138,0.0589
 xgb_hamidieh,random,engineered,all splits,oxygen amount missing,25,636.9600,14.2211,0.5467,9.6915,0.3136,0.7878,0.0172
+xgb_tuned,grouped,composition,all splits,all,25,7087.7600,9.9004,0.2845,5.7929,0.2007,0.9162,0.0048
+xgb_tuned,grouped,composition,all splits,Tc < 10 K,25,2570.0800,5.1723,0.4304,2.6434,0.1955,-2.7186,0.6193
+xgb_tuned,grouped,composition,all splits,10-77 K,25,3215.7200,11.3486,0.3787,7.3397,0.2188,0.6784,0.0217
+xgb_tuned,grouped,composition,all splits,Tc > 77 K,25,1301.9600,12.7588,0.7914,8.1938,0.4911,0.0107,0.1152
+xgb_tuned,grouped,composition,all splits,family: cuprate,25,3522.2800,12.9589,0.3429,8.7614,0.2761,0.8257,0.0105
+xgb_tuned,grouped,composition,all splits,family: iron-based,25,559.6800,7.8941,0.6563,5.5211,0.4074,0.6183,0.0553
+xgb_tuned,grouped,composition,all splits,family: other,25,3005.8000,4.7723,0.6525,2.3647,0.1597,0.6812,0.0596
+xgb_tuned,grouped,composition,all splits,oxygen amount missing,25,645.6000,14.3507,0.7241,9.8664,0.4258,0.7782,0.0233
+xgb_tuned,grouped,engineered,all splits,all,25,7087.7600,9.7260,0.2402,5.6205,0.1870,0.9192,0.0035
+xgb_tuned,grouped,engineered,all splits,Tc < 10 K,25,2570.0800,5.0191,0.4851,2.5119,0.2208,-2.5020,0.6890
+xgb_tuned,grouped,engineered,all splits,10-77 K,25,3215.7200,11.0835,0.3777,7.1056,0.2379,0.6933,0.0211
+xgb_tuned,grouped,engineered,all splits,Tc > 77 K,25,1301.9600,12.7355,0.7627,8.1036,0.5467,0.0165,0.0861
+xgb_tuned,grouped,engineered,all splits,family: cuprate,25,3522.2800,12.7209,0.2685,8.4925,0.2443,0.8321,0.0069
+xgb_tuned,grouped,engineered,all splits,family: iron-based,25,559.6800,7.5241,0.6003,5.2416,0.3921,0.6530,0.0491
+xgb_tuned,grouped,engineered,all splits,family: other,25,3005.8000,4.7876,0.6126,2.3265,0.1671,0.6792,0.0523
+xgb_tuned,grouped,engineered,all splits,oxygen amount missing,25,645.6000,14.1231,0.4616,9.6901,0.3359,0.7850,0.0172
+xgb_tuned,grouped_no_oxygen,composition,all splits,all,25,7087.5200,10.8820,0.4566,6.4038,0.3121,0.9002,0.0084
+xgb_tuned,grouped_no_oxygen,composition,all splits,Tc < 10 K,25,2530.5600,5.8312,0.4145,2.8886,0.2526,-3.7329,0.6581
+xgb_tuned,grouped_no_oxygen,composition,all splits,10-77 K,25,3192.9200,12.8952,0.7676,8.3342,0.4377,0.5856,0.0475
+xgb_tuned,grouped_no_oxygen,composition,all splits,Tc > 77 K,25,1364.0400,12.8935,1.4855,8.4867,1.0781,-0.0424,0.2331
+xgb_tuned,grouped_no_oxygen,composition,all splits,family: cuprate,25,3578.8000,14.3171,0.5650,9.7294,0.4688,0.7856,0.0195
+xgb_tuned,grouped_no_oxygen,composition,all splits,family: iron-based,25,553.8800,7.9073,0.6768,5.6828,0.4780,0.6074,0.0550
+xgb_tuned,grouped_no_oxygen,composition,all splits,family: other,25,2954.8400,4.8714,0.6541,2.5057,0.2501,0.6610,0.0679
+xgb_tuned,grouped_no_oxygen,composition,all splits,oxygen amount missing,25,645.0800,14.6624,0.6564,10.1716,0.5924,0.7688,0.0260
+xgb_tuned,grouped_no_oxygen,engineered,all splits,all,25,7087.5200,11.0400,0.8270,6.3439,0.5753,0.8975,0.0135
+xgb_tuned,grouped_no_oxygen,engineered,all splits,Tc < 10 K,25,2530.5600,5.6860,0.6131,2.7374,0.5140,-3.5005,1.0041
+xgb_tuned,grouped_no_oxygen,engineered,all splits,10-77 K,25,3192.9200,13.1746,1.5207,8.3408,0.8885,0.5679,0.0965
+xgb_tuned,grouped_no_oxygen,engineered,all splits,Tc > 77 K,25,1364.0400,13.0946,1.9321,8.4641,1.7525,-0.0696,0.3068
+xgb_tuned,grouped_no_oxygen,engineered,all splits,family: cuprate,25,3578.8000,14.5380,1.0548,9.7311,0.7996,0.7787,0.0349
+xgb_tuned,grouped_no_oxygen,engineered,all splits,family: iron-based,25,553.8800,7.6413,0.6892,5.3451,0.5037,0.6328,0.0596
+xgb_tuned,grouped_no_oxygen,engineered,all splits,family: other,25,2954.8400,4.9248,0.6623,2.4058,0.4571,0.6533,0.0723
+xgb_tuned,grouped_no_oxygen,engineered,all splits,oxygen amount missing,25,645.0800,14.4697,1.0131,9.9189,1.0053,0.7746,0.0369
+xgb_tuned,leave_family_out,composition,cuprate,all,1,10532.0000,53.0753,,44.7989,,-1.9005,
+xgb_tuned,leave_family_out,composition,cuprate,Tc < 10 K,1,352.0000,8.2457,,6.0183,,-9.3276,
+xgb_tuned,leave_family_out,composition,cuprate,10-77 K,1,6296.0000,34.0283,,28.9197,,-1.9212,
+xgb_tuned,leave_family_out,composition,cuprate,Tc > 77 K,1,3884.0000,75.8650,,74.0539,,-33.7698,
+xgb_tuned,leave_family_out,composition,cuprate,family: cuprate,1,10532.0000,53.0753,,44.7989,,-1.9005,
+xgb_tuned,leave_family_out,composition,cuprate,oxygen amount missing,1,1901.0000,57.5669,,50.4205,,-2.5290,
+xgb_tuned,leave_family_out,composition,iron-based,all,1,1682.0000,21.2985,,17.4383,,-1.8557,
+xgb_tuned,leave_family_out,composition,iron-based,Tc < 10 K,1,290.0000,4.8176,,3.7350,,-3.0055,
+xgb_tuned,leave_family_out,composition,iron-based,10-77 K,1,1392.0000,23.3088,,20.2932,,-3.2054,
+xgb_tuned,leave_family_out,composition,iron-based,family: iron-based,1,1682.0000,21.2985,,17.4383,,-1.8557,
+xgb_tuned,leave_family_out,composition,iron-based,oxygen amount missing,1,14.0000,34.0497,,28.7546,,-6.2292,
+xgb_tuned,leave_family_out,composition,other,all,1,9049.0000,20.3720,,17.0362,,-4.8109,
+xgb_tuned,leave_family_out,composition,other,Tc < 10 K,1,7087.0000,21.7167,,18.9141,,-68.5991,
+xgb_tuned,leave_family_out,composition,other,10-77 K,1,1951.0000,13.4518,,9.9538,,-1.2389,
+xgb_tuned,leave_family_out,composition,other,Tc > 77 K,1,11.0000,73.9537,,63.3572,,-5.4632,
+xgb_tuned,leave_family_out,composition,other,family: other,1,9049.0000,20.3720,,17.0362,,-4.8109,
+xgb_tuned,leave_family_out,composition,other,oxygen amount missing,1,12.0000,26.9832,,20.2177,,0.4278,
+xgb_tuned,leave_family_out,engineered,cuprate,all,1,10532.0000,49.5302,,41.2133,,-1.5260,
+xgb_tuned,leave_family_out,engineered,cuprate,Tc < 10 K,1,352.0000,11.7803,,10.4643,,-20.0793,
+xgb_tuned,leave_family_out,engineered,cuprate,10-77 K,1,6296.0000,30.7454,,24.8330,,-1.3848,
+xgb_tuned,leave_family_out,engineered,cuprate,Tc > 77 K,1,3884.0000,71.4661,,70.5525,,-29.8546,
+xgb_tuned,leave_family_out,engineered,cuprate,family: cuprate,1,10532.0000,49.5302,,41.2133,,-1.5260,
+xgb_tuned,leave_family_out,engineered,cuprate,oxygen amount missing,1,1901.0000,52.2458,,45.0753,,-1.9067,
+xgb_tuned,leave_family_out,engineered,iron-based,all,1,1682.0000,21.6388,,17.7243,,-1.9476,
+xgb_tuned,leave_family_out,engineered,iron-based,Tc < 10 K,1,290.0000,4.1153,,3.4166,,-1.9228,
+xgb_tuned,leave_family_out,engineered,iron-based,10-77 K,1,1392.0000,23.7120,,20.7051,,-3.3522,
+xgb_tuned,leave_family_out,engineered,iron-based,family: iron-based,1,1682.0000,21.6388,,17.7243,,-1.9476,
+xgb_tuned,leave_family_out,engineered,iron-based,oxygen amount missing,1,14.0000,34.3599,,30.6680,,-6.3615,
+xgb_tuned,leave_family_out,engineered,other,all,1,9049.0000,25.7959,,23.4049,,-8.3170,
+xgb_tuned,leave_family_out,engineered,other,Tc < 10 K,1,7087.0000,27.7259,,26.1236,,-112.4457,
+xgb_tuned,leave_family_out,engineered,other,10-77 K,1,1951.0000,16.4410,,13.3551,,-2.3446,
+xgb_tuned,leave_family_out,engineered,other,Tc > 77 K,1,11.0000,64.7602,,54.2836,,-3.9561,
+xgb_tuned,leave_family_out,engineered,other,family: other,1,9049.0000,25.7959,,23.4049,,-8.3170,
+xgb_tuned,leave_family_out,engineered,other,oxygen amount missing,1,12.0000,31.2770,,26.6350,,0.2312,
+xgb_tuned,random,composition,all splits,all,25,7088.0000,9.5543,0.2442,5.5239,0.1295,0.9221,0.0039
+xgb_tuned,random,composition,all splits,Tc < 10 K,25,2573.8800,5.0095,0.3849,2.4662,0.1409,-2.5053,0.5529
+xgb_tuned,random,composition,all splits,10-77 K,25,3214.4800,10.9398,0.2867,7.0109,0.1536,0.7000,0.0158
+xgb_tuned,random,composition,all splits,Tc > 77 K,25,1299.6400,12.3289,0.6801,7.8987,0.3211,0.0835,0.1056
+xgb_tuned,random,composition,all splits,family: cuprate,25,3505.6800,12.6227,0.2874,8.5105,0.1762,0.8358,0.0079
+xgb_tuned,random,composition,all splits,family: iron-based,25,562.4800,7.0478,0.3586,4.8879,0.2835,0.6854,0.0273
+xgb_tuned,random,composition,all splits,family: other,25,3019.8400,4.4754,0.5238,2.1753,0.1084,0.7203,0.0456
+xgb_tuned,random,composition,all splits,oxygen amount missing,25,636.9600,14.2614,0.6629,9.7726,0.4359,0.7865,0.0211
+xgb_tuned,random,engineered,all splits,all,25,7088.0000,9.3449,0.1818,5.2654,0.1363,0.9255,0.0028
+xgb_tuned,random,engineered,all splits,Tc < 10 K,25,2573.8800,4.7704,0.3639,2.1743,0.1607,-2.1799,0.5163
+xgb_tuned,random,engineered,all splits,10-77 K,25,3214.4800,10.6987,0.2163,6.7479,0.1485,0.7130,0.0118
+xgb_tuned,random,engineered,all splits,Tc > 77 K,25,1299.6400,12.1644,0.6249,7.7189,0.2276,0.1080,0.0938
+xgb_tuned,random,engineered,all splits,family: cuprate,25,3505.6800,12.3506,0.1882,8.2427,0.1375,0.8428,0.0056
+xgb_tuned,random,engineered,all splits,family: iron-based,25,562.4800,6.8805,0.3337,4.6420,0.2343,0.7001,0.0258
+xgb_tuned,random,engineered,all splits,family: other,25,3019.8400,4.3679,0.5226,1.9257,0.1506,0.7331,0.0481
+xgb_tuned,random,engineered,all splits,oxygen amount missing,25,636.9600,14.1625,0.6398,9.6350,0.3666,0.7895,0.0194
 tabpfn,grouped,composition,all splits,all,25,7087.7600,8.9712,0.2432,4.9627,0.1303,0.9312,0.0036
 tabpfn,grouped,composition,all splits,Tc < 10 K,25,2570.0800,4.5318,0.5194,1.8922,0.1465,-1.8528,0.6579
 tabpfn,grouped,composition,all splits,10-77 K,25,3215.7200,10.4691,0.3675,6.4916,0.1806,0.7264,0.0191

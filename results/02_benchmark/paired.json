@@ -37,6 +37,18 @@
  },
  {
   "kind": "grouped",
+  "features": "composition",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.9285136351055908,
+  "std_diff": 0.15385379862459653,
+  "a_better_splits": 25,
+  "b_better_splits": 0
+ },
+ {
+  "kind": "grouped",
   "features": "engineered",
   "a": "tabpfn",
   "b": "linear",
@@ -68,6 +80,18 @@
   "n_splits": 25,
   "mean_diff": -0.7458557883961189,
   "std_diff": 0.14236779171426966,
+  "a_better_splits": 25,
+  "b_better_splits": 0
+ },
+ {
+  "kind": "grouped",
+  "features": "engineered",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.7160629601725063,
+  "std_diff": 0.14854928790007957,
   "a_better_splits": 25,
   "b_better_splits": 0
  },
@@ -109,6 +133,18 @@
  },
  {
   "kind": "grouped_no_oxygen",
+  "features": "composition",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.9436590056659456,
+  "std_diff": 0.32936198108095555,
+  "a_better_splits": 25,
+  "b_better_splits": 0
+ },
+ {
+  "kind": "grouped_no_oxygen",
   "features": "engineered",
   "a": "tabpfn",
   "b": "linear",
@@ -142,6 +178,18 @@
   "std_diff": 0.43407165176993123,
   "a_better_splits": 18,
   "b_better_splits": 7
+ },
+ {
+  "kind": "grouped_no_oxygen",
+  "features": "engineered",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.5259254430191477,
+  "std_diff": 0.6806880154854621,
+  "a_better_splits": 19,
+  "b_better_splits": 6
  },
  {
   "kind": "random",
@@ -181,6 +229,18 @@
  },
  {
   "kind": "random",
+  "features": "composition",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.849434792670543,
+  "std_diff": 0.15649906002841976,
+  "a_better_splits": 25,
+  "b_better_splits": 0
+ },
+ {
+  "kind": "random",
   "features": "engineered",
   "a": "tabpfn",
   "b": "linear",
@@ -212,6 +272,18 @@
   "n_splits": 25,
   "mean_diff": -0.7092455243051604,
   "std_diff": 0.10129538386390287,
+  "a_better_splits": 25,
+  "b_better_splits": 0
+ },
+ {
+  "kind": "random",
+  "features": "engineered",
+  "a": "tabpfn",
+  "b": "xgb_tuned",
+  "metric": "rmse",
+  "n_splits": 25,
+  "mean_diff": -0.629754194148401,
+  "std_diff": 0.10960227888639419,
   "a_better_splits": 25,
   "b_better_splits": 0
  }
