@@ -1,0 +1,20 @@
+{
+ "model": "xgb_hamidieh",
+ "features": "composition",
+ "kind": "grouped",
+ "split": 2,
+ "seed": 2,
+ "n_train": 300,
+ "seconds": 0.42,
+ "threads": -1,
+ "finished_at": "2026-10-02T14:21:09+00:00",
+ "machine": {
+  "host": "jarvis",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+  "processor": "x86_64",
+  "cpu_count": 12,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ }
+}
