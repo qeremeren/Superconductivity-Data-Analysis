@@ -149,3 +149,48 @@ def summarize_distribution(
     out["pit"] = cdf_at(quantiles, levels, y)
     out["p_above_77K"] = 1 - cdf_at(quantiles, levels, 77.0)
     return pd.DataFrame(out).astype("float32")
+
+
+# --- exact metrics for TabPFN's full output (a piecewise-uniform "bar" distribution) ----
+
+
+def bar_cdf_at_borders(logits: np.ndarray, borders: np.ndarray) -> np.ndarray:
+    """CDF at every bucket border, shape (n, n_buckets + 1), from per-bucket logits."""
+    z = np.asarray(logits, float)
+    p = np.exp(z - z.max(axis=1, keepdims=True))
+    p /= p.sum(axis=1, keepdims=True)
+    return np.concatenate([np.zeros((len(p), 1)), np.cumsum(p, axis=1)], axis=1)
+
+
+def bar_cdf(logits, borders, x) -> np.ndarray:
+    """Exact CDF at x per row (linear within each bucket)."""
+    cdf = bar_cdf_at_borders(logits, borders)
+    x = np.broadcast_to(np.asarray(x, float), (len(cdf),))
+    return np.array([np.interp(xi, borders, c) for xi, c in zip(x, cdf, strict=True)])
+
+
+def bar_quantiles(logits, borders, levels) -> np.ndarray:
+    """Exact quantiles per row, shape (n, len(levels)), by inverting the CDF."""
+    cdf = bar_cdf_at_borders(logits, borders)
+    return np.stack([np.interp(levels, c, borders) for c in cdf])
+
+
+def bar_crps(logits, borders, y) -> np.ndarray:
+    """Exact CRPS per row: integral of (F(x) - 1[x >= y])^2. F is linear within each
+    bucket, so each piece integrates to L/3 (u^2 + uv + v^2) for end values u, v."""
+    borders = np.asarray(borders, float)
+    cdf = bar_cdf_at_borders(logits, borders)
+    widths = np.diff(borders)
+    out = np.empty(len(cdf))
+    for i, (c, yi) in enumerate(zip(cdf, np.asarray(y, float), strict=True)):
+        j = int(np.clip(np.searchsorted(borders, yi, side="right") - 1, 0, len(widths) - 1))
+        lo, hi = c[:-1], c[1:]
+        below = widths[:j] / 3 * (lo[:j] ** 2 + lo[:j] * hi[:j] + hi[:j] ** 2)
+        a, b = 1 - lo[j + 1 :], 1 - hi[j + 1 :]
+        above = widths[j + 1 :] / 3 * (a**2 + a * b + b**2)
+        fy = np.interp(yi, borders[j : j + 2], c[j : j + 2])
+        left = (yi - borders[j]) / 3 * (c[j] ** 2 + c[j] * fy + fy**2)
+        u, v = 1 - fy, 1 - c[j + 1]
+        right = (borders[j + 1] - yi) / 3 * (u**2 + u * v + v**2)
+        out[i] = below.sum() + above.sum() + left + right
+    return out

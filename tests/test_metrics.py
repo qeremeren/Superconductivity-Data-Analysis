@@ -109,3 +109,24 @@ def test_crps_on_the_20_level_grid_is_close_to_closed_form():
     np.testing.assert_allclose(got, exact, rtol=0.06)
     assert set(metrics.MIDPOINT_20) <= set(metrics.MIDPOINT_LEVELS)
     assert len(metrics.LEVELS_27) == 27
+
+
+def test_bar_crps_matches_uniform_closed_form():
+    # One bucket on [0, 1] is U(0, 1): CRPS(y) = y^2 - y + 1/3 for y in [0, 1].
+    logits, borders = np.zeros((3, 1)), np.array([0.0, 1.0])
+    y = np.array([0.5, 0.1, 0.9])
+    np.testing.assert_allclose(metrics.bar_crps(logits, borders, y), y**2 - y + 1 / 3)
+
+
+def test_bar_crps_agrees_with_dense_quantile_grid():
+    borders = np.linspace(-50, 150, 2001)
+    mids = (borders[:-1] + borders[1:]) / 2
+    logits = np.tile(stats.norm.logpdf(mids, 50, 10), (2, 1))  # equal-width buckets
+    y = np.array([45.0, 80.0])
+    q = metrics.bar_quantiles(logits, borders, metrics.QUANTILE_LEVELS)
+    np.testing.assert_allclose(
+        metrics.bar_crps(logits, borders, y), metrics.crps(q, metrics.QUANTILE_LEVELS, y), rtol=0.01
+    )
+    np.testing.assert_allclose(
+        metrics.bar_cdf(logits, borders, [50.0, 60.0]), [0.5, 0.8413], atol=0.002
+    )
