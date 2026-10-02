@@ -211,3 +211,11 @@
 {"ts": "2026-10-02T13:36:49+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_02_n00300", "output_type": "main"}
 {"ts": "2026-10-02T13:36:58+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_02_n01000", "output_type": "main"}
 {"ts": "2026-10-02T13:36:59+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_02_n01000", "output_type": "main"}
+{"ts": "2026-10-02T13:37:07+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_02_n03000", "output_type": "main"}
+{"ts": "2026-10-02T13:37:10+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_02_n03000", "output_type": "main"}
+{"ts": "2026-10-02T13:37:16+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_02_n10000", "output_type": "main"}
+{"ts": "2026-10-02T13:37:20+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_02_n10000", "output_type": "main"}
+{"ts": "2026-10-02T13:37:25+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_03_n00100", "output_type": "main"}
+{"ts": "2026-10-02T13:37:32+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_03_n00100", "output_type": "main"}
+{"ts": "2026-10-02T13:37:37+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/engineered/split_03_n00300", "output_type": "main"}
+{"ts": "2026-10-02T13:37:46+00:00", "experiment": "p3_learning_curves", "requests": 1, "tokens_estimated": 10000, "job": "lc/composition/split_03_n00300", "output_type": "main"}

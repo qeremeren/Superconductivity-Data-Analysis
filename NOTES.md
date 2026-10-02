@@ -123,7 +123,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_leave_family_out` | 6 | 8 | 6 | 80,000 | Oct | 3 held-out families x 2 feature sets |
 | 2 | `p2_thinking_probe` | 2 | 3 | 2 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
 | 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
-| 3 | `p3_learning_curves` | 50 | 60 | 26 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
+| 3 | `p3_learning_curves` | 50 | 60 | 34 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,832,500 | 10,660,000 | 1,305,340 (130) |
+| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,752,500 | 10,580,000 | 1,385,340 (138) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
