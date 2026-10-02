@@ -62,7 +62,9 @@ def run(
     authorize=budget.authorize,
     estimate=budget.estimate_tokens,
     cache=CACHE,
+    budget_lines=BUDGET_LINES,
 ) -> dict:
+    """Request every uncached job. A job's budget line is budget_lines[first part of its name]."""
     missing = [job for job in jobs if cache.load(job) is None]
     print(f"{len(jobs) - len(missing)} of {len(jobs)} jobs cached, {len(missing)} missing")
     if not missing:
@@ -79,7 +81,7 @@ def run(
         todo = [job for job in missing if job.name.startswith(kind + "/")]
         biggest = max(todo, key=lambda j: (len(j.X_train), len(j.X_test), j.X_train.shape[1]))
         tokens = estimate(biggest.X_train, biggest.X_test)
-        budgets[kind] = authorize(BUDGET_LINES[kind], len(todo), tokens)
+        budgets[kind] = authorize(budget_lines[kind], len(todo), tokens)
         print(f"{kind}: authorized {len(todo)} requests at {tokens:,} tokens each")
 
     failed, start = [], time.perf_counter()
