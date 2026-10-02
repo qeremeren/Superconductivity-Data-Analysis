@@ -1,4 +1,4 @@
-.PHONY: setup data splits audit benchmark retrain-local notebooks reproduce test lint check-api requirements
+.PHONY: setup data splits audit benchmark uncertainty xgb-phase3 retrain-local notebooks reproduce test lint check-api requirements
 
 setup:  ## Create the locked environment (Python 3.12 via uv)
 	uv sync
@@ -18,6 +18,15 @@ benchmark:  ## Phase 2 tables from committed predictions; checks every cached Ta
 	uv run python -m experiments.02_metrics > /dev/null
 	uv run python -m experiments.02_figures
 
+uncertainty:  ## Phase 3 tables and figures from committed files; checks every cached TabPFN result
+	uv run python -m experiments.03_tabpfn_learning_curves
+	uv run python -m experiments.03_evaluate --require-all
+	uv run python -m experiments.03_figures
+
+xgb-phase3:  ## Slow, no API key: Phase 3 XGBoost learning curves and uncertainty baselines (resumable)
+	uv run python -m experiments.03_xgb_learning_curves
+	uv run python -m experiments.03_xgb_uncertainty
+
 retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XGBoost tuning (~3 h)
 	uv run python -m experiments.02_local_models
 	uv run python -m experiments.02_xgb_tuning --trials 26
@@ -30,6 +39,7 @@ reproduce:  ## Rebuild everything from committed caches; no API key needed (grow
 	$(MAKE) splits
 	$(MAKE) audit
 	$(MAKE) benchmark
+	$(MAKE) uncertainty
 	$(MAKE) notebooks
 	uv run pytest
 

@@ -1,0 +1,7 @@
+model,kind,features,brier,base_rate_brier
+tabpfn,random,engineered,0.03553,0.14974
+tabpfn,random,composition,0.03576,0.14974
+tabpfn,grouped,engineered,0.03691,0.14995
+tabpfn,grouped,composition,0.03690,0.14995
+tabpfn,grouped_no_oxygen,engineered,0.04987,0.15542
+tabpfn,grouped_no_oxygen,composition,0.04418,0.15542

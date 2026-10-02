@@ -1,0 +1,5 @@
+features,n_label,b,n_splits,mean_diff,std_diff,a_better_splits,b_better_splits
+composition,full,xgb_tuned,5,-0.8868,0.1410,5,0
+composition,full,xgb_hamidieh,5,-1.0708,0.0510,5,0
+engineered,full,xgb_tuned,5,-0.6441,0.0573,5,0
+engineered,full,xgb_hamidieh,5,-0.7125,0.0888,5,0

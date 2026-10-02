@@ -123,7 +123,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_leave_family_out` | 6 | 8 | 6 | 80,000 | Oct | 3 held-out families x 2 feature sets |
 | 2 | `p2_thinking_probe` | 2 | 3 | 2 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
 | 2 | `p2_thinking` | 20 | 22 | 20 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
-| 3 | `p3_learning_curves` | 50 | 60 | 34 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
+| 3 | `p3_learning_curves` | 50 | 60 | 50 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
 | 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,752,500 | 10,580,000 | 1,385,340 (138) |
+| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,592,500 | 10,420,000 | 1,545,340 (154) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -428,3 +428,31 @@ training rows and seed as Phase 2, compared with Phase 2's committed 107-level s
 - P(Tc > 77 K): within 0.005, which is the grid's clamp: 72-79 of 400 rows have an exact
   probability below 0.5% and the grid reports 0.5%. So grid-based exceedance probabilities are
   exact down to 0.5% and floored there; Phase 4 can use the accepted 999-level grid for 0.1%.
+
+## 2026-10-02 — Phase 3, TabPFN side (XGBoost side running off-Mac)
+
+Sources: `results/03_learning_curves/` and `results/03_uncertainty/` (`calibration.csv`, `lfo.csv`,
+`p77_brier.csv`, `curves.csv`), written by `experiments/03_evaluate.py`; figures in
+`results/03_uncertainty/figures/`; walkthrough in `notebooks/03_uncertainty.ipynb`.
+Provisional until the XGBoost learning curves and uncertainty baselines (run on the home Linux
+server "jarvis", see machines.json once copied back) are in.
+
+- Learning curves (50 requests, 500,000 tokens; grouped splits 0-4, nested subsets, fixed test
+  sets): TabPFN RMSE, composition features, 17.53 K at 100 rows, 15.34 at 300, 13.10 at 1k,
+  11.08 at 3k, 9.33 at 10k, 8.94 at full size (~14.2k). Engineered features track it closely.
+- Calibration, TabPFN, all three repeated splits: slightly conservative. Grouped split,
+  composition: coverage 54.0 / 82.5 / 91.5 / 95.8% at nominal 50 / 80 / 90 / 95%; 95% width 27.3 K;
+  CRPS 3.44 K. Random and grouped_no_oxygen behave the same (95% coverage 95.0-95.7%). Coverage
+  stays at 95-96% in every Tc band and family and on missing-oxygen rows, where the 95% interval
+  is wider (51.2 K vs 27.3 K overall): the model widens its intervals where its errors are larger.
+- P(Tc > 77 K) is well calibrated: Brier 0.037 on the grouped split vs 0.150 for always
+  predicting the base rate (0.044-0.050 on grouped_no_oxygen).
+- Leave-family-out (composition features; engineered in lfo.csv): TabPFN partly knows when it is
+  extrapolating, and not equally for every family.
+  - Held-out "other": 95% interval widens 12x (113 K vs 9.4 K in-distribution); coverage
+    94.6% (in-distribution 96.2%).
+  - Held-out cuprates: widens 2x (89 K vs 43 K) but under-covers: 78.3% at 95%, 35.8% at 80%.
+  - Held-out iron-based: barely widens (29.7 K vs 25.0 K) and under-covers badly: 59.8% at 95%,
+    22.2% at 80%. Overconfident on the family whose Tc range overlaps the training families.
+  - Per-row rank correlation between interval width and absolute error: 0.57 (other), 0.08
+    (iron-based), 0.01 (cuprates).
