@@ -5,3 +5,7 @@ tabpfn,grouped,engineered,0.03691,0.14995
 tabpfn,grouped,composition,0.03690,0.14995
 tabpfn,grouped_no_oxygen,engineered,0.04987,0.15542
 tabpfn,grouped_no_oxygen,composition,0.04418,0.15542
+quantile_regression,grouped,engineered,0.05009,0.14995
+quantile_regression,grouped,composition,0.05030,0.14995
+conformal,grouped,engineered,0.04950,0.14995
+conformal,grouped,composition,0.05011,0.14995

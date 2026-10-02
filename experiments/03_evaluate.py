@@ -295,7 +295,10 @@ def lfo_table(dists, per_split, inputs):
         family = splits.FAMILY_ORDER[s]
         width = (df["q0.975"] - df["q0.025"]).to_numpy()
         err = np.abs(df["mean"] - df.y).to_numpy()
-        rho = spearmanr(width, err).statistic
+        # Conformal intervals have one width for every row, so no rank correlation exists.
+        # (float32 storage leaves rounding noise in those widths, hence the tolerance).
+        constant = np.ptp(width) <= 1e-3 * max(float(np.mean(width)), 1e-9)
+        rho = np.nan if constant else spearmanr(width, err).statistic
         held = interval_stats(df)
         ind = per_split[
             (per_split.model == model)

@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,862,160 | 2026-10-02T13:33:13+00:00 | 17,137,840 | 15,592,500 | 10,420,000 | 1,545,340 (154) |
+| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,592,500 | 10,420,000 | 1,025,340 (102) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -429,7 +429,7 @@ training rows and seed as Phase 2, compared with Phase 2's committed 107-level s
   probability below 0.5% and the grid reports 0.5%. So grid-based exceedance probabilities are
   exact down to 0.5% and floored there; Phase 4 can use the accepted 999-level grid for 0.1%.
 
-## 2026-10-02 — Phase 3, TabPFN side (XGBoost side running off-Mac)
+## 2026-10-02 — Phase 3, TabPFN side (provisional; superseded by the Phase 3 results below)
 
 Sources: `results/03_learning_curves/` and `results/03_uncertainty/` (`calibration.csv`, `lfo.csv`,
 `p77_brier.csv`, `curves.csv`), written by `experiments/03_evaluate.py`; figures in
@@ -456,3 +456,56 @@ server "jarvis", see machines.json once copied back) are in.
     22.2% at 80%. Overconfident on the family whose Tc range overlaps the training families.
   - Per-row rank correlation between interval width and absolute error: 0.57 (other), 0.08
     (iron-based), 0.01 (cuprates).
+
+## 2026-10-02 — Phase 3 results: learning curves and uncertainty (final)
+
+Sources: `results/03_learning_curves/{curves,paired}.csv`, `results/03_uncertainty/{calibration,
+lfo,p77_brier}.csv` from `experiments/03_evaluate.py --require-all`; figures in
+`results/03_uncertainty/figures/`; `notebooks/03_uncertainty.ipynb`. All 212 XGBoost results were
+run on the home Linux server "jarvis" (`results/03_learning_curves/machines.json`); TabPFN on the
+Prior Labs API. XGBoost uncertainty baselines cover the grouped split and leave-family-out only.
+
+### Learning curves (grouped splits 0-4, nested subsets, same test sets; RMSE in K)
+| features | model | 100 | 300 | 1k | 3k | 10k | full |
+|---|---|---:|---:|---:|---:|---:|---:|
+| composition | TabPFN-3.5 | 17.53 | 15.34 | 13.10 | 11.08 | 9.33 | 8.94 |
+| composition | XGBoost tuned | 19.64 | 16.61 | 14.14 | 12.36 | 10.35 | 9.82 |
+| composition | XGBoost published | 18.17 | 15.49 | 13.68 | 11.96 | 10.40 | 10.01 |
+| engineered | TabPFN-3.5 | 18.59 | 15.15 | 12.95 | 11.18 | 9.44 | 9.06 |
+| engineered | XGBoost tuned | 20.32 | 16.94 | 14.19 | 12.00 | 10.09 | 9.70 |
+- TabPFN beats tuned XGBoost at every size: on 5/5 splits in 10 of 12 size/feature cells and
+  4/5 in the other two. The gap is largest with little data (-2.1 K at 100 rows, composition)
+  and shrinks to -0.9 K at full size.
+- Tuned XGBoost is worse than the published settings below ~3k rows: its inner validation set
+  is 20% of the subset (20 rows at n = 100), so the search overfits the validation noise.
+
+### Calibration on the grouped split (composition features; engineered similar)
+| | 50% | 80% | 90% | 95% cov. | 95% width | CRPS20 | RMSE |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| TabPFN-3.5 | 54.0 | 82.5 | 91.5 | 95.8% | 27.3 K | 3.45 K | 8.97 K |
+| XGBoost conformal | 49.5 | 79.6 | 89.6 | 94.8% | 44.0 K | 4.80 K | 10.21 K |
+| XGBoost quantile regr. | 42.5 | 70.1 | 82.5 | 90.9% | 42.5 K | 4.54 K | 10.86 K |
+- TabPFN is the only one that is calibrated and sharp at once: CRPS 25-28% lower than both
+  XGBoost methods, 95% intervals ~38% narrower, and coverage at or slightly above nominal.
+- Conformal is calibrated on average by construction but has one width (44 K) for every row:
+  it over-covers easy rows (Tc < 10 K: 99.0%, family other: 99.5%) and under-covers hard ones
+  (Tc > 77 K: 90.9%, cuprates: 90.4%, missing-oxygen rows: 87.4%).
+- Quantile regression under-covers everywhere (86-94% at 95%).
+- TabPFN keeps 95-96% coverage in every Tc band, family and on missing-oxygen rows by adapting
+  its width (9.3 K for Tc < 10 K, 43 K for Tc > 77 K, 51 K on missing-oxygen rows).
+- P(Tc > 77 K): Brier 0.037 (TabPFN) vs 0.050 (both XGBoost methods); base rate 0.150.
+
+### Leave-family-out: do the intervals know when the model is extrapolating? (composition)
+| held out | TabPFN 95% cov. (width) | QR 95% cov. (width) | conformal 95% cov. (width) |
+|---|---|---|---|
+| cuprate | 78.3% (89 K) | 27.8% (36 K) | 11.1% (17 K) |
+| iron-based | 59.8% (30 K) | 75.3% (30 K) | 63.0% (42 K) |
+| other | 94.6% (113 K) | 17.3% (36 K) | 80.7% (50 K) |
+- Every method under-covers a held-out family. TabPFN widens its intervals where it extrapolates
+  (2x for cuprates, 12x for "other") and keeps the highest coverage on those two folds; on
+  held-out iron-based it barely widens and is beaten on coverage by quantile regression.
+- Held-out CRPS20 (K): cuprate TabPFN 37.1 vs QR 48.0 vs conformal 42.4; iron-based 15.1 vs 14.6
+  vs 14.3; other 14.1 vs 15.9 vs 14.4. TabPFN is clearly better only on held-out cuprates.
+- Width tracks error per row (Spearman) only partly: TabPFN 0.57 (other), 0.08 (iron-based),
+  0.01 (cuprate); QR 0.04-0.21; conformal undefined (constant width). Engineered features in
+  lfo.csv.

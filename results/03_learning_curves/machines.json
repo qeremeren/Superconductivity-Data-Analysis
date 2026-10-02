@@ -1,1 +1,14 @@
-{}
+{
+ "uncertainty/conformal": {
+  "jarvis": 56
+ },
+ "uncertainty/quantile_regression": {
+  "jarvis": 56
+ },
+ "xgb_hamidieh": {
+  "jarvis": 50
+ },
+ "xgb_tuned": {
+  "jarvis": 50
+ }
+}

@@ -179,14 +179,17 @@ def lfo_coverage(lfo):
         ax.grid(axis="y", visible=False)
     axes[0].set_yticks(range(len(families)), [f"held out: {f}" for f in families])
     axes[0].invert_yaxis()
-    axes[0].legend(loc="lower left", fontsize=7.5)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(
+        handles, labels, loc="lower center", ncol=len(labels), fontsize=8, bbox_to_anchor=(0.5, 0.0)
+    )
     top = title(
         fig,
         "Do the intervals know when the model is extrapolating?",
         "Filled = family held out of training; hollow = same family, in-distribution "
         f"(grouped split). {FEATURES} features; vertical line = nominal.",
     )
-    fig.tight_layout(rect=(0, 0, 1, top))
+    fig.tight_layout(rect=(0, 0.07, 1, top))
     return fig
 
 
