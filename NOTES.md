@@ -121,7 +121,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 2 | `p2_grouped` | 50 | 60 | 50 | 600,000 | Oct | 25 grouped 2/3-1/3 splits x 2 feature sets |
 | 2 | `p2_grouped_no_oxygen` | 50 | 60 | 50 | 600,000 | Oct | sensitivity: same, oxygen variants grouped |
 | 2 | `p2_leave_family_out` | 6 | 8 | 6 | 80,000 | Oct | 3 held-out families x 2 feature sets |
-| 2 | `p2_thinking_probe` | 2 | 3 | 0 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
+| 2 | `p2_thinking_probe` | 2 | 3 | 2 | 112,500 | Oct | Thinking + group_col, grouped split 0 |
 | 2 | `p2_thinking` | 20 | 22 | 0 | 825,000 | Oct | Thinking add-on: grouped splits 0-9, composition |
 | 3 | `p3_learning_curves` | 50 | 60 | 0 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 0 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
@@ -135,7 +135,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 1,600,000 | 2026-10-02T11:41:33+00:00 | 17,400,000 | 16,937,500 | 11,765,000 | 462,500 (46) |
+| Oct | 20,000,000 | 1,600,000 | 2026-10-02T11:41:33+00:00 | 17,400,000 | 16,862,500 | 11,690,000 | 537,500 (53) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -366,3 +366,34 @@ RMSE (K), 25 splits, sqrt(mean MSE) [metrics.csv]:
   TabPFN is best or near-best on two folds but still far off; Phase 3 asks whether its
   intervals widen on the held-out family.
 - `make benchmark` rebuilds metrics.csv byte for byte from committed files, with no API calls.
+
+## 2026-10-02 — Phase 2, step 5: figures, notebook, compute, Thinking probe
+
+### Figures and notebook
+- `experiments/02_figures.py` -> `results/02_benchmark/figures/`: `paired_difference_grouped.png`
+  (per-split RMSE of TabPFN minus tuned XGBoost on the grouped split, both feature sets),
+  `rmse_by_split_kind.png`, `grouped_subgroups.png`. Readable, not polished (polish is Phase 6).
+- `notebooks/02_benchmark.ipynb` reads only `results/02_benchmark/`; `make benchmark` (part of
+  `make reproduce`) verifies the TabPFN cache and rebuilds metrics and figures with no API calls.
+
+### Compute for the same 156 split/feature jobs (for the write-up)
+- Nested XGBoost tuning: 2.82 h of search time (sum of per-split search times in
+  `results/02_benchmark/xgb_tuning/`, refits excluded; mean 65 s per job), on one 10-core
+  Apple M5 laptop; 26 trials per job, run partly alongside the TabPFN requests.
+- TabPFN-3.5, no tuning: the whole run took 1,301 s = 21.7 min wall-clock with 4 requests in
+  flight (`experiments/02_tabpfn.py` log), and 0.33 h (19.8 min) of server-side fit+predict time
+  summed over the 156 request records (mean 7.6 s per job). 1.56M tokens.
+- So TabPFN without tuning was ~8x faster in wall-clock than the XGBoost tuning it beat, and
+  needed no search at all; the comparison excludes XGBoost's published-settings fits (~5-8 s
+  each) and TabPFN's network transfer.
+
+### Thinking probe (`experiments/02_thinking.py --probe`, grouped split 0, composition)
+- The account can run Thinking: the thinking fit (medium effort, RMSE metric,
+  group_col = integer material ID) succeeded in ~99 s and was charged 10,000 tokens (live usage
+  1,600,000 -> 1,610,000). The ledger over-counts it at 2 x 60,865 estimated (conservative).
+- The predict was refused with HTTP 422: "Thinking mode currently supports only
+  output_type='mean' for regression". It was not charged. So TabPFN-3.5-Thinking gives point
+  predictions only: no quantiles, intervals, CRPS or exceedance probabilities.
+- Open decision: run the add-on with `output_type="mean"` (point metrics only, RMSE/MAE vs
+  standard TabPFN on the same splits)? The probe's 3-request cap is used up (2 logged), so this
+  needs the plan changed before any request; the guard will refuse it otherwise.

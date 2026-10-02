@@ -28,6 +28,9 @@ AXIS = "#c3c2b7"
 FAMILY_COLORS = {data.CUPRATE: "#2a78d6", data.IRON_BASED: "#eb6834", data.OTHER: "#1baf7a"}
 FAMILY_LABELS = {data.CUPRATE: "Cuprates", data.IRON_BASED: "Iron-based", data.OTHER: "Other"}
 SPLIT_COLORS = {"random": "#e87ba4", "grouped": "#4a3aa7", "grouped_no_oxygen": "#008300"}
+# Models, where two are compared directly (red/yellow pass all-pairs; yellow is below
+# 3:1 contrast, so its marks always carry text labels).
+MODEL_COLORS = {"tabpfn": "#e34948", "xgb_tuned": "#eda100"}
 
 LINE_WIDTH = 2.0
 MARKER_SIZE = 6  # points; >= 8 px diameter at the saved DPI

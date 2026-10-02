@@ -161,3 +161,5 @@
 {"ts": "2026-10-01T22:40:20+00:00", "experiment": "p2_leave_family_out", "requests": 1, "tokens_estimated": 10000, "job": "leave_family_out/composition/split_01", "output_type": "main"}
 {"ts": "2026-10-01T22:40:30+00:00", "experiment": "p2_leave_family_out", "requests": 1, "tokens_estimated": 10000, "job": "leave_family_out/engineered/split_02", "output_type": "main"}
 {"ts": "2026-10-01T22:40:32+00:00", "experiment": "p2_leave_family_out", "requests": 1, "tokens_estimated": 10000, "job": "leave_family_out/composition/split_02", "output_type": "main"}
+{"ts": "2026-10-02T12:47:43+00:00", "experiment": "p2_thinking_probe", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_fit"}
+{"ts": "2026-10-02T12:49:22+00:00", "experiment": "p2_thinking_probe", "requests": 1, "tokens_estimated": 60865, "job": "grouped/composition/split_00", "op": "thinking_predict", "output_type": "main"}

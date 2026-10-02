@@ -16,6 +16,7 @@ audit:  ## Phase 1 data audit and figures (no API calls) -> results/01_audit/
 benchmark:  ## Phase 2 tables from committed predictions; checks every cached TabPFN result
 	uv run python -m experiments.02_tabpfn
 	uv run python -m experiments.02_metrics > /dev/null
+	uv run python -m experiments.02_figures
 
 retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XGBoost tuning (~3 h)
 	uv run python -m experiments.02_local_models
