@@ -1,0 +1,1836 @@
+{
+ "scenario": "hard",
+ "acquisition": "greedy_xgb",
+ "seed": 3,
+ "n_initial": 50,
+ "batch": 10,
+ "rounds_planned": 20,
+ "threshold_K": 44.0,
+ "pool_size": 7637,
+ "targets_in_pool": 79,
+ "grid_levels": null,
+ "initial": [
+  "Ag:0.025381 Sn:0.467005 Te:0.507614",
+  "Al:0.030000 Ti:0.810000 V:0.160000",
+  "Al:0.040000 V:0.960000",
+  "Al:0.162216 Ga:0.056380 Nb:0.781405",
+  "Al:0.200000 Nb:0.750000 In:0.050000",
+  "Al:0.250000 Zr:0.225000 Nb:0.025000 Pd:0.500000",
+  "Al:0.666667 La:0.330367 Tb:0.002967",
+  "B:0.100000 P:0.100000 Mo:0.640000 Re:0.160000",
+  "B:0.250000 C:0.250000 Ni:0.200000 Cu:0.050000 Lu:0.250000",
+  "B:0.333333 C:0.166667 Sc:0.166667 Ni:0.333333",
+  "B:0.444444 Y:0.111111 Rh:0.222222 Ir:0.222222",
+  "B:0.500000 Y:0.500000",
+  "B:0.666667 Mg:0.323333 Cu:0.010000",
+  "C:0.250000 As:0.250000 Nb:0.500000",
+  "C:0.500000 Mo:0.350000 Hf:0.150000",
+  "Co:0.000380 Mo:0.999620",
+  "Co:0.200000 In:0.032500 Sn:0.617500 La:0.150000",
+  "Co:0.280000 Y:0.720000",
+  "Cr:0.800000 Re:0.200000",
+  "Fe:0.166667 Co:0.166667 Zr:0.666667",
+  "Fe:0.400000 As:0.400000 Ba:0.176000 La:0.024000",
+  "Fe:0.400000 As:0.400000 Sr:0.100000 Cs:0.100000",
+  "Ge:0.750000 Y:0.250000",
+  "Hf:0.142857 Re:0.857143",
+  "In:0.980000 Pb:0.020000",
+  "La:0.987000 Ce:0.013000",
+  "Lu:0.500000 Au:0.500000",
+  "Mg:0.200000 Co:0.200000 Ni:0.600000",
+  "Mo:0.200000 Ru:0.800000",
+  "N:0.278552 Na:0.164345 Cl:0.278552 Zr:0.278552",
+  "Ni:0.051000 Pd:0.459000 Sb:0.490000",
+  "Ni:0.300000 Zr:0.700000",
+  "O:0.060000 F:0.140000 S:0.400000 Nd:0.200000 Bi:0.200000",
+  "O:0.600000 K:0.085000 Ba:0.115000 Bi:0.200000",
+  "O:0.637500 F:0.112500 W:0.250000",
+  "P:0.333333 Zr:0.333333 Rh:0.333333",
+  "Pd:0.500000 Yb:0.250000 Pb:0.250000",
+  "Rh:0.725000 Lu:0.275000",
+  "Ru:0.666667 La:0.010000 Ce:0.323333",
+  "S:0.133333 Se:0.533333 Ta:0.333333",
+  "S:0.600000 Nb:0.200000 Sn:0.200000",
+  "Sb:0.200000 Ba:0.400000 Bi:0.400000",
+  "Se:0.666667 Ru:0.100000 Rh:0.233333",
+  "Si:0.160000 Ge:0.040000 Nb:0.800000",
+  "Si:0.333333 La:0.333333 Ir:0.333333",
+  "Si:0.500000 Ce:0.250000 Pt:0.250000",
+  "Si:0.500000 Pd:0.500000",
+  "Y:0.237500 Pd:0.500000 Sn:0.250000 Tm:0.012500",
+  "Y:0.250000 Pb:0.750000",
+  "Zr:0.967100 Mo:0.032900"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "n_labeled": 50,
+   "best_so_far_K": 37.58,
+   "y_star_K": 37.58,
+   "labeled_fingerprint": "9be923dac10a68ed",
+   "selected": [
+    {
+     "key": "K:0.100000 Fe:0.380000 Cu:0.020000 As:0.400000 Ba:0.100000",
+     "tc": 22.29,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.802324295043945
+    },
+    {
+     "key": "K:0.140000 Fe:0.400000 As:0.400000 Sr:0.060000",
+     "tc": 12.2,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.409324645996094
+    },
+    {
+     "key": "K:0.116000 Fe:0.400000 As:0.400000 Sr:0.084000",
+     "tc": 36.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.409324645996094
+    },
+    {
+     "key": "K:0.066000 Fe:0.400000 As:0.400000 Sr:0.134000",
+     "tc": 21.7,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.409324645996094
+    },
+    {
+     "key": "K:0.080000 Fe:0.400000 As:0.400000 Sr:0.120000",
+     "tc": 36.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.409324645996094
+    },
+    {
+     "key": "K:0.100000 Fe:0.400000 As:0.400000 Sr:0.100000",
+     "tc": 37.7,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.409324645996094
+    },
+    {
+     "key": "K:0.100000 Fe:0.360000 Cu:0.040000 As:0.400000 Ba:0.100000",
+     "tc": 11.83,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.240665435791016
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Cu:0.016667",
+     "tc": 37.75,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.02545928955078
+    },
+    {
+     "key": "B:0.666667 Mg:0.327333 Cu:0.006000",
+     "tc": 37.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.02545928955078
+    },
+    {
+     "key": "O:0.166667 K:0.083333 Fe:0.333333 As:0.333333 Ba:0.083333",
+     "tc": 36.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 30.952516555786133
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7587,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 2,
+   "n_labeled": 60,
+   "best_so_far_K": 37.8,
+   "y_star_K": 37.8,
+   "labeled_fingerprint": "acdaa52a23463e9f",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.329667 Cu:0.003667",
+     "tc": 38.05,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.163963317871094
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Cu:0.033333",
+     "tc": 38.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.98381042480469
+    },
+    {
+     "key": "B:0.666667 Mg:0.266667 Cu:0.066667",
+     "tc": 38.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.86297607421875
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Ti:0.003333",
+     "tc": 38.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.670000 Mg:0.330000",
+     "tc": 6.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.640000 F:0.026667 Mg:0.333333",
+     "tc": 21.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.600000 C:0.066667 Mg:0.333333",
+     "tc": 28.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Ir:0.006667",
+     "tc": 33.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.641333 C:0.025333 Mg:0.333333",
+     "tc": 35.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    },
+    {
+     "key": "B:0.611333 C:0.055333 Mg:0.333333",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.1320743560791
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7577,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 3,
+   "n_labeled": 70,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "c91f15b7f606698f",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.266667 Ti:0.066667",
+     "tc": 37.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 37.9933967590332
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Ti:0.033333",
+     "tc": 38.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 37.800537109375
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Ti:0.016667",
+     "tc": 38.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 37.451072692871094
+    },
+    {
+     "key": "Li:0.020000 B:0.653333 C:0.013333 Mg:0.313333",
+     "tc": 35.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.86673355102539
+    },
+    {
+     "key": "B:0.653333 C:0.013333 Mg:0.333333",
+     "tc": 35.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.183692932128906
+    },
+    {
+     "key": "B:0.666667 Mg:0.293333 Ir:0.040000",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.45074462890625
+    },
+    {
+     "key": "B:0.666667 Mg:0.266667 Zr:0.066667",
+     "tc": 37.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.277408599853516
+    },
+    {
+     "key": "Li:0.066667 B:0.666667 Mg:0.266667",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.277408599853516
+    },
+    {
+     "key": "B:0.666667 Na:0.066667 Mg:0.266667",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.277408599853516
+    },
+    {
+     "key": "Li:0.050000 B:0.666667 Mg:0.283333",
+     "tc": 36.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.277408599853516
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7567,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 4,
+   "n_labeled": 80,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "d8cd73fcb0e3463d",
+   "selected": [
+    {
+     "key": "B:0.666667 Na:0.050000 Mg:0.283333",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.222694396972656
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Zr:0.033333",
+     "tc": 37.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.00581359863281
+    },
+    {
+     "key": "B:0.646667 C:0.020000 Mg:0.333333",
+     "tc": 36.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.909027099609375
+    },
+    {
+     "key": "Li:0.026667 B:0.666667 Mg:0.306667",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.72919464111328
+    },
+    {
+     "key": "Li:0.033333 B:0.666667 Mg:0.266667 Al:0.033333",
+     "tc": 31.95,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.6400260925293
+    },
+    {
+     "key": "Li:0.033333 B:0.666667 Mg:0.300000",
+     "tc": 37.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.312591552734375
+    },
+    {
+     "key": "B:0.666667 Mg:0.243333 Sc:0.090000",
+     "tc": 6.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.06636047363281
+    },
+    {
+     "key": "B:0.650000 C:0.016667 Mg:0.333333",
+     "tc": 36.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.03804016113281
+    },
+    {
+     "key": "B:0.652667 C:0.014000 Mg:0.333333",
+     "tc": 37.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.03804016113281
+    },
+    {
+     "key": "Li:0.083333 B:0.666667 Mg:0.250000",
+     "tc": 33.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.985076904296875
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7557,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 5,
+   "n_labeled": 90,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "3426eca6b2204014",
+   "selected": [
+    {
+     "key": "Li:0.023333 B:0.666667 Mg:0.310000",
+     "tc": 37.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.70469284057617
+    },
+    {
+     "key": "Li:0.016667 B:0.666667 Mg:0.316667",
+     "tc": 38.25,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.25456237792969
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Zr:0.016667",
+     "tc": 37.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.13710021972656
+    },
+    {
+     "key": "B:0.646000 C:0.020667 Mg:0.333333",
+     "tc": 37.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.932861328125
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Fe:0.033333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.190738677978516
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Zn:0.033333",
+     "tc": 38.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.190738677978516
+    },
+    {
+     "key": "B:0.656000 C:0.010667 Mg:0.333333",
+     "tc": 37.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.0574836730957
+    },
+    {
+     "key": "B:0.660000 C:0.006667 Mg:0.333333",
+     "tc": 37.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.846214294433594
+    },
+    {
+     "key": "Li:0.016667 B:0.666667 Mg:0.300000 Al:0.016667",
+     "tc": 37.099999999999994,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.561492919921875
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Pb:0.033333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.54726028442383
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7547,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 6,
+   "n_labeled": 100,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "5f7a27839aca5715",
+   "selected": [
+    {
+     "key": "Li:0.008333 B:0.666667 Mg:0.316667 Al:0.008333",
+     "tc": 37.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 38.35859298706055
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Zn:0.016667",
+     "tc": 38.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.82536697387695
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Al:0.008333 Zn:0.008333",
+     "tc": 38.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.27760314941406
+    },
+    {
+     "key": "B:0.666667 Mg:0.318667 Al:0.014667",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.2264289855957
+    },
+    {
+     "key": "B:0.666667 Mg:0.266667 Zn:0.066667",
+     "tc": 38.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.156494140625
+    },
+    {
+     "key": "B:0.666667 Na:0.023333 Mg:0.310000",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.93865203857422
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Mn:0.016667",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.85919952392578
+    },
+    {
+     "key": "B:0.666667 Mg:0.320000 Mn:0.013333",
+     "tc": 32.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.777984619140625
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Al:0.010000",
+     "tc": 37.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.58233642578125
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Al:0.016667 Zn:0.016667",
+     "tc": 38.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.468631744384766
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7537,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 7,
+   "n_labeled": 110,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "a74f261a2ee48f3d",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.326000 Al:0.007333",
+     "tc": 34.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.407958984375
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Al:0.006667",
+     "tc": 36.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.13386154174805
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Al:0.016667",
+     "tc": 36.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.97934341430664
+    },
+    {
+     "key": "B:0.666667 Mg:0.313333 Al:0.020000",
+     "tc": 37.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.927371978759766
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Fe:0.010000",
+     "tc": 32.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.4334831237793
+    },
+    {
+     "key": "B:0.666667 Na:0.010000 Mg:0.323333",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.4334831237793
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Cr:0.010000",
+     "tc": 35.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.4334831237793
+    },
+    {
+     "key": "B:0.666667 Mg:0.310000 Al:0.023333",
+     "tc": 35.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.42866897583008
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Pb:0.006667",
+     "tc": 35.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.34477615356445
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Cr:0.006667",
+     "tc": 35.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.34477615356445
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7527,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 8,
+   "n_labeled": 120,
+   "best_so_far_K": 38.6,
+   "y_star_K": 38.6,
+   "labeled_fingerprint": "fb7197bfcbbaa4ba",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.326667 Sc:0.006667",
+     "tc": 39.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.66080856323242
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Co:0.033333",
+     "tc": 34.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.050960540771484
+    },
+    {
+     "key": "B:0.666667 Mg:0.284667 Au:0.048667",
+     "tc": 25.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.914119720458984
+    },
+    {
+     "key": "B:0.666667 Mg:0.313333 Pb:0.020000",
+     "tc": 35.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.76604461669922
+    },
+    {
+     "key": "B:0.666667 Mg:0.306667 Al:0.026667",
+     "tc": 33.55,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.45101547241211
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Co:0.010000",
+     "tc": 36.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.40000915527344
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Mn:0.006667",
+     "tc": 28.85,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.33120346069336
+    },
+    {
+     "key": "B:0.666667 Mg:0.266667 Al:0.033333 Zn:0.033333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.20634841918945
+    },
+    {
+     "key": "B:0.666667 Mg:0.329333 Sc:0.004000",
+     "tc": 41.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.18009948730469
+    },
+    {
+     "key": "B:0.666667 Mg:0.329333 Fe:0.004000",
+     "tc": 33.45,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.18009948730469
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7517,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 9,
+   "n_labeled": 130,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "511fbcc2efa4b38d",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.293333 Sc:0.040000",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.30264663696289
+    },
+    {
+     "key": "B:0.666667 Mg:0.326667 Co:0.006667",
+     "tc": 37.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.52273178100586
+    },
+    {
+     "key": "B:0.666667 Mg:0.316667 Fe:0.016667",
+     "tc": 29.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.750244140625
+    },
+    {
+     "key": "B:0.666667 Mg:0.305000 Al:0.028333",
+     "tc": 32.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.35215377807617
+    },
+    {
+     "key": "B:0.623333 C:0.043333 Mg:0.333333",
+     "tc": 28.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.32754898071289
+    },
+    {
+     "key": "B:0.624667 C:0.042000 Mg:0.333333",
+     "tc": 33.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.32754898071289
+    },
+    {
+     "key": "B:0.666667 Mg:0.303333 Al:0.030000",
+     "tc": 34.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.308494567871094
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Al:0.033333",
+     "tc": 34.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.112762451171875
+    },
+    {
+     "key": "B:0.663533 C:0.003133 Mg:0.333333",
+     "tc": 38.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.98488998413086
+    },
+    {
+     "key": "B:0.666667 Mg:0.332000 Cu:0.001333",
+     "tc": 38.11,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.98488998413086
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7507,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 10,
+   "n_labeled": 140,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "89d22d1013834863",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.332333 Fe:0.001000",
+     "tc": 37.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 36.02842330932617
+    },
+    {
+     "key": "B:0.666667 Mg:0.333333",
+     "tc": 38.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 35.153663635253906
+    },
+    {
+     "key": "B:0.666667 Mg:0.331333 Fe:0.002000",
+     "tc": 35.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.43463897705078
+    },
+    {
+     "key": "B:0.634667 C:0.032000 Mg:0.333333",
+     "tc": 35.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.20611572265625
+    },
+    {
+     "key": "Li:0.030000 B:0.613333 C:0.053333 Mg:0.303333",
+     "tc": 30.15,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.20280075073242
+    },
+    {
+     "key": "Li:0.033333 B:0.606667 C:0.060000 Mg:0.300000",
+     "tc": 28.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.00529861450195
+    },
+    {
+     "key": "B:0.640000 C:0.026667 Mg:0.333333",
+     "tc": 38.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.970117568969727
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Al:0.003333",
+     "tc": 37.95,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.872690200805664
+    },
+    {
+     "key": "B:0.633333 C:0.033333 Mg:0.333333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.79820442199707
+    },
+    {
+     "key": "B:0.666667 Mg:0.266667 Al:0.066667",
+     "tc": 29.05,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.78223991394043
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7497,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 11,
+   "n_labeled": 150,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "7ecd59cbb4d834a5",
+   "selected": [
+    {
+     "key": "B:0.632000 C:0.034667 Mg:0.333333",
+     "tc": 35.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 34.568626403808594
+    },
+    {
+     "key": "B:0.630000 C:0.036667 Mg:0.333333",
+     "tc": 33.85,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.835411071777344
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Sn:0.003333",
+     "tc": 33.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.82424545288086
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Co:0.003333",
+     "tc": 37.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.37685775756836
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Pb:0.003333",
+     "tc": 35.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.306060791015625
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Cr:0.003333",
+     "tc": 36.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 33.29413986206055
+    },
+    {
+     "key": "B:0.626667 C:0.040000 Mg:0.333333",
+     "tc": 32.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.75571823120117
+    },
+    {
+     "key": "Li:0.036667 B:0.666667 Mg:0.296667",
+     "tc": 35.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 32.41825866699219
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Fe:0.003333",
+     "tc": 34.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.982473373413086
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Sr:0.120000 Cs:0.080000",
+     "tc": 36.6,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.764867782592773
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7487,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 12,
+   "n_labeled": 160,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "7de8bcae4482c5f8",
+   "selected": [
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.100000 Sr:0.100000",
+     "tc": 35.1,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 32.663124084472656
+    },
+    {
+     "key": "Li:0.036667 B:0.626667 C:0.040000 Mg:0.296667",
+     "tc": 29.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 31.228349685668945
+    },
+    {
+     "key": "B:0.616667 C:0.050000 Mg:0.333333",
+     "tc": 25.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.979738235473633
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Mn:0.010000",
+     "tc": 22.849999999999998,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.910768508911133
+    },
+    {
+     "key": "B:0.666667 Mg:0.313333 Ir:0.020000",
+     "tc": 28.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.70403289794922
+    },
+    {
+     "key": "B:0.666667 Mg:0.330000 Mn:0.003333",
+     "tc": 33.400000000000006,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.659765243530273
+    },
+    {
+     "key": "B:0.613333 C:0.053333 Mg:0.333333",
+     "tc": 33.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.649457931518555
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Sr:0.120000 La:0.080000",
+     "tc": 20.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 30.151330947875977
+    },
+    {
+     "key": "B:0.666667 Mg:0.273333 Al:0.060000",
+     "tc": 29.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.875925064086914
+    },
+    {
+     "key": "B:0.667780 Mg:0.272120 Al:0.060100",
+     "tc": 25.7,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.875925064086914
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7477,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 13,
+   "n_labeled": 170,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "59619d8553d7871a",
+   "selected": [
+    {
+     "key": "B:0.608667 C:0.058000 Mg:0.333333",
+     "tc": 30.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.262948989868164
+    },
+    {
+     "key": "B:0.666667 Mg:0.250000 Co:0.083333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.98292350769043
+    },
+    {
+     "key": "B:0.666667 Mg:0.263333 Al:0.070000",
+     "tc": 27.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.925315856933594
+    },
+    {
+     "key": "B:0.666667 Mg:0.283333 Al:0.050000",
+     "tc": 31.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.710115432739258
+    },
+    {
+     "key": "Be:0.100000 B:0.566667 Mg:0.333333",
+     "tc": 32.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.651208877563477
+    },
+    {
+     "key": "Be:0.066667 B:0.600000 Mg:0.333333",
+     "tc": 36.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.591089248657227
+    },
+    {
+     "key": "B:0.622667 C:0.044000 Mg:0.333333",
+     "tc": 33.15,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.051782608032227
+    },
+    {
+     "key": "B:0.597333 C:0.069333 Mg:0.333333",
+     "tc": 25.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.009296417236328
+    },
+    {
+     "key": "B:0.583333 C:0.083333 Mg:0.333333",
+     "tc": 16.25,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.009296417236328
+    },
+    {
+     "key": "B:0.578667 C:0.088000 Mg:0.333333",
+     "tc": 17.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.009296417236328
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7467,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 14,
+   "n_labeled": 180,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "9f4092d3dea13745",
+   "selected": [
+    {
+     "key": "Be:0.133333 B:0.533333 Mg:0.333333",
+     "tc": 20.9,
+     "is_target": false,
+     "family": "other",
+     "mean": 30.85112762451172
+    },
+    {
+     "key": "B:0.666667 Mg:0.250000 Fe:0.083333",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.735523223876953
+    },
+    {
+     "key": "B:0.666667 Mg:0.254667 Au:0.078667",
+     "tc": 24.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.611881256103516
+    },
+    {
+     "key": "B:0.666667 Mg:0.286667 Al:0.046667",
+     "tc": 35.1,
+     "is_target": false,
+     "family": "other",
+     "mean": 29.087207794189453
+    },
+    {
+     "key": "B:0.603333 C:0.063333 Mg:0.333333",
+     "tc": 30.335,
+     "is_target": false,
+     "family": "other",
+     "mean": 28.901073455810547
+    },
+    {
+     "key": "Fe:0.343000 Co:0.057000 As:0.400000 Sr:0.080000 Eu:0.120000",
+     "tc": 13.9,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.838420867919922
+    },
+    {
+     "key": "Fe:0.352000 Co:0.048000 As:0.400000 Sr:0.100000 Eu:0.100000",
+     "tc": 8.45,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.667966842651367
+    },
+    {
+     "key": "Fe:0.356000 Co:0.044000 As:0.400000 Sr:0.108000 Eu:0.092000",
+     "tc": 16.2,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.619462966918945
+    },
+    {
+     "key": "B:0.666667 Mg:0.271667 Al:0.061667",
+     "tc": 25.3,
+     "is_target": false,
+     "family": "other",
+     "mean": 28.505313873291016
+    },
+    {
+     "key": "B:0.666667 Mg:0.270000 Al:0.063333",
+     "tc": 30.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 28.393421173095703
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7457,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 15,
+   "n_labeled": 190,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "d223e40208263405",
+   "selected": [
+    {
+     "key": "B:0.653333 F:0.013333 Mg:0.333333",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.99624252319336
+    },
+    {
+     "key": "B:0.666667 Mg:0.250000 Al:0.083333",
+     "tc": 30.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.99154281616211
+    },
+    {
+     "key": "K:0.090000 Fe:0.400000 As:0.400000 Ba:0.110000",
+     "tc": 29.625,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.77235984802246
+    },
+    {
+     "key": "K:0.090000 Fe:0.390000 Co:0.010000 As:0.400000 Ba:0.110000",
+     "tc": 32.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.7657413482666
+    },
+    {
+     "key": "K:0.082000 Fe:0.400000 As:0.400000 Ba:0.118000",
+     "tc": 36.9,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.67266273498535
+    },
+    {
+     "key": "K:0.080000 Fe:0.400000 As:0.400000 Ba:0.120000",
+     "tc": 37.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.352148056030273
+    },
+    {
+     "key": "K:0.088000 Fe:0.400000 As:0.400000 Eu:0.112000",
+     "tc": 28.7,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 26.980052947998047
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Cs:0.200000",
+     "tc": 1.96,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 26.765485763549805
+    },
+    {
+     "key": "Ca:0.100000 Fe:0.400000 As:0.400000 Cs:0.100000",
+     "tc": 31.6,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 26.765485763549805
+    },
+    {
+     "key": "O:0.600000 K:0.086000 Ba:0.114000 Bi:0.200000",
+     "tc": 21.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 26.5401611328125
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7447,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 16,
+   "n_labeled": 200,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "065ad82429e9ec09",
+   "selected": [
+    {
+     "key": "K:0.074000 Fe:0.400000 As:0.400000 Ba:0.126000",
+     "tc": 39.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 35.72471618652344
+    },
+    {
+     "key": "K:0.064000 Fe:0.390800 Co:0.009200 As:0.400000 Ba:0.136000",
+     "tc": 35.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 30.298982620239258
+    },
+    {
+     "key": "K:0.070000 Fe:0.400000 As:0.400000 Ba:0.130000",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.060000 Fe:0.400000 As:0.400000 Ba:0.140000",
+     "tc": 36.95,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.064600 Fe:0.400000 As:0.400000 Ba:0.135400",
+     "tc": 37.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.072000 Fe:0.400000 As:0.400000 Ba:0.128000",
+     "tc": 25.6,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.068273 Fe:0.401606 As:0.401606 Ba:0.128514",
+     "tc": 39.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.064000 Fe:0.400000 As:0.400000 Ba:0.136000",
+     "tc": 37.75,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.067400 Fe:0.400000 As:0.400000 Ba:0.132600",
+     "tc": 38.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.46450424194336
+    },
+    {
+     "key": "K:0.056000 Fe:0.400000 As:0.400000 Ba:0.144000",
+     "tc": 33.55,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.313335418701172
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7437,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 17,
+   "n_labeled": 210,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "99f55114c496ade5",
+   "selected": [
+    {
+     "key": "K:0.052000 Fe:0.400000 As:0.400000 Ba:0.148000",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 33.90660858154297
+    },
+    {
+     "key": "K:0.046000 Fe:0.400000 As:0.400000 Ba:0.154000",
+     "tc": 20.25,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 33.90660858154297
+    },
+    {
+     "key": "K:0.048000 Fe:0.400000 As:0.400000 Ba:0.152000",
+     "tc": 26.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 33.90660858154297
+    },
+    {
+     "key": "K:0.052600 Fe:0.400000 As:0.400000 Ba:0.147400",
+     "tc": 24.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 33.90660858154297
+    },
+    {
+     "key": "K:0.050000 Fe:0.400000 As:0.400000 Ba:0.150000",
+     "tc": 28.4,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 33.90660858154297
+    },
+    {
+     "key": "K:0.044000 Fe:0.400000 As:0.400000 Ba:0.156000",
+     "tc": 23.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 32.76093673706055
+    },
+    {
+     "key": "K:0.042400 Fe:0.400000 As:0.400000 Ba:0.157600",
+     "tc": 19.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 32.76093673706055
+    },
+    {
+     "key": "K:0.040600 Fe:0.400000 As:0.400000 Ba:0.159400",
+     "tc": 17.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.77543067932129
+    },
+    {
+     "key": "K:0.042000 Fe:0.400000 As:0.400000 Ba:0.158000",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.77543067932129
+    },
+    {
+     "key": "K:0.040000 Fe:0.400000 As:0.400000 Ba:0.160000",
+     "tc": 22.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.33335304260254
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7427,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 18,
+   "n_labeled": 220,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "6ca3540a813d0ce9",
+   "selected": [
+    {
+     "key": "K:0.120000 Fe:0.400000 As:0.400000 Ba:0.080000",
+     "tc": 29.7,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 29.26824188232422
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.070000 Ba:0.130000",
+     "tc": 35.8,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.980453491210938
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.060000 Ba:0.140000",
+     "tc": 36.9,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.914243698120117
+    },
+    {
+     "key": "K:0.100000 Ca:0.100000 Fe:0.400000 As:0.400000",
+     "tc": 33.1,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.44695472717285
+    },
+    {
+     "key": "K:0.068000 Fe:0.360000 Co:0.040000 As:0.400000 Ba:0.132000",
+     "tc": 19.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.180200576782227
+    },
+    {
+     "key": "K:0.061200 Fe:0.365200 Co:0.034800 As:0.400000 Ba:0.138800",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.046152114868164
+    },
+    {
+     "key": "O:0.600000 K:0.076000 Ba:0.124000 Bi:0.200000",
+     "tc": 25.5,
+     "is_target": false,
+     "family": "other",
+     "mean": 28.01341438293457
+    },
+    {
+     "key": "Na:0.060000 Fe:0.400000 As:0.400000 Ba:0.140000",
+     "tc": 23.8,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.756717681884766
+    },
+    {
+     "key": "Na:0.064000 Fe:0.400000 As:0.400000 Ba:0.136000",
+     "tc": 23.8,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.749244689941406
+    },
+    {
+     "key": "Na:0.060400 Fe:0.400000 As:0.400000 Ba:0.139600",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.738178253173828
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7417,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 19,
+   "n_labeled": 230,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "2c0afb16d7704007",
+   "selected": [
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.080000 Ba:0.120000",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 34.43248748779297
+    },
+    {
+     "key": "Ca:0.100000 Fe:0.400000 As:0.400000 Rb:0.100000",
+     "tc": 35.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 31.618501663208008
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.200000",
+     "tc": 2.52,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.696271896362305
+    },
+    {
+     "key": "K:0.100000 Mn:0.008000 Fe:0.392000 As:0.400000 Ba:0.100000",
+     "tc": 25.85,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.56949234008789
+    },
+    {
+     "key": "K:0.100000 Fe:0.400000 As:0.400000 Ba:0.100000",
+     "tc": 35.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.474912643432617
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Cs:0.100000 Ba:0.100000",
+     "tc": 26.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.353395462036133
+    },
+    {
+     "key": "K:0.104000 Fe:0.400000 As:0.400000 Eu:0.096000",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 28.165306091308594
+    },
+    {
+     "key": "K:0.098000 Fe:0.400000 As:0.400000 Eu:0.102000",
+     "tc": 32.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.88164520263672
+    },
+    {
+     "key": "K:0.100000 Fe:0.400000 As:0.400000 Eu:0.100000",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.88164520263672
+    },
+    {
+     "key": "K:0.100000 Fe:0.388000 Ni:0.012000 As:0.400000 Eu:0.100000",
+     "tc": 23.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.688133239746094
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7407,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 20,
+   "n_labeled": 240,
+   "best_so_far_K": 41.4,
+   "y_star_K": 41.4,
+   "labeled_fingerprint": "ac67b3e0e1eedb34",
+   "selected": [
+    {
+     "key": "Ca:0.134000 Fe:0.400000 As:0.400000 Sr:0.066000",
+     "tc": 22.0,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.514596939086914
+    },
+    {
+     "key": "O:0.600000 K:0.083200 Ba:0.116800 Bi:0.200000",
+     "tc": 28.8,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.474477767944336
+    },
+    {
+     "key": "Fe:0.400000 As:0.400000 Rb:0.100000 Eu:0.100000",
+     "tc": 36.25,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.25968360900879
+    },
+    {
+     "key": "O:0.600000 K:0.081000 Ba:0.119000 Bi:0.200000",
+     "tc": 31.2,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.227617263793945
+    },
+    {
+     "key": "K:0.122000 Fe:0.400000 As:0.400000 Ba:0.078000",
+     "tc": 24.5,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.185739517211914
+    },
+    {
+     "key": "O:0.596774 K:0.082661 Ba:0.118952 Bi:0.201613",
+     "tc": 20.4,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.177261352539062
+    },
+    {
+     "key": "O:0.600000 K:0.082000 Ba:0.118000 Bi:0.200000",
+     "tc": 31.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.133987426757812
+    },
+    {
+     "key": "O:0.593991 K:0.081202 Ba:0.121803 Bi:0.203004",
+     "tc": 27.6,
+     "is_target": false,
+     "family": "other",
+     "mean": 27.040300369262695
+    },
+    {
+     "key": "K:0.072000 Fe:0.400000 As:0.400000 Eu:0.128000",
+     "tc": 27.6,
+     "is_target": false,
+     "family": "iron-based",
+     "mean": 27.014127731323242
+    },
+    {
+     "key": "O:0.598151 K:0.080370 Ba:0.120555 Bi:0.200924",
+     "tc": 29.0,
+     "is_target": false,
+     "family": "other",
+     "mean": 26.746963500976562
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7397,
+    "targets_remaining": 79
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  }
+ ],
+ "status": "complete",
+ "machine": {
+  "host": "Kerems-MacBook-Air.local",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 10,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ }
+}

@@ -1,0 +1,7 @@
+phase,scenario,a,b,seeds,mean_diff,diff_lo,diff_hi,a_better,b_better,ties
+main,main,ei,greedy_tabpfn,10,37.1000,6.6239,67.5761,9,1,0
+main,main,ei,greedy_xgb,10,44.0000,17.8267,70.1733,9,1,0
+main,main,ei,random,10,77.5000,63.4364,91.5636,10,0,0
+main,hard,ei,greedy_tabpfn,10,27.2000,7.4047,46.9953,7,3,0
+main,hard,ei,greedy_xgb,10,20.3000,0.5443,40.0557,6,3,1
+main,hard,ei,random,10,51.6000,40.5013,62.6987,10,0,0

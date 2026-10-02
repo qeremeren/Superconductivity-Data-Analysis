@@ -1,0 +1,1836 @@
+{
+ "scenario": "main",
+ "acquisition": "greedy_xgb",
+ "seed": 8,
+ "n_initial": 50,
+ "batch": 10,
+ "rounds_planned": 20,
+ "threshold_K": 119.0,
+ "pool_size": 15147,
+ "targets_in_pool": 152,
+ "grid_levels": null,
+ "initial": [
+  "Al:0.162216 Ga:0.056380 Nb:0.781405",
+  "Al:0.250000 V:0.650000 Ge:0.100000",
+  "B:0.050000 O:0.400000 F:0.200000 Ag:0.350000",
+  "B:0.330033 C:0.165017 Co:0.019802 Ni:0.320132 Tm:0.165017",
+  "B:0.333333 C:0.166667 Ni:0.333333 Dy:0.113333 Lu:0.053333",
+  "B:0.666667 Mg:0.300000 Al:0.033333",
+  "B:0.666667 Mg:0.333333",
+  "Ca:0.200000 Fe:0.340000 Co:0.060000 As:0.400000",
+  "Ca:0.213902 Fe:0.243902 As:0.439024 Pr:0.030000 Pt:0.073171",
+  "Cu:0.860000 Ge:0.140000",
+  "Fe:0.378800 As:0.400000 Pd:0.021200 Ba:0.200000",
+  "Ge:0.063000 In:0.080000 Sn:0.357000 Te:0.500000",
+  "Ge:0.500000 Y:0.333333 Pt:0.166667",
+  "In:0.250000 La:0.740050 Gd:0.009950",
+  "In:0.250000 Sn:0.250000 Te:0.500000",
+  "In:0.952000 Hg:0.048000",
+  "La:0.212500 Pr:0.037500 Pb:0.750000",
+  "N:0.304878 Na:0.085366 Cl:0.304878 Hf:0.304878",
+  "Na:0.080000 Fe:0.400000 As:0.400000 Ba:0.120000",
+  "Nb:0.750000 Os:0.250000",
+  "O:0.112233 Ca:0.112233 Co:0.013468 Cu:0.210999 Sr:0.224467 I:0.102132 Bi:0.224467",
+  "O:0.125000 S:0.375000 Cu:0.125000 Mo:0.375000",
+  "O:0.212500 F:0.037500 Fe:0.237500 As:0.250000 Ru:0.012500 Sm:0.250000",
+  "O:0.250000 Sr:0.225000 Nb:0.500000 Nd:0.025000",
+  "O:0.500000 Cu:0.250000 Sr:0.218750 La:0.031250",
+  "O:0.523431 Cu:0.233519 Zn:0.004766 Y:0.079428 Ba:0.158856",
+  "O:0.532346 Ni:0.031177 Cu:0.202650 Ba:0.155885 Dy:0.077942",
+  "O:0.533333 Ca:0.040000 Cu:0.130667 Zn:0.002667 Sr:0.133333 Y:0.026667 Bi:0.133333",
+  "O:0.534523 Cu:0.232739 Sr:0.062064 Y:0.046548 Ba:0.093095 Pr:0.031032",
+  "O:0.535244 Cu:0.232378 Sr:0.023238 Ba:0.131681 Pr:0.042603 Yb:0.034857",
+  "O:0.536572 Cu:0.231714 Sr:0.077238 Y:0.077238 Ba:0.077238",
+  "O:0.537465 Cu:0.185014 Sr:0.111008 La:0.111008 Pb:0.027752 Bi:0.027752",
+  "O:0.538462 Ca:0.007692 Cu:0.230769 Ba:0.153846 Pr:0.015385 Lu:0.053846",
+  "O:0.538462 Cu:0.230769 Sr:0.076923 Y:0.030769 Ba:0.076923 Pr:0.046154",
+  "O:0.539726 Ca:0.010959 Cu:0.230137 Ba:0.109589 La:0.104110 Er:0.005479",
+  "O:0.542334 Ca:0.015256 Cu:0.228833 Ba:0.118230 La:0.095347",
+  "O:0.554896 Cu:0.222552 Sr:0.148368 Tm:0.074184",
+  "O:0.571429 Cu:0.142857 Sr:0.021429 La:0.246429 Nd:0.017857",
+  "O:0.600000 Cu:0.200000 Ba:0.120000 Eu:0.080000",
+  "Pd:0.016667 Te:0.666667 Ir:0.316667",
+  "Rh:0.300000 Sn:0.500000 La:0.200000",
+  "Sb:0.666667 Au:0.333333",
+  "Si:0.526316 Sc:0.052632 Lu:0.210526 Ir:0.210526",
+  "Sn:0.250000 Te:0.500000 Pb:0.250000",
+  "Ti:0.640000 Nb:0.240000 Ta:0.120000",
+  "Ti:0.975000 Mo:0.025000",
+  "V:0.112500 Nb:0.637500 Au:0.250000",
+  "V:0.666667 Zr:0.100000 Hf:0.233333",
+  "V:0.750000 Ga:0.175000 Sn:0.075000",
+  "W:0.260000 Os:0.740000"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "n_labeled": 50,
+   "best_so_far_K": 83.3,
+   "y_star_K": 83.3,
+   "labeled_fingerprint": "ff4aeb95a0624891",
+   "selected": [
+    {
+     "key": "O:0.537037 Cu:0.231481 Sr:0.077160 Y:0.077160 Ba:0.077160",
+     "tc": 83.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 74.71463012695312
+    },
+    {
+     "key": "O:0.537037 Cu:0.227623 Sr:0.077160 Y:0.077160 Sn:0.003858 Ba:0.077160",
+     "tc": 73.80000000000001,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 73.99465942382812
+    },
+    {
+     "key": "O:0.535963 Cu:0.232019 Sr:0.077340 Y:0.077340 Ba:0.077340",
+     "tc": 80.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.58714294433594
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Sr:0.077280 Y:0.077280 Ba:0.077280",
+     "tc": 79.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.56723022460938
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Sr:0.077280 Ba:0.077280 Lu:0.077280",
+     "tc": 54.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 70.95201110839844
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Sr:0.077280 Ba:0.077280 Tm:0.077280",
+     "tc": 70.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 65.92681121826172
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Sr:0.077280 Ba:0.077280 La:0.077280",
+     "tc": 57.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 65.86319732666016
+    },
+    {
+     "key": "O:0.538462 Ca:0.007692 Cu:0.230769 Ba:0.153846 Pr:0.007692 Lu:0.061538",
+     "tc": 78.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 65.82707214355469
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Sr:0.077280 Ba:0.077280 Nd:0.077280",
+     "tc": 74.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 64.91690063476562
+    },
+    {
+     "key": "O:0.535963 Cu:0.232019 Sr:0.077340 Ba:0.077340 Dy:0.077340",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 64.84996795654297
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15097,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 2,
+   "n_labeled": 60,
+   "best_so_far_K": 83.5,
+   "y_star_K": 83.5,
+   "labeled_fingerprint": "28f16c6a41e7b74a",
+   "selected": [
+    {
+     "key": "O:0.535963 Cu:0.232019 Sr:0.077340 Ba:0.077340 Gd:0.077340",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 77.72539520263672
+    },
+    {
+     "key": "O:0.535604 Cu:0.232198 Sr:0.077399 Ba:0.077399 Nd:0.077399",
+     "tc": 64.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 76.05978393554688
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Sr:0.061681 Ba:0.092521 Nd:0.077101",
+     "tc": 66.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 74.2581558227539
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Sr:0.077220 Ba:0.077220 Eu:0.077220",
+     "tc": 84.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 73.28776550292969
+    },
+    {
+     "key": "O:0.535604 Cu:0.230263 Sr:0.077399 Y:0.077399 Sn:0.001935 Ba:0.077399",
+     "tc": 77.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.25850677490234
+    },
+    {
+     "key": "O:0.535891 Cu:0.232054 Sr:0.058014 Y:0.077351 Ba:0.096689",
+     "tc": 85.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.23434448242188
+    },
+    {
+     "key": "O:0.538462 Ca:0.007692 Cu:0.230769 Ba:0.153846 Ce:0.011538 Lu:0.057692",
+     "tc": 69.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.09427642822266
+    },
+    {
+     "key": "O:0.538462 Ca:0.007692 Cu:0.230769 Ba:0.153846 Ce:0.007692 Lu:0.061538",
+     "tc": 73.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 72.09427642822266
+    },
+    {
+     "key": "O:0.536680 Ca:0.007722 Cu:0.231660 Y:0.061776 Ba:0.154440 Pr:0.007722",
+     "tc": 81.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 71.87226104736328
+    },
+    {
+     "key": "O:0.536680 Ca:0.007722 Cu:0.231660 Y:0.054054 Ba:0.154440 Pr:0.015444",
+     "tc": 77.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 71.78673553466797
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15087,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 3,
+   "n_labeled": 70,
+   "best_so_far_K": 85.5,
+   "y_star_K": 85.5,
+   "labeled_fingerprint": "89361f09bb62cbcb",
+   "selected": [
+    {
+     "key": "O:0.536680 Ca:0.003861 Cu:0.231660 Y:0.065637 Ba:0.154440 Pr:0.007722",
+     "tc": 84.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 80.59508514404297
+    },
+    {
+     "key": "O:0.536680 Ca:0.007722 Cu:0.231660 Y:0.069498 Ba:0.146718 La:0.007722",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 79.828125
+    },
+    {
+     "key": "O:0.535963 Ca:0.005800 Cu:0.232019 Y:0.071539 Ba:0.154679",
+     "tc": 86.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 79.13095092773438
+    },
+    {
+     "key": "O:0.536680 Ca:0.003861 Cu:0.231660 Y:0.061776 Ba:0.154440 Pr:0.011583",
+     "tc": 82.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 79.05792236328125
+    },
+    {
+     "key": "O:0.536680 Ca:0.006178 Cu:0.231660 Y:0.059459 Ba:0.154440 Pr:0.011583",
+     "tc": 81.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 79.05792236328125
+    },
+    {
+     "key": "O:0.535963 Ca:0.007734 Cu:0.232019 Y:0.069606 Ba:0.154679",
+     "tc": 83.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 79.05623626708984
+    },
+    {
+     "key": "O:0.536680 Ca:0.007722 Cu:0.231660 Y:0.057915 Ba:0.154440 Pr:0.011583",
+     "tc": 79.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 78.93486022949219
+    },
+    {
+     "key": "O:0.536680 Ca:0.003861 Cu:0.231660 Y:0.057915 Ba:0.154440 Pr:0.015444",
+     "tc": 76.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 78.89810180664062
+    },
+    {
+     "key": "O:0.537037 Ca:0.007716 Cu:0.231481 Y:0.069444 Ba:0.146605 La:0.007716",
+     "tc": 82.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 78.78716278076172
+    },
+    {
+     "key": "O:0.537037 Ca:0.007716 Cu:0.231481 Y:0.069444 Ba:0.154321",
+     "tc": 81.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 78.70503234863281
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15077,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 4,
+   "n_labeled": 80,
+   "best_so_far_K": 86.3,
+   "y_star_K": 86.3,
+   "labeled_fingerprint": "cc08fb30a7bc898b",
+   "selected": [
+    {
+     "key": "O:0.536680 Ca:0.001931 Cu:0.231660 Y:0.075290 Ba:0.154440",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 83.84378051757812
+    },
+    {
+     "key": "O:0.536321 Ca:0.003864 Cu:0.231839 Y:0.073416 Ba:0.154560",
+     "tc": 88.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 83.18402862548828
+    },
+    {
+     "key": "O:0.536429 Ca:0.007803 Cu:0.231786 Y:0.069458 Ba:0.154524",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 81.74903106689453
+    },
+    {
+     "key": "O:0.535891 Ca:0.010210 Cu:0.232054 Y:0.067141 Ba:0.154703",
+     "tc": 75.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 81.40247344970703
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Sr:0.038610 Y:0.077220 Ba:0.115830",
+     "tc": 85.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 81.24915313720703
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.077220 Ba:0.152510 La:0.001931",
+     "tc": 99.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 81.08141326904297
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.073359 Ba:0.154440 Pr:0.003861",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 80.93656158447266
+    },
+    {
+     "key": "O:0.536715 Cu:0.231642 Y:0.077214 Ba:0.154428",
+     "tc": 91.19,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 80.63006591796875
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.077220 Ba:0.154440",
+     "tc": 92.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 80.63006591796875
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.069498 Ba:0.154440 Pr:0.007722",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 80.60044860839844
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15067,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 5,
+   "n_labeled": 90,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "f855fc723d2b2d9a",
+   "selected": [
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.077220 Ba:0.138996 La:0.015444",
+     "tc": 78.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 92.236572265625
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.152006 La:0.002315",
+     "tc": 93.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.31539916992188
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.152778 La:0.001543",
+     "tc": 92.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.31539916992188
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.151235 La:0.003086",
+     "tc": 93.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.31539916992188
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.150463 La:0.003858",
+     "tc": 93.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.18128204345703
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.149691 La:0.004630",
+     "tc": 94.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.09357452392578
+    },
+    {
+     "key": "O:0.536680 Cu:0.231313 Zn:0.000347 Y:0.077220 Ba:0.154440",
+     "tc": 90.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.71731567382812
+    },
+    {
+     "key": "O:0.536858 Cu:0.231571 Y:0.077190 Ba:0.138942 La:0.015438",
+     "tc": 78.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.45144653320312
+    },
+    {
+     "key": "O:0.536858 Cu:0.231571 Y:0.077190 Ba:0.154381",
+     "tc": 91.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.05970764160156
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.148148 La:0.006173",
+     "tc": 94.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.63087463378906
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15057,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 6,
+   "n_labeled": 100,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "d082b5009e1e6618",
+   "selected": [
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.153549 La:0.000772",
+     "tc": 92.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 92.55276489257812
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.073302 Ba:0.154321 Pr:0.003858",
+     "tc": 89.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 91.29823303222656
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.154321",
+     "tc": 90.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 91.2676773071289
+    },
+    {
+     "key": "O:0.537108 Cu:0.231446 Y:0.077149 Ba:0.154297",
+     "tc": 92.15,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 91.2676773071289
+    },
+    {
+     "key": "O:0.536930 Cu:0.231535 Y:0.077178 Ba:0.154357",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.94161224365234
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.146605 La:0.007716",
+     "tc": 93.25,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.63481140136719
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.145833 La:0.008488",
+     "tc": 93.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.63481140136719
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.145062 La:0.009259",
+     "tc": 93.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.30142211914062
+    },
+    {
+     "key": "O:0.537216 Cu:0.231392 Y:0.077131 Ba:0.148091 La:0.006170",
+     "tc": 92.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.15072631835938
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.077160 Ba:0.143519 La:0.010802",
+     "tc": 91.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.43527221679688
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15047,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 7,
+   "n_labeled": 110,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "aec85f3ea8d6140b",
+   "selected": [
+    {
+     "key": "O:0.537216 Cu:0.231392 Y:0.077131 Ba:0.154261",
+     "tc": 88.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.29080963134766
+    },
+    {
+     "key": "O:0.537216 Cu:0.231392 Y:0.073274 Ba:0.154261 Pr:0.003857",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.57127380371094
+    },
+    {
+     "key": "O:0.536321 Cu:0.231839 Y:0.077280 Ba:0.154560",
+     "tc": 92.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.79798889160156
+    },
+    {
+     "key": "O:0.536286 Cu:0.231857 Y:0.077286 Ba:0.154571",
+     "tc": 91.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.42960357666016
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Y:0.077042 Ba:0.150231 La:0.003852",
+     "tc": 89.65,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.37973022460938
+    },
+    {
+     "key": "O:0.536214 Cu:0.231893 Y:0.077298 Ba:0.154595",
+     "tc": 84.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.37772369384766
+    },
+    {
+     "key": "O:0.537572 Cu:0.231214 Y:0.077071 Ba:0.146435 La:0.007707",
+     "tc": 93.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.34788513183594
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.077101 Ba:0.150347 La:0.003855",
+     "tc": 90.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.29966735839844
+    },
+    {
+     "key": "O:0.535963 Cu:0.232019 Y:0.077340 Ba:0.154679",
+     "tc": 91.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.18621826171875
+    },
+    {
+     "key": "O:0.535604 Cu:0.231618 Zn:0.000580 Y:0.077399 Ba:0.154799",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.17932891845703
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15037,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 8,
+   "n_labeled": 120,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "9cad9e35c049f03d",
+   "selected": [
+    {
+     "key": "O:0.537750 Cu:0.231125 Y:0.077042 Ba:0.143297 La:0.010786",
+     "tc": 89.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.91951751708984
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Sr:0.003082 Y:0.077042 Ba:0.151002",
+     "tc": 91.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.34873962402344
+    },
+    {
+     "key": "O:0.537750 Ca:0.001156 Cu:0.231125 Y:0.075886 Ba:0.154083",
+     "tc": 89.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.01134490966797
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Y:0.077042 Ba:0.154083",
+     "tc": 89.69999999999999,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.81647491455078
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.077101 Ba:0.154202",
+     "tc": 90.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.27117919921875
+    },
+    {
+     "key": "O:0.535604 Cu:0.232198 Y:0.077399 Ba:0.147059 La:0.007740",
+     "tc": 90.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.92642211914062
+    },
+    {
+     "key": "O:0.537394 Ca:0.002313 Cu:0.231303 Y:0.074788 Ba:0.154202",
+     "tc": 86.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.66043853759766
+    },
+    {
+     "key": "O:0.535604 Ni:0.001161 Cu:0.231037 Y:0.077399 Ba:0.154799",
+     "tc": 90.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.52405548095703
+    },
+    {
+     "key": "O:0.537964 Ca:0.001232 Cu:0.231018 Y:0.075774 Ba:0.154012",
+     "tc": 89.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.43447875976562
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.073246 Ba:0.154202 Pr:0.003855",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.42159271240234
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15027,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 9,
+   "n_labeled": 130,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "4b304092c0d9cc9f",
+   "selected": [
+    {
+     "key": "O:0.536680 Cu:0.230942 Zn:0.000718 Y:0.077220 Ba:0.154440",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.44561767578125
+    },
+    {
+     "key": "O:0.536680 Cu:0.230502 Zn:0.001158 Y:0.077220 Ba:0.154440",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.77973937988281
+    },
+    {
+     "key": "O:0.535963 Fe:0.001547 Cu:0.230472 Y:0.077340 Ba:0.154679",
+     "tc": 90.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.13290405273438
+    },
+    {
+     "key": "O:0.537394 Ca:0.004626 Cu:0.231303 Y:0.072475 Ba:0.154202",
+     "tc": 83.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.797607421875
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.069391 Ba:0.154202 La:0.007710",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.56766510009766
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Sr:0.015408 Y:0.077042 Ba:0.138675",
+     "tc": 89.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.95458221435547
+    },
+    {
+     "key": "O:0.535891 Cu:0.232054 Sr:0.019338 Y:0.077351 Ba:0.135365",
+     "tc": 89.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.78913116455078
+    },
+    {
+     "key": "O:0.535604 Cu:0.232198 Y:0.077399 Ba:0.154799",
+     "tc": 91.75,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.74913787841797
+    },
+    {
+     "key": "O:0.536321 Ni:0.001546 Cu:0.230294 Y:0.077280 Ba:0.154560",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.43515014648438
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Y:0.069337 Ba:0.154083 Pr:0.007704",
+     "tc": 85.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.35721588134766
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15017,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 10,
+   "n_labeled": 140,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "56bdc7ca00ed8e37",
+   "selected": [
+    {
+     "key": "Li:0.001536 O:0.537634 Cu:0.230415 Y:0.076805 Ba:0.153610",
+     "tc": 89.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.50491333007812
+    },
+    {
+     "key": "O:0.538106 Cu:0.230947 Y:0.076982 Ba:0.146266 La:0.007698",
+     "tc": 90.675,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.12264251708984
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.069391 Ba:0.154202 Pr:0.007710",
+     "tc": 88.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.37952423095703
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Y:0.069444 Ba:0.154321 Pr:0.007716",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.84732055664062
+    },
+    {
+     "key": "O:0.537037 Cu:0.231481 Sr:0.038580 Y:0.077160 Ba:0.115741",
+     "tc": 89.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.64108276367188
+    },
+    {
+     "key": "O:0.536680 Cu:0.231660 Y:0.065637 Ba:0.154440 Pr:0.011583",
+     "tc": 81.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.56884765625
+    },
+    {
+     "key": "O:0.536680 Ca:0.001544 Cu:0.231660 Y:0.064093 Ba:0.154440 Pr:0.011583",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.46614074707031
+    },
+    {
+     "key": "O:0.537216 Cu:0.231392 Y:0.069418 Ba:0.154261 Pr:0.007713",
+     "tc": 85.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.41603088378906
+    },
+    {
+     "key": "O:0.537394 Cu:0.231303 Y:0.065536 Ba:0.154202 Pr:0.011565",
+     "tc": 81.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.29619598388672
+    },
+    {
+     "key": "O:0.538106 Cu:0.230947 Y:0.076982 Ba:0.153965",
+     "tc": 90.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.28912353515625
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 15007,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 11,
+   "n_labeled": 150,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "e041977504893424",
+   "selected": [
+    {
+     "key": "O:0.537750 Cu:0.231125 Sr:0.038521 Y:0.077042 Ba:0.115562",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.13677215576172
+    },
+    {
+     "key": "O:0.535963 Cu:0.230278 Zn:0.001740 Y:0.077340 Ba:0.154679",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.20787048339844
+    },
+    {
+     "key": "O:0.538284 Cu:0.230858 Y:0.076953 Ba:0.148134 La:0.005771",
+     "tc": 93.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.23394775390625
+    },
+    {
+     "key": "O:0.536250 Cu:0.231875 Sr:0.038646 Y:0.077292 Ba:0.115938",
+     "tc": 87.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.04595947265625
+    },
+    {
+     "key": "O:0.538284 Cu:0.230858 Y:0.076953 Ba:0.153905",
+     "tc": 89.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 84.68946075439453
+    },
+    {
+     "key": "O:0.537750 Cu:0.231125 Sr:0.053929 Y:0.077042 Ba:0.100154",
+     "tc": 84.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 84.62281799316406
+    },
+    {
+     "key": "O:0.535963 Fe:0.003480 Cu:0.228538 Y:0.077340 Ba:0.154679",
+     "tc": 91.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 84.07366943359375
+    },
+    {
+     "key": "O:0.537037 Co:0.002315 Cu:0.229167 Y:0.077160 Ba:0.154321",
+     "tc": 92.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 83.87202453613281
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.076923 Ba:0.146154 La:0.007692",
+     "tc": 92.35,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 83.8262939453125
+    },
+    {
+     "key": "Li:0.004594 O:0.535988 Cu:0.229709 Y:0.076570 Ba:0.153139",
+     "tc": 86.94999999999999,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 83.76444244384766
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14997,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 12,
+   "n_labeled": 160,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "fcb6995be06da898",
+   "selected": [
+    {
+     "key": "O:0.535604 Fe:0.003870 Cu:0.228328 Y:0.077399 Ba:0.154799",
+     "tc": 91.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.3907241821289
+    },
+    {
+     "key": "O:0.536823 Fe:0.004632 Cu:0.226957 Y:0.077196 Ba:0.154392",
+     "tc": 76.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.72724914550781
+    },
+    {
+     "key": "O:0.536965 Co:0.003891 Cu:0.229572 Y:0.077821 Ba:0.151751",
+     "tc": 70.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.72209930419922
+    },
+    {
+     "key": "O:0.535927 Fe:0.004641 Cu:0.227396 Y:0.077346 Ba:0.154691",
+     "tc": 85.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.3998794555664
+    },
+    {
+     "key": "O:0.535927 Fe:0.007735 Cu:0.224302 Y:0.077346 Ba:0.154691",
+     "tc": 71.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.23914337158203
+    },
+    {
+     "key": "O:0.535604 Co:0.003870 Cu:0.228328 Y:0.077399 Ba:0.154799",
+     "tc": 94.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.1623306274414
+    },
+    {
+     "key": "O:0.535963 Al:0.003867 Cu:0.228152 Y:0.077340 Ba:0.154679",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.14656829833984
+    },
+    {
+     "key": "O:0.535604 Fe:0.007740 Cu:0.224458 Y:0.077399 Ba:0.154799",
+     "tc": 62.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.93170928955078
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Sr:0.007692 Y:0.076923 Ba:0.146154",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.75016021728516
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Sr:0.003077 Y:0.076923 Ba:0.150769",
+     "tc": 90.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.3575439453125
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14987,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 13,
+   "n_labeled": 170,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "08655de82bcfe120",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.228462 Ga:0.002308 Y:0.076923 Ba:0.153846",
+     "tc": 90.88,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.14608001708984
+    },
+    {
+     "key": "O:0.538462 Cu:0.228462 Y:0.076923 Ba:0.153846 Gd:0.002308",
+     "tc": 40.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.14608001708984
+    },
+    {
+     "key": "O:0.538462 Mn:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 91.235,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.14608001708984
+    },
+    {
+     "key": "O:0.538462 P:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 96.663,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.14608001708984
+    },
+    {
+     "key": "O:0.535963 Ni:0.003867 Cu:0.228152 Y:0.077340 Ba:0.154679",
+     "tc": 80.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.0844955444336
+    },
+    {
+     "key": "O:0.538462 Fe:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 89.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.02764892578125
+    },
+    {
+     "key": "O:0.538462 Al:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 86.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.88968658447266
+    },
+    {
+     "key": "O:0.535604 Ti:0.002322 Cu:0.229876 Y:0.077399 Ba:0.154799",
+     "tc": 82.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.64988708496094
+    },
+    {
+     "key": "O:0.538462 Co:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 90.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.5721206665039
+    },
+    {
+     "key": "O:0.536321 Cu:0.227975 Y:0.077280 Ba:0.154560 Re:0.003864",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.50936126708984
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14977,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 14,
+   "n_labeled": 180,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "a7f0553f71d51721",
+   "selected": [
+    {
+     "key": "O:0.538462 Fe:0.001538 Cu:0.229231 Y:0.076923 Ba:0.153846",
+     "tc": 92.05000000000001,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.37602996826172
+    },
+    {
+     "key": "O:0.537394 Cu:0.228990 Zn:0.002313 Y:0.077101 Ba:0.154202",
+     "tc": 79.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.63097381591797
+    },
+    {
+     "key": "O:0.536398 Cu:0.229885 Se:0.003831 Y:0.076628 Ba:0.153257",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.49665069580078
+    },
+    {
+     "key": "O:0.536398 S:0.003831 Cu:0.229885 Y:0.076628 Ba:0.153257",
+     "tc": 93.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.49665069580078
+    },
+    {
+     "key": "O:0.537750 Cu:0.228814 Zn:0.002311 Y:0.077042 Ba:0.154083",
+     "tc": 80.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.26429748535156
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.076923 Cs:0.003846 Ba:0.150000",
+     "tc": 85.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.97915649414062
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Sr:0.015385 Y:0.076923 Ba:0.138462",
+     "tc": 87.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.83537292480469
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.075385 Ba:0.153846 Pr:0.001538",
+     "tc": 92.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.79952239990234
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.073077 Ba:0.153846 Pr:0.003846",
+     "tc": 91.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.7626724243164
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.073846 Ba:0.153846 Pr:0.003077",
+     "tc": 92.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.69707489013672
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14967,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 15,
+   "n_labeled": 190,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "fc60d1386010e873",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.073846 Ba:0.153846 Tb:0.003077",
+     "tc": 92.01,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.71369934082031
+    },
+    {
+     "key": "O:0.538462 Ca:0.001538 Cu:0.230769 Y:0.075385 Ba:0.153846",
+     "tc": 88.45,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.29655456542969
+    },
+    {
+     "key": "O:0.538462 Ca:0.001538 Cu:0.230769 Y:0.071538 Ba:0.153846 Pr:0.003846",
+     "tc": 89.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.503173828125
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.072308 Ba:0.153846 Pr:0.004615",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.29698944091797
+    },
+    {
+     "key": "O:0.538816 Cu:0.230592 Y:0.076864 Ba:0.153728",
+     "tc": 89.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.25952911376953
+    },
+    {
+     "key": "O:0.538462 Fe:0.001154 Cu:0.229615 Y:0.076923 Ba:0.153846",
+     "tc": 90.75,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.17286682128906
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.076923 Ba:0.153846",
+     "tc": 89.85,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.12690734863281
+    },
+    {
+     "key": "O:0.538420 S:0.000077 Cu:0.230751 Y:0.076917 Ba:0.153834",
+     "tc": 92.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.12690734863281
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.070769 Ba:0.153846 Pr:0.006154",
+     "tc": 90.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.74821472167969
+    },
+    {
+     "key": "O:0.538462 Ca:0.003846 Cu:0.230769 Y:0.073077 Ba:0.153846",
+     "tc": 88.55,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.47482299804688
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14957,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 16,
+   "n_labeled": 200,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "01cbb8b0d89eb60a",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.070769 Ba:0.153846 Tb:0.006154",
+     "tc": 92.01,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 90.14676666259766
+    },
+    {
+     "key": "O:0.538462 Cu:0.230000 Y:0.076923 Ba:0.153846 Gd:0.000769",
+     "tc": 44.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.89717864990234
+    },
+    {
+     "key": "O:0.538462 Cu:0.230231 Zn:0.000538 Y:0.076923 Ba:0.153846",
+     "tc": 84.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.58390045166016
+    },
+    {
+     "key": "O:0.538462 Cu:0.230000 Zn:0.000769 Y:0.076923 Ba:0.153846",
+     "tc": 87.55,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.22990417480469
+    },
+    {
+     "key": "O:0.538462 Ca:0.003077 Cu:0.230769 Y:0.070000 Ba:0.153846 Pr:0.003846",
+     "tc": 87.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.51680755615234
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.069231 Ba:0.153846 Tb:0.007692",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.42646789550781
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.069231 Ba:0.153846 Pr:0.007692",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.0599136352539
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.069231 Ba:0.153846 Eu:0.007692",
+     "tc": 92.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.89693450927734
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.069231 Cd:0.007692 Ba:0.153846",
+     "tc": 89.9,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.89693450927734
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.069231 Ba:0.153846 Ho:0.007692",
+     "tc": 60.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.89693450927734
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14947,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 17,
+   "n_labeled": 210,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "de99a7ba2c7e1e14",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.229846 Zn:0.000923 Y:0.076923 Ba:0.153846",
+     "tc": 85.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.09579467773438
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.067692 Ba:0.153846 Tb:0.009231",
+     "tc": 92.1,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.7938232421875
+    },
+    {
+     "key": "O:0.538462 Ni:0.001538 Cu:0.229231 Y:0.076923 Ba:0.153846",
+     "tc": 91.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.73161315917969
+    },
+    {
+     "key": "Li:0.002308 O:0.538462 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.23448181152344
+    },
+    {
+     "key": "O:0.538462 Cu:0.229615 Zn:0.001154 Y:0.076923 Ba:0.153846",
+     "tc": 81.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.95025634765625
+    },
+    {
+     "key": "O:0.538462 Ni:0.001923 Cu:0.228846 Y:0.076923 Ba:0.153846",
+     "tc": 86.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.45269012451172
+    },
+    {
+     "key": "O:0.538462 Cu:0.229385 Zn:0.001385 Y:0.076923 Ba:0.153846",
+     "tc": 82.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.4061508178711
+    },
+    {
+     "key": "O:0.536321 Ni:0.002318 Cu:0.229521 Y:0.077280 Ba:0.154560",
+     "tc": 88.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.09559631347656
+    },
+    {
+     "key": "O:0.538462 Cu:0.229538 Zn:0.001231 Y:0.076923 Ba:0.153846",
+     "tc": 84.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.09087371826172
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.061538 Cd:0.015385 Ba:0.153846",
+     "tc": 92.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.99618530273438
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14937,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 18,
+   "n_labeled": 220,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "2849a54b6ac11a7b",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.061538 Ba:0.153846 Sm:0.015385",
+     "tc": 80.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 89.01288604736328
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.053846 Cd:0.023077 Ba:0.153846",
+     "tc": 92.8,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.55896759033203
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.052308 Ba:0.153846 Tb:0.024615",
+     "tc": 91.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.23868560791016
+    },
+    {
+     "key": "O:0.538462 Fe:0.003077 Cu:0.227692 Y:0.076923 Ba:0.153846",
+     "tc": 90.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.1099624633789
+    },
+    {
+     "key": "O:0.538462 Ca:0.001538 Cu:0.230769 Y:0.067692 Ba:0.153846 Pr:0.007692",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.05722045898438
+    },
+    {
+     "key": "O:0.538462 Co:0.003000 Cu:0.227769 Y:0.076923 Ba:0.153846",
+     "tc": 93.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.7950210571289
+    },
+    {
+     "key": "O:0.538462 Co:0.003077 Cu:0.227692 Y:0.076923 Ba:0.153846",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.7950210571289
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.046154 Ba:0.153846 Eu:0.030769",
+     "tc": 92.6,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.73651885986328
+    },
+    {
+     "key": "O:0.538462 Ca:0.003077 Cu:0.230769 Y:0.066154 Ba:0.153846 Pr:0.007692",
+     "tc": 85.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.45350646972656
+    },
+    {
+     "key": "O:0.538462 Sc:0.019231 Cu:0.230769 Y:0.057692 Ba:0.153846",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.39994049072266
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14927,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 19,
+   "n_labeled": 230,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "6d1968cb9fc37cd4",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.046154 Cd:0.030769 Ba:0.153846",
+     "tc": 91.7,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 91.8402099609375
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.038462 Cd:0.038462 Ba:0.153846",
+     "tc": 93.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 88.24087524414062
+    },
+    {
+     "key": "O:0.538462 P:0.004615 Cu:0.226154 Y:0.076923 Ba:0.153846",
+     "tc": 88.259,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.71788024902344
+    },
+    {
+     "key": "O:0.538462 Co:0.003462 Cu:0.227308 Y:0.076923 Ba:0.153846",
+     "tc": 94.4,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.66130828857422
+    },
+    {
+     "key": "O:0.538462 Mn:0.003462 Cu:0.227308 Y:0.076923 Ba:0.153846",
+     "tc": 91.12,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.61686706542969
+    },
+    {
+     "key": "O:0.538462 Fe:0.003462 Cu:0.227308 Y:0.076923 Ba:0.153846",
+     "tc": 78.3,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.85234069824219
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.053846 Cd:0.007692 Ba:0.153846 Pr:0.015385",
+     "tc": 59.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.83293151855469
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Y:0.046154 Cd:0.015385 Ba:0.153846 Pr:0.015385",
+     "tc": 49.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.75279998779297
+    },
+    {
+     "key": "O:0.538462 Cu:0.227308 Y:0.076923 Ba:0.153846 Au:0.003462",
+     "tc": 91.5,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.41484832763672
+    },
+    {
+     "key": "O:0.538462 Ni:0.002308 Cu:0.228462 Y:0.076923 Ba:0.153846",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.331298828125
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14917,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  },
+  {
+   "round": 20,
+   "n_labeled": 240,
+   "best_so_far_K": 99.0,
+   "y_star_K": 99.0,
+   "labeled_fingerprint": "cc833efd4fbb09cd",
+   "selected": [
+    {
+     "key": "O:0.538462 Mn:0.004615 Cu:0.226154 Y:0.076923 Ba:0.153846",
+     "tc": 91.005,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 87.3984603881836
+    },
+    {
+     "key": "O:0.538462 Sc:0.038462 Cu:0.230769 Y:0.038462 Ba:0.153846",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.92150115966797
+    },
+    {
+     "key": "O:0.537037 Ca:0.003858 Co:0.003858 Cu:0.227623 Y:0.073302 Ba:0.154321",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.84329223632812
+    },
+    {
+     "key": "O:0.538462 Cu:0.226154 Ga:0.004615 Y:0.076923 Ba:0.153846",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 86.7107925415039
+    },
+    {
+     "key": "O:0.538462 Cr:0.004615 Cu:0.226154 Y:0.076923 Ba:0.153846",
+     "tc": 84.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.89208984375
+    },
+    {
+     "key": "O:0.538462 Ca:0.003846 Cu:0.230769 Y:0.069231 Ba:0.153846 Pr:0.003846",
+     "tc": 86.2,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.84513854980469
+    },
+    {
+     "key": "O:0.538462 Al:0.004615 Cu:0.226154 Y:0.076923 Ba:0.153846",
+     "tc": 83.65,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.75679016113281
+    },
+    {
+     "key": "O:0.538462 Al:0.003846 Cu:0.226923 Y:0.076923 Ba:0.153846",
+     "tc": 88.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.44353485107422
+    },
+    {
+     "key": "O:0.538462 Ca:0.006154 Cu:0.230769 Y:0.070769 Ba:0.153846",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 85.0135498046875
+    },
+    {
+     "key": "O:0.538462 Cu:0.230769 Sr:0.038462 Y:0.076923 Ba:0.115385",
+     "tc": 86.45,
+     "is_target": false,
+     "family": "cuprate",
+     "mean": 84.87782287597656
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 14907,
+    "targets_remaining": 152
+   },
+   "request": {
+    "seconds": null,
+    "model": "xgboost published settings"
+   }
+  }
+ ],
+ "status": "complete",
+ "machine": {
+  "host": "Kerems-MacBook-Air.local",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 10,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ }
+}

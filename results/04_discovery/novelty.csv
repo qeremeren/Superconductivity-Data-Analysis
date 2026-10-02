@@ -1,0 +1,17 @@
+phase,scenario,acquisition,targets_found,share_within_l1_0.01,share_within_l1_0.05,share_beyond_l1_0.1,share_oxygen_variant_of_labeled,median_nn_l1
+main,hard,ei,539,0.0557,0.2746,0.5547,0.1206,0.1216
+main,hard,greedy_tabpfn,267,0.0712,0.2959,0.5131,0.1161,0.1050
+main,hard,greedy_xgb,336,0.0744,0.3393,0.4048,0.1548,0.0632
+main,hard,random,23,0.0000,0.0870,0.8696,0.0435,0.2150
+main,main,ei,796,0.0930,0.4950,0.3405,0.1118,0.0508
+main,main,greedy_tabpfn,425,0.0965,0.5059,0.3059,0.0918,0.0492
+main,main,greedy_xgb,356,0.1039,0.5421,0.3006,0.0787,0.0435
+main,main,random,21,0.0000,0.1905,0.7619,0.0000,0.3275
+pilot,hard,ei,143,0.0420,0.2587,0.5245,0.1399,0.1125
+pilot,hard,greedy_xgb,66,0.0606,0.3333,0.4697,0.1515,0.0912
+pilot,hard,q90,119,0.0336,0.2353,0.5798,0.1261,0.1266
+pilot,hard,random,8,0.0000,0.0000,1.0000,0.0000,0.5515
+pilot,main,ei,298,0.1342,0.6141,0.2181,0.1577,0.0363
+pilot,main,greedy_xgb,147,0.0408,0.5714,0.2517,0.0340,0.0425
+pilot,main,q90,259,0.1506,0.5598,0.3050,0.1351,0.0413
+pilot,main,random,3,0.0000,0.0000,1.0000,0.0000,0.6533

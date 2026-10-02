@@ -1,0 +1,9 @@
+phase,scenario,acquisition,expected_targets,found_targets,expected_above_77K,found_above_77K
+main,hard,ei,575.292,539,7.359,0
+main,hard,greedy_tabpfn,258.480,267,3.850,0
+main,main,ei,761.645,796,1567.104,1568
+main,main,greedy_tabpfn,446.492,425,1871.874,1865
+pilot,hard,ei,128.392,143,2.984,0
+pilot,hard,q90,135.174,119,1.912,0
+pilot,main,ei,311.046,298,538.558,528
+pilot,main,q90,274.650,259,550.515,545

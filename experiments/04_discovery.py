@@ -155,9 +155,12 @@ def tabpfn_job(ctx, phase, scenario_name, acq, seed, run_budget, retries):
                 return out
             except budget.BudgetExceeded:
                 raise
-            except Exception:
+            except Exception as exc:
                 if attempt == retries:
                     raise
+                print(
+                    f"retry {phase}/{scenario_name}/{acq}/{seed} after: {exc!r}"[:400], flush=True
+                )
                 time.sleep(RETRY_WAIT_S)
 
     try:

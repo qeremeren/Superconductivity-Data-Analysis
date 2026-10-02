@@ -1,0 +1,45 @@
+{
+ "G1_pilot_complete": {
+  "pass": true,
+  "problems": []
+ },
+ "G3_batches_from_unlabeled": {
+  "pass": true,
+  "problems": []
+ },
+ "G2_random_vs_exact": {
+  "pass": true,
+  "main": {
+   "pass": true,
+   "replicates": 1000,
+   "simulated_mean": 1.983,
+   "exact_mean": 2.0136450950519973,
+   "simulated_p_hit": 0.871,
+   "exact_p_hit": 0.8696297509760285,
+   "tolerance": "4 standard errors"
+  },
+  "hard": {
+   "pass": true,
+   "replicates": 1000,
+   "simulated_mean": 2.176,
+   "exact_mean": 2.0825095558191644,
+   "simulated_p_hit": 0.886,
+   "exact_p_hit": 0.8801509500772599,
+   "tolerance": "4 standard errors"
+  }
+ },
+ "G4_budget_authorizes_main": {
+  "acquisitions": [
+   "ei",
+   "greedy_tabpfn"
+  ],
+  "requests_per_scenario": 400,
+  "pass": true
+ },
+ "all_pass": true,
+ "checked_at": "2026-10-02T21:15:55+00:00",
+ "final_main_integrity": {
+  "pass": true,
+  "problems": []
+ }
+}

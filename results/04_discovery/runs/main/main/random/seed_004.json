@@ -1,0 +1,1576 @@
+{
+ "scenario": "main",
+ "acquisition": "random",
+ "seed": 4,
+ "n_initial": 50,
+ "batch": 10,
+ "rounds_planned": 20,
+ "threshold_K": 119.0,
+ "pool_size": 15147,
+ "targets_in_pool": 152,
+ "grid_levels": null,
+ "initial": [
+  "Al:0.173228 Si:0.236220 Nb:0.590551",
+  "B:0.008889 C:0.102222 O:0.555556 Cu:0.111111 Sr:0.222222",
+  "B:0.200000 N:0.300000 Ni:0.200000 La:0.300000",
+  "B:0.333333 C:0.166667 Ni:0.333333 Y:0.125000 Dy:0.041667",
+  "B:0.425000 C:0.075000 Mg:0.500000",
+  "B:0.444444 Rh:0.444444 Ho:0.096222 Er:0.014889",
+  "B:0.500000 Ru:0.250000 Tb:0.025000 Lu:0.225000",
+  "C:0.050000 N:0.005556 O:0.555556 Cu:0.111111 Sr:0.222222 Tl:0.027778 Pb:0.027778",
+  "C:0.200000 Mg:0.200000 Ni:0.594000 Cu:0.006000",
+  "C:0.333333 Zr:0.333333 Hf:0.333333",
+  "C:0.500000 Mo:0.400000 W:0.100000",
+  "Cr:0.071000 Nb:0.929000",
+  "Cr:0.570000 Mo:0.430000",
+  "Fe:0.520833 Se:0.479167",
+  "H:0.025487 O:0.524738 Cu:0.224888 Y:0.074963 Ba:0.149925",
+  "H:0.027500 O:0.222500 P:0.057500 Fe:0.250000 As:0.192500 Sm:0.250000",
+  "H:0.032258 Zr:0.645161 Rh:0.322581",
+  "H:0.110000 O:0.140000 Fe:0.250000 As:0.250000 La:0.250000",
+  "K:0.100000 Fe:0.360000 Co:0.040000 As:0.400000 Ba:0.100000",
+  "N:0.266667 Na:0.200000 Cl:0.266667 Zr:0.266667",
+  "N:0.435000 O:0.065000 Mg:0.050000 Nb:0.450000",
+  "O:0.285714 F:0.285714 Cu:0.142857 Sr:0.214286 Ba:0.071429",
+  "O:0.333333 Cl:0.333333 K:0.041667 Ca:0.125000 Cu:0.166667",
+  "O:0.444444 Cu:0.111111 Sr:0.205556 La:0.022222 Bi:0.216667",
+  "O:0.467221 Cu:0.201302 Y:0.067101 Ba:0.134201 La:0.130175",
+  "O:0.521883 Cu:0.257448 Y:0.073556 Ba:0.147113",
+  "O:0.530149 Cu:0.211433 Ga:0.023493 Ba:0.156617 Dy:0.078309",
+  "O:0.531103 Ca:0.007815 Cu:0.234448 Ba:0.156299 Er:0.058612 Hf:0.011722",
+  "O:0.532346 Co:0.015588 Cu:0.218239 Y:0.077942 Ba:0.155885",
+  "O:0.533333 Ca:0.050000 Cu:0.129333 Zn:0.004000 Sr:0.133333 Y:0.016667 Pb:0.020000 Bi:0.113333",
+  "O:0.536680 Cu:0.231660 Y:0.069498 Ba:0.154440 Pr:0.007722",
+  "O:0.537394 Cu:0.231303 Ba:0.127217 Pr:0.026985 Gd:0.077101",
+  "O:0.537572 Ca:0.104046 Cu:0.202312 Ge:0.028902 Sr:0.115607 Y:0.011561",
+  "O:0.538462 Ca:0.003846 Cu:0.207692 Sr:0.153846 Mo:0.023077 Pr:0.073077",
+  "O:0.538462 Ca:0.003846 Cu:0.230769 Y:0.073077 Ba:0.153846",
+  "O:0.538462 Ca:0.030769 Co:0.076923 Cu:0.153846 Sr:0.153846 Y:0.046154",
+  "O:0.538462 Ca:0.076923 Cu:0.230769 Ba:0.076923 La:0.076923",
+  "O:0.555556 Cr:0.011111 Cu:0.111111 Sr:0.211111 Tl:0.111111",
+  "O:0.555556 Cu:0.111111 Sr:0.194444 La:0.027778 Hg:0.055556 Bi:0.055556",
+  "O:0.556869 Fe:0.073855 Cu:0.147710 Sr:0.147710 Nd:0.073855",
+  "O:0.571429 Ca:0.015143 Cu:0.142857 Ba:0.006286 La:0.223143 Nd:0.041143",
+  "O:0.571429 Cu:0.142857 Ba:0.022143 La:0.263571",
+  "O:0.571429 Cu:0.142857 La:0.271429 Sm:0.014286",
+  "O:0.571429 Cu:0.142857 La:0.276571 Ce:0.009143",
+  "O:0.571429 Fe:0.001714 Cu:0.141143 Sr:0.028571 La:0.257143",
+  "O:0.600000 K:0.080000 Ba:0.120000 Pb:0.080000 Bi:0.120000",
+  "O:0.600000 K:0.180000 Bi:0.220000",
+  "S:0.518471 Mo:0.411536 Sn:0.031108 Eu:0.038885",
+  "V:0.964500 Ta:0.035500",
+  "Zr:0.425000 Nb:0.481500 Ta:0.093500"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "n_labeled": 50,
+   "best_so_far_K": 91.8,
+   "y_star_K": 91.8,
+   "labeled_fingerprint": "44edc2362c699672",
+   "selected": [
+    {
+     "key": "O:0.545455 Ca:0.036364 Cu:0.090909 Sr:0.136364 Bi:0.190909",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533437 Cu:0.209953 Zn:0.023328 Ba:0.155521 Er:0.077760",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "C:0.016667 N:0.016667 O:0.066667 Ca:0.333333 Cu:0.433333 Sr:0.133333",
+     "tc": 52.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Al:0.666667 La:0.332667 Gd:0.000667",
+     "tc": 2.42,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.200000 F:0.050000 Fe:0.250000 As:0.250000 Ce:0.250000",
+     "tc": 40.4,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Co:0.142857 In:0.714286 La:0.021429 Ce:0.121429",
+     "tc": 0.78,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.250000 Ni:0.250000 La:0.250000 Bi:0.250000",
+     "tc": 5.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.536680 Fe:0.006950 Cu:0.222394 Zn:0.002317 Ba:0.154440 Er:0.077220",
+     "tc": 65.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.508197 Ca:0.081967 Cu:0.163934 Ge:0.016393 Ba:0.163934 Hg:0.065574",
+     "tc": 124.0,
+     "is_target": true,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.538462 Ca:0.076923 Cu:0.153846 Sr:0.123077 Ce:0.030769 Tl:0.076923",
+     "tc": 38.9,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15097,
+    "targets_remaining": 152
+   },
+   "request": {}
+  },
+  {
+   "round": 2,
+   "n_labeled": 60,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "e472b6fd04f34bea",
+   "selected": [
+    {
+     "key": "O:0.142857 Ca:0.014286 Cu:0.428571 Sr:0.114286 Ba:0.171429 Pr:0.014286 Er:0.114286",
+     "tc": 78.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.536680 S:0.015444 Ca:0.054054 Cu:0.154440 Sr:0.154440 Nd:0.023166 Pb:0.015444 Bi:0.046332",
+     "tc": 80.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.526316 Y:0.026316 Lu:0.236842 Ir:0.210526",
+     "tc": 3.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.500000 Ca:0.019167 Cu:0.250000 Y:0.064167 Ba:0.166667",
+     "tc": 25.15,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.250000 Fe:0.231250 Co:0.018750 As:0.250000 La:0.250000",
+     "tc": 12.66,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "C:0.084656 N:0.021164 O:0.576720 Cu:0.105820 Sr:0.211640",
+     "tc": 31.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ge:0.400000 Rh:0.600000",
+     "tc": 2.12,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.551132 Co:0.019516 Cu:0.214676 Y:0.078064 Ba:0.136612",
+     "tc": 63.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "H:0.044776 C:0.895522 N:0.014925 Na:0.014925 K:0.029851",
+     "tc": 8.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.021000 Ge:0.094000 Nb:0.791000 Sn:0.094000",
+     "tc": 8.2,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15087,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 3,
+   "n_labeled": 70,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "eefc1d9bb264d991",
+   "selected": [
+    {
+     "key": "B:0.333333 C:0.166667 Ni:0.308333 Cu:0.025000 Y:0.166667",
+     "tc": 13.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.530516 Ca:0.009390 Co:0.009390 Cu:0.225352 Y:0.068858 Ba:0.156495",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Zr:0.800000 Pd:0.200000",
+     "tc": 2.91,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.714286 Zr:0.028571 Nb:0.257143",
+     "tc": 5.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.545159 Ca:0.032489 Cu:0.129955 Sr:0.129955 Y:0.032489 Bi:0.129955",
+     "tc": 66.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.526316 Ca:0.105263 Cu:0.157895 Sr:0.105263 Pb:0.015789 Bi:0.089474",
+     "tc": 106.75,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.142857 Cu:0.428571 Ba:0.285714 Pr:0.014286 Nd:0.128571",
+     "tc": 48.9,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Li:0.025000 O:0.125000 Ca:0.125000 Cu:0.225000 Sr:0.250000 Bi:0.250000",
+     "tc": 86.9,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Sn:0.375000 La:0.250000 Tl:0.375000",
+     "tc": 1.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Cu:0.142857 La:0.274286 Ce:0.011429",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15077,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 4,
+   "n_labeled": 80,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "acefc81a53b4b39c",
+   "selected": [
+    {
+     "key": "O:0.544271 Ca:0.039062 Cu:0.130208 Sr:0.130208 Y:0.026042 Bi:0.130208",
+     "tc": 76.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.500000 Fe:0.300000 Dy:0.006000 Lu:0.194000",
+     "tc": 4.52,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.200000 Mg:0.200000 Ni:0.520000 Ru:0.080000",
+     "tc": 2.14,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.538462 Ca:0.076923 Cu:0.230769 Ba:0.076923 Pr:0.019231 Nd:0.057692",
+     "tc": 26.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Fe:0.529730 Cu:0.010811 Se:0.459459",
+     "tc": 4.1,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.125000 K:0.025000 Ca:0.100000 Cu:0.250000 Sr:0.250000 Bi:0.250000",
+     "tc": 76.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.144928 Cu:0.434783 Y:0.144928 Ba:0.275362",
+     "tc": 96.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.565217 Cu:0.159420 Sr:0.144928 Y:0.072464 Ru:0.057971",
+     "tc": 43.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Te:0.500000 Tl:0.005000 Pb:0.495000",
+     "tc": 1.22,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.561097 Cu:0.124688 Ba:0.124688 Hg:0.094763 Tl:0.094763",
+     "tc": 87.5,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15067,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 5,
+   "n_labeled": 90,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "e2422c9e6aee134b",
+   "selected": [
+    {
+     "key": "O:0.375000 Mg:0.037500 Ti:0.087500 Fe:0.125000 As:0.125000 Sr:0.250000",
+     "tc": 32.85,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.578947 Cu:0.144737 Sr:0.105263 Mo:0.013158 Ce:0.105789 Gd:0.052105",
+     "tc": 47.3,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Al:0.250000 Ti:0.055500 Nb:0.694500",
+     "tc": 13.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Co:0.001143 Cu:0.141714 Sr:0.021429 La:0.264286",
+     "tc": 23.1,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.400000 Pd:0.400000 Lu:0.200000",
+     "tc": 0.67,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.534161 Co:0.003882 Cu:0.229037 Y:0.077640 Ba:0.155280",
+     "tc": 91.2,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.142857 Cu:0.421429 Zn:0.007143 Y:0.142857 Ba:0.278571 La:0.007143",
+     "tc": 71.9,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.536429 Ca:0.007803 Cu:0.231786 Y:0.069458 Ba:0.154524",
+     "tc": 83.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.544073 Cu:0.227964 Ba:0.151976 Nd:0.075988",
+     "tc": 95.3,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.200000 Nb:0.800000",
+     "tc": 4.23,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15057,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 6,
+   "n_labeled": 100,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "27e11fd5be66f39d",
+   "selected": [
+    {
+     "key": "O:0.034483 Ca:0.413793 Cu:0.448276 Ba:0.068966 Hg:0.034483",
+     "tc": 104.8,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533333 Ca:0.053333 Cu:0.133333 Sr:0.133333 Nd:0.013333 Pb:0.040000 Bi:0.093333",
+     "tc": 87.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.571429 Cu:0.142857 Sr:0.021429 La:0.258571 Ho:0.005714",
+     "tc": 32.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.570201 Cu:0.143266 Sr:0.021490 La:0.121777 Sm:0.143266",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.538462 Ni:0.017308 Cu:0.213462 Ba:0.153846 Ho:0.076923",
+     "tc": 84.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.514301 Ca:0.140313 Cu:0.161900 Ba:0.107933 Tl:0.075553",
+     "tc": 118.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "B:0.666667 Mg:0.332000 Cu:0.001333",
+     "tc": 38.11,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sb:0.222222 Tl:0.777778",
+     "tc": 5.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.600000 Rh:0.200000 Ce:0.200000",
+     "tc": 1.06,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.166667 Ca:0.033333 Cu:0.500000 Y:0.133333 Ba:0.133333 Nd:0.033333",
+     "tc": 73.0,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15047,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 7,
+   "n_labeled": 110,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "a0b2c06772552588",
+   "selected": [
+    {
+     "key": "Tl:0.074627 Pb:0.925373",
+     "tc": 6.98,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.500000 Cu:0.122500 Zn:0.002500 Ba:0.250000 Hg:0.125000",
+     "tc": 85.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.600000 K:0.162000 Ba:0.038000 Bi:0.200000",
+     "tc": 8.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Lu:0.333333 Os:0.666667",
+     "tc": 3.49,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.324149 C:0.162075 Co:0.055105 Ni:0.296596 Lu:0.162075",
+     "tc": 3.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.237986 K:0.173913 Fe:0.368421 Se:0.219680",
+     "tc": 16.4,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.097087 Ca:0.203883 Cu:0.300971 Sr:0.184466 Pb:0.033981 Bi:0.179612",
+     "tc": 112.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "N:0.300300 Cl:0.300300 Ba:0.099099 Hf:0.300300",
+     "tc": 20.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.250000 P:0.125000 Fe:0.225000 Co:0.025000 As:0.125000 Pr:0.250000",
+     "tc": 7.46,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "P:0.333333 Zr:0.333333 Ru:0.300000 Rh:0.033333",
+     "tc": 2.9,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15037,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 8,
+   "n_labeled": 120,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "2f945fb9aae07f9a",
+   "selected": [
+    {
+     "key": "B:0.327869 C:0.163934 Nd:0.163934 Pt:0.245902 Au:0.098361",
+     "tc": 3.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.571429 Cu:0.114286 Zn:0.028571 Ir:0.285714",
+     "tc": 3.32,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "V:0.037500 Nb:0.712500 Sn:0.250000",
+     "tc": 17.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.331675 C:0.165837 Co:0.009950 Ni:0.326700 Tm:0.165837",
+     "tc": 8.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Ni:0.000429 Cu:0.142429 Ce:0.018571 Pr:0.267143",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ru:0.666667 Ce:0.300000 Pr:0.033333",
+     "tc": 6.55,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.575732 Cu:0.141423 La:0.254561 Nd:0.028285",
+     "tc": 34.8,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Sn:0.920000 Bi:0.080000",
+     "tc": 4.15,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Li:0.010000 Al:0.990000",
+     "tc": 1.07,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.546279 Ca:0.064817 Cu:0.129634 Sr:0.129634 Bi:0.129634",
+     "tc": 42.1,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15027,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 9,
+   "n_labeled": 130,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "1200e0d9513bfeb4",
+   "selected": [
+    {
+     "key": "Ga:0.150000 Nb:0.750000 Sn:0.100000",
+     "tc": 14.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "F:0.250000 Ca:0.250000 Fe:0.225000 Co:0.025000 As:0.250000",
+     "tc": 23.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.111111 Ca:0.066667 Cu:0.222222 Sr:0.222222 Y:0.044444 I:0.111111 Bi:0.222222",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Fe:0.397614 As:0.397614 Rb:0.019881 Sn:0.017893 Ba:0.166998",
+     "tc": 22.6,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.538106 Cu:0.230947 Ba:0.150115 Sm:0.080831",
+     "tc": 88.5,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Nb:0.750000 Bi:0.250000",
+     "tc": 3.775,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.119048 Ca:0.119048 Cr:0.001190 Cu:0.236905 Sr:0.238095 Pb:0.095238 Bi:0.190476",
+     "tc": 68.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.666667 K:0.111111 Mo:0.222222",
+     "tc": 4.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.529412 Cu:0.234353 Zn:0.000941 Y:0.078431 Ba:0.156863",
+     "tc": 62.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.538462 Ca:0.046154 Cu:0.230769 Sr:0.030769 Ba:0.076923 Nd:0.076923",
+     "tc": 63.0,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 1,
+   "pool": {
+    "n_unlabeled": 15017,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 10,
+   "n_labeled": 140,
+   "best_so_far_K": 124.0,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "49747c9845ae24ea",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.211154 Zn:0.019615 Y:0.076923 Ba:0.153846",
+     "tc": 5.7,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.571429 Ca:0.005000 Cu:0.142857 Sr:0.142857 Y:0.066429 Mo:0.071429",
+     "tc": 50.1,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.105263 F:0.052632 Ca:0.210526 Cu:0.315789 Ba:0.210526 Hg:0.105263",
+     "tc": 128.5,
+     "is_target": true,
+     "family": "cuprate"
+    },
+    {
+     "key": "Cr:0.820000 Ir:0.180000",
+     "tc": 0.75,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.500000 Lu:0.250000 Os:0.250000",
+     "tc": 2.66,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.533582 Ca:0.031095 Cu:0.233209 Ba:0.116604 Nd:0.085510",
+     "tc": 54.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533074 Cu:0.233463 Ba:0.155642 Nd:0.077821",
+     "tc": 67.4,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533333 Ca:0.053333 Cu:0.133333 Sr:0.133333 Er:0.013333 Pb:0.030000 Bi:0.103333",
+     "tc": 94.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.534161 Cu:0.232919 Sr:0.077640 Y:0.077640 Ba:0.077640",
+     "tc": 75.6,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ni:0.080000 Ru:0.920000",
+     "tc": 0.2,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 15007,
+    "targets_remaining": 151
+   },
+   "request": {}
+  },
+  {
+   "round": 11,
+   "n_labeled": 150,
+   "best_so_far_K": 128.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "7a61b6aac95a3def",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.230769 Ba:0.153846 La:0.053846 Pr:0.023077",
+     "tc": 57.1,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "N:0.490000 O:0.010000 Nb:0.500000",
+     "tc": 17.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.466667 Ga:0.200000 Sr:0.333333",
+     "tc": 2.98,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.667000 Hg:0.333000",
+     "tc": 4.115,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.240385 Se:0.620192 Sn:0.013942 Pb:0.125481",
+     "tc": 4.19,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.206098 Fe:0.243902 As:0.439024 Sm:0.037805 Pt:0.073171",
+     "tc": 28.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Ta:0.250000 Re:0.750000",
+     "tc": 5.765000000000001,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Ni:0.002857 Cu:0.140000 Sr:0.021429 La:0.264286",
+     "tc": 22.2,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Zr:0.870000 Nb:0.130000",
+     "tc": 6.42,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.541985 Cu:0.217557 Sr:0.152672 Y:0.076336 Re:0.011450",
+     "tc": 73.0,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 14997,
+    "targets_remaining": 150
+   },
+   "request": {}
+  },
+  {
+   "round": 12,
+   "n_labeled": 160,
+   "best_so_far_K": 128.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "7a9a01b5ef14b772",
+   "selected": [
+    {
+     "key": "V:0.666667 Zr:0.200000 Hf:0.133333",
+     "tc": 8.98,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Cu:0.142857 Sr:0.008571 La:0.277143",
+     "tc": 8.01,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ca:0.243902 Fe:0.226341 As:0.439024 Pt:0.090732",
+     "tc": 14.9,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.477612 Ca:0.119403 Cu:0.179104 Sr:0.059701 Ba:0.119403 Hg:0.044776",
+     "tc": 133.5,
+     "is_target": true,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.500000 Cu:0.250000 Y:0.083333 Ba:0.166667",
+     "tc": 17.6,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ru:0.667000 Os:0.333000",
+     "tc": 0.47,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Se:0.571429 La:0.321429 Pr:0.107143",
+     "tc": 0.76,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.475000 Ge:0.025000 Lu:0.200000 Ir:0.300000",
+     "tc": 6.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.522293 Ca:0.003981 Cu:0.238854 Sr:0.031847 Ba:0.127389 Yb:0.075637",
+     "tc": 30.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.300000 Ga:0.366667 Sr:0.333333",
+     "tc": 5.04,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14987,
+    "targets_remaining": 150
+   },
+   "request": {}
+  },
+  {
+   "round": 13,
+   "n_labeled": 170,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "c7828bfe0389956d",
+   "selected": [
+    {
+     "key": "B:0.333333 C:0.166667 Ni:0.333333 Ho:0.116667 Lu:0.050000",
+     "tc": 8.72,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Li:0.333333 Fe:0.326667 Cu:0.006667 As:0.333333",
+     "tc": 9.3,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Si:0.500000 Fe:0.300000 Y:0.190000 Dy:0.010000",
+     "tc": 2.75,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.523810 Ca:0.142857 Cu:0.190476 Ga:0.047619 Sr:0.095238",
+     "tc": 107.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "In:0.004000 Te:0.500000 Tl:0.005000 Pb:0.491000",
+     "tc": 0.818,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.537037 Ca:0.030864 Cu:0.231481 Y:0.046296 Ba:0.123457 La:0.030864",
+     "tc": 78.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Sb:0.214286 La:0.571429 Bi:0.214286",
+     "tc": 0.158,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.180000 Ge:0.020000 Ce:0.200000 Pt:0.600000",
+     "tc": 0.31,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sn:0.250000 Bi:0.750000",
+     "tc": 3.77,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Mn:0.040000 Ga:0.160000 Nb:0.800000",
+     "tc": 6.03,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14977,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 14,
+   "n_labeled": 180,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "0f33df406f2a31ad",
+   "selected": [
+    {
+     "key": "O:0.532710 Ca:0.015576 Cu:0.233645 Y:0.062305 Ba:0.155763",
+     "tc": 82.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.521739 Si:0.006087 Ca:0.130435 Cu:0.167826 Sr:0.086957 Pb:0.017391 Bi:0.069565",
+     "tc": 110.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.102041 Ca:0.204082 Cu:0.306122 Sr:0.204082 Bi:0.183673",
+     "tc": 95.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.535244 Cu:0.232378 Sr:0.023238 Ba:0.131681 Pr:0.042603 Yb:0.034857",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.543726 Ca:0.030418 Cu:0.228137 Y:0.045627 Ba:0.091255 La:0.060837",
+     "tc": 67.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.554003 Fe:0.044600 Cu:0.178399 Y:0.074333 Ba:0.148666",
+     "tc": 62.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.125000 Ca:0.062500 Cu:0.250000 Y:0.062500 Ba:0.250000 Hg:0.175000 Tl:0.075000",
+     "tc": 81.4,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ge:0.285714 Rh:0.714286",
+     "tc": 2.12,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Te:0.545455 Ce:0.090909 Pb:0.072727 Bi:0.290909",
+     "tc": 2.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Pd:0.900000 Cd:0.100000",
+     "tc": 6.92,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14967,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 15,
+   "n_labeled": 190,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "a618e68ed68ecf76",
+   "selected": [
+    {
+     "key": "O:0.142857 Cu:0.428571 Y:0.142857 Ba:0.200000 La:0.085714",
+     "tc": 13.2,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.545455 Cu:0.090909 Sr:0.163636 La:0.018182 Bi:0.181818",
+     "tc": 14.1,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.532346 Cu:0.233827 Sr:0.077942 Y:0.077942 Ba:0.077942",
+     "tc": 58.5,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "B:0.666667 Mg:0.254667 Au:0.078667",
+     "tc": 24.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Cu:0.142143 Zn:0.000714 Sr:0.034286 La:0.251429",
+     "tc": 13.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.142857 Cu:0.285714 Sr:0.350000 La:0.078571 W:0.028571 Hg:0.114286",
+     "tc": 66.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.524941 Cu:0.233571 Zn:0.003959 Y:0.079177 Ba:0.158353",
+     "tc": 25.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Co:0.142857 In:0.714286 Ce:0.140000 Yb:0.002857",
+     "tc": 1.89,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.173913 O:0.347826 F:0.173913 Ag:0.304348",
+     "tc": 0.15,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.561719 Cu:0.140430 Sr:0.024996 La:0.272855",
+     "tc": 34.3,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14957,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 16,
+   "n_labeled": 200,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "c6b9129450b8412a",
+   "selected": [
+    {
+     "key": "Ge:0.493927 Te:0.506073",
+     "tc": 0.08549999999999999,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.100000 P:0.100000 Mo:0.800000",
+     "tc": 9.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.600000 K:0.111000 Ba:0.089000 Bi:0.200000",
+     "tc": 15.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.571429 Co:0.008571 Cu:0.134286 Sr:0.032857 La:0.252857",
+     "tc": 32.5,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Fe:0.316000 As:0.400000 Ru:0.084000 Ba:0.200000",
+     "tc": 14.125,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Sn:0.500000 Hg:0.500000",
+     "tc": 4.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.162216 Ga:0.056380 Nb:0.781405",
+     "tc": 20.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.285714 Na:0.017143 Cl:0.285714 Ca:0.268571 Cu:0.142857",
+     "tc": 16.8,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.540230 Ca:0.114943 Cu:0.172414 Sr:0.114943 Tl:0.057471",
+     "tc": 86.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Mn:0.002000 Ga:0.800000 Mo:0.198000",
+     "tc": 3.9699999999999998,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14947,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 17,
+   "n_labeled": 210,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "a9280f4742f2bb53",
+   "selected": [
+    {
+     "key": "O:0.500000 Cu:0.125000 Sr:0.250000 Hg:0.125000",
+     "tc": 56.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "La:0.750000 Tl:0.250000",
+     "tc": 8.905,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.047619 Ca:0.238095 V:0.019048 Cu:0.333333 Sr:0.190476 Pb:0.038095 Bi:0.133333",
+     "tc": 111.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ge:0.705882 Ba:0.058824 Pt:0.205882 Au:0.029412",
+     "tc": 5.19,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.500000 Co:0.001250 Cu:0.123750 Ba:0.250000 Hg:0.125000",
+     "tc": 96.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533333 Ca:0.066667 Co:0.004000 Cu:0.129333 Sr:0.133333 Pb:0.013333 Bi:0.120000",
+     "tc": 48.6,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Y:0.320000 Ru:0.666667 Gd:0.013333",
+     "tc": 3.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.150000 Sn:0.650000 Ir:0.200000",
+     "tc": 6.95,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.210000 Fe:0.250000 As:0.495000 Sb:0.005000 Ce:0.040000",
+     "tc": 21.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.538462 Ca:0.053846 Cu:0.153846 Ba:0.153846 Gd:0.023077 Tl:0.076923",
+     "tc": 81.25,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 14937,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 18,
+   "n_labeled": 220,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "9a662c085c34943f",
+   "selected": [
+    {
+     "key": "O:0.526316 Ca:0.105263 Cu:0.157895 Ba:0.105263 Tl:0.105263",
+     "tc": 119.475,
+     "is_target": true,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.571429 Ca:0.071429 Cu:0.071429 Sr:0.142857 Bi:0.142857",
+     "tc": 77.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.541630 Ca:0.039289 Cu:0.229185 Ba:0.094948 La:0.075304 Gd:0.019644",
+     "tc": 80.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Ca:0.200000 Fe:0.350000 Co:0.050000 As:0.400000",
+     "tc": 14.1,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Si:0.333333 Ni:0.200000 La:0.333333 Pt:0.133333",
+     "tc": 1.945,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.125000 Ca:0.125000 Cu:0.250000 Ba:0.250000 Hg:0.175000 Tl:0.075000",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "B:0.075000 Si:0.300000 Nb:0.625000",
+     "tc": 7.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.857143 Mg:0.128571 Cu:0.014286",
+     "tc": 36.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.563380 Cu:0.140845 Nd:0.295775",
+     "tc": 30.35,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "P:0.705882 Y:0.058824 Os:0.235294",
+     "tc": 3.0,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 4,
+   "pool": {
+    "n_unlabeled": 14927,
+    "targets_remaining": 149
+   },
+   "request": {}
+  },
+  {
+   "round": 19,
+   "n_labeled": 230,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "8b15ee09259a0f46",
+   "selected": [
+    {
+     "key": "O:0.534884 V:0.034884 Cu:0.116279 Sr:0.087209 Ba:0.145349 Hg:0.081395",
+     "tc": 65.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.405242 Cu:0.393145 Ce:0.201613",
+     "tc": 0.62,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.106383 F:0.042553 Ca:0.212766 Cu:0.319149 Ba:0.212766 Hg:0.106383",
+     "tc": 131.4,
+     "is_target": true,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533333 Ca:0.061667 Cu:0.133333 Sr:0.133333 La:0.005000 Bi:0.133333",
+     "tc": 57.6,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "B:0.500000 Mg:0.463500 Al:0.036500",
+     "tc": 33.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.750000 Rh:0.005000 Au:0.245000",
+     "tc": 11.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.250000 Fe:0.225000 As:0.250000 Rh:0.025000 La:0.250000",
+     "tc": 14.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.571429 Cu:0.142857 Ba:0.024286 La:0.261429",
+     "tc": 26.9,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.473282 Cu:0.229008 Br:0.068702 Y:0.076336 Ba:0.152672",
+     "tc": 92.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.533333 K:0.026667 Ca:0.066667 Cu:0.133333 Sr:0.106667 Bi:0.133333",
+     "tc": 73.0,
+     "is_target": false,
+     "family": "cuprate"
+    }
+   ],
+   "found_cumulative": 5,
+   "pool": {
+    "n_unlabeled": 14917,
+    "targets_remaining": 148
+   },
+   "request": {}
+  },
+  {
+   "round": 20,
+   "n_labeled": 240,
+   "best_so_far_K": 133.5,
+   "y_star_K": 119.0,
+   "labeled_fingerprint": "696dbe3d37903552",
+   "selected": [
+    {
+     "key": "O:0.538462 Cu:0.207692 Sr:0.153846 Y:0.046154 Mo:0.023077 Pr:0.030769",
+     "tc": 25.9,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "Si:0.420000 Ga:0.246667 Sr:0.333333",
+     "tc": 3.85,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Mo:0.600000 Ru:0.400000",
+     "tc": 7.85,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.500000 Te:0.500000",
+     "tc": 3.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "As:0.666667 Mo:0.333333",
+     "tc": 0.41,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.569646 Cu:0.143451 Ce:0.021518 Nd:0.236695 Sm:0.028690",
+     "tc": 21.6,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.519231 K:0.012019 Cu:0.240385 Y:0.068109 Ba:0.160256",
+     "tc": 90.15,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "O:0.111111 Cu:0.222222 Sr:0.222222 Ce:0.038889 Eu:0.183333 Pb:0.066667 Bi:0.155556",
+     "tc": 35.0,
+     "is_target": false,
+     "family": "cuprate"
+    },
+    {
+     "key": "F:0.250000 Fe:0.250000 As:0.250000 Sr:0.200000 La:0.050000",
+     "tc": 24.4,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "N:0.309598 Na:0.071207 Ti:0.309598 Br:0.309598",
+     "tc": 15.2,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 5,
+   "pool": {
+    "n_unlabeled": 14907,
+    "targets_remaining": 147
+   },
+   "request": {}
+  }
+ ],
+ "status": "complete",
+ "machine": {
+  "host": "Kerems-MacBook-Air.local",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 10,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ }
+}

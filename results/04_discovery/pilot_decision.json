@@ -1,0 +1,36 @@
+{
+ "totals": {
+  "ei": 441,
+  "q90": 378
+ },
+ "tie": false,
+ "chosen": [
+  "ei"
+ ],
+ "rule": "more targets found by the last round summed over pilot runs; within max(1, 10% of the larger total) keeps both",
+ "per_run_found": {
+  "ei": [
+   112,
+   90,
+   96,
+   59,
+   62,
+   22
+  ],
+  "q90": [
+   86,
+   89,
+   84,
+   66,
+   1,
+   52
+  ]
+ },
+ "seeds": [
+  100,
+  101,
+  102
+ ],
+ "rounds": 20,
+ "decided_at": "2026-10-02T21:14:44+00:00"
+}

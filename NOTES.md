@@ -126,9 +126,9 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 3 | `p3_learning_curves` | 50 | 60 | 50 | 600,000 | Oct | 5 sizes (100-10k) x 5 seeds x 2 sets |
 | 3 | `p3_quantile_vs_full` | 4 | 6 | 2 | 60,000 | Oct | 'full' vs quantile grid on 400 rows, 2 splits |
 | 4 | `p4_grid_check` | 2 | 3 | 2 | 30,000 | Oct | tail-dense vs 999-level grid, one pool |
-| 4 | `p4_pilot` | 240 | 260 | 0 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
-| 4 | `p4_main` | 400 | 620 | 0 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
-| 4 | `p4_hard` | 400 | 620 | 0 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
+| 4 | `p4_pilot` | 240 | 260 | 240 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
+| 4 | `p4_main` | 400 | 620 | 400 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
+| 4 | `p4_hard` | 400 | 620 | 404 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
 
 Spend already made is inside "used"; the plan columns count only what is left of each
 experiment's cap and plan.
@@ -136,7 +136,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 2,382,160 | 2026-10-02T20:23:30+00:00 | 16,617,840 | 15,602,500 | 10,420,000 | 1,015,340 (101) |
+| Oct | 20,000,000 | 12,802,160 | 2026-10-02T22:25:38+00:00 | 6,197,840 | 5,162,500 | 20,000 | 1,035,340 (103) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)
@@ -554,3 +554,64 @@ when y* is more than ~2.5 SD above the predictive mean (test_discovery).
 whole pipeline; a planted repeated selection tripped G3 and blocked the main runs with 0
 requests; a run cut after round 1 resumed to an identical result charging only the missing
 rounds; a rerun with everything complete charged nothing.
+
+## 2026-10-03 — Phase 4 results: simulated discovery
+
+Sources: `results/04_discovery/` (run records under `runs/`, `pilot_decision.json`, `gates.json`,
+`summary.csv`, `curves.csv`, `paired.csv`, `novelty.csv`, `families.csv`, `reliability.csv`,
+`batch_calibration.csv`, `timing.json`), from `experiments/04_discovery.py all --live` (one
+overnight command, 62.5 min) and `experiments/04_evaluate.py`; figures in
+`results/04_discovery/figures/`; `notebooks/04_discovery.ipynb`.
+
+### Run
+- Pilot (seeds 100-102): EI found 441 targets in total over the 6 pilot runs, q90 378. The
+  pre-registered rule chose EI (gap 63 > 10% of 441). Per run, EI 112 / 90 / 96 (main) and
+  59 / 62 / 22 (hard); q90 86 / 89 / 84 and 66 / 1 / 52.
+- Gates all passed: G1 pilot complete; G2 random simulation 1.98 vs exact 2.01 targets (main) and
+  2.18 vs 2.08 (hard), P(>= 1 hit) 0.871 vs 0.870 and 0.886 vs 0.880; G3 every batch valid;
+  G4 authorized 400 requests per scenario (EI + greedy TabPFN). Final integrity check: all valid.
+- Cost: 1,040 billed requests = 10,400,000 tokens (live usage 2,402,160 -> 12,802,160). The
+  ledger shows 4 extra charges: retries on 4 parallel hard/greedy_tabpfn runs within 21 s; the
+  first attempts were not billed (live usage = 1,040 x 10k) and all retries succeeded. Their
+  error text was not recorded; the runner now logs it. Median request 11.5 s (main pool),
+  7.6 s (hard).
+
+### Targets found after 200 experiments (main runs, seeds 0-9; 95% t-interval over seeds)
+| | main (152 targets) | hard (79 targets) |
+|---|---|---|
+| TabPFN EI | 79.6 (65.2-94.0) | 53.9 (42.4-65.5) |
+| TabPFN greedy (mean) | 42.5 (16.2-68.8) | 26.7 (4.7-48.7) |
+| XGBoost greedy (published settings) | 35.6 (11.5-59.7) | 33.6 (10.0-57.2) |
+| random search | 2.1 (exact expectation 2.01) | 2.3 (exact 2.08) |
+- Enrichment over random at 200 experiments: EI 39.5x (main), 25.9x (hard).
+- Paired by seed, EI minus: greedy TabPFN +37.1 (main, EI better on 9/10 seeds) and +27.2 (hard,
+  7/10); greedy XGBoost +44.0 (main, 9/10) and +20.3 (hard, 6/10 better, 3 worse, 1 tie; 95%
+  interval +0.5 to +40.1); random +77.5 and +51.6 (10/10 each).
+- Greedy XGBoost is fastest early (15.3 vs 10.3 targets after 50 experiments, main; 10.0 vs 5.7
+  hard) and has the shortest median time to a first hit (2 experiments main, 27 hard, vs EI 20
+  and 37), but 3 of its 10 runs found no target at all in either scenario. Every EI run found
+  targets. EI is ahead of greedy XGBoost from 80 (main) and 120 (hard) experiments onwards [curves.csv].
+- Hard scenario, reported as it came out (its targets are iron-based, where TabPFN's
+  leave-family-out uncertainty was weakest; here the family is not hidden, only its targets):
+  EI finds 538 iron-based targets and 1 other over 10 seeds and leads every method, but its
+  margin over greedy XGBoost is the least certain result (6/10 seeds), and P(top 1%) is
+  miscalibrated there (below).
+
+### Checks before believing the size of the effect
+- No label leakage path: each round fits only on measured materials (start set + earlier picks);
+  start sets contain no target (G3); random search matches its exact law (G2).
+- Novelty of the targets found (L1 over element fractions to the nearest already measured
+  material; YBa2Cu3O7 vs O6.9 = 0.007): main, EI 9.3% within 0.01, 49.5% within 0.05, 34.0%
+  beyond 0.1, 11.2% oxygen variants of a measured material; greedy XGBoost 10.4 / 54.2 / 30.1 /
+  7.9%. Hard, EI 5.6 / 27.5 / 55.5 / 12.1%; greedy XGBoost 7.4 / 33.9 / 40.5 / 15.5%. So about
+  half of the main-pool finds are close relatives of something already measured, for every
+  method alike; EI's finds are not more derivative than the baselines', and in the hard pool
+  they are further from anything measured (median 0.122 vs 0.063).
+
+### Reliability of TabPFN's probabilities during discovery (EI runs)
+- Batch level: expected (sum of P(top 1%)) vs found targets 761.6 vs 796 (main), 575.3 vs 539
+  (hard); expected vs found Tc > 77 K among measured materials 1,567.1 vs 1,568 (main).
+- Pool level (every unlabeled material, every round): calibrated on the main pool (e.g. 0.20-0.50
+  bin: predicted 0.302, observed 0.283; >= 0.5: 0.652 vs 0.653). On the hard pool overconfident
+  above 0.02 (0.20-0.50: 0.302 vs 0.169; >= 0.5: 0.607 vs 0.442) and underconfident below 0.001
+  (0.0006 vs 0.0027), consistent with the iron-based leave-family-out result.

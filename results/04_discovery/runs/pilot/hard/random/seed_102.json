@@ -1,0 +1,1576 @@
+{
+ "scenario": "hard",
+ "acquisition": "random",
+ "seed": 102,
+ "n_initial": 50,
+ "batch": 10,
+ "rounds_planned": 20,
+ "threshold_K": 44.0,
+ "pool_size": 7637,
+ "targets_in_pool": 79,
+ "grid_levels": null,
+ "initial": [
+  "Al:0.200000 Si:0.050000 Nb:0.750000",
+  "Al:0.333333 Si:0.333333 Ca:0.333333",
+  "B:0.050000 Si:0.325000 Nb:0.625000",
+  "B:0.250000 C:0.250000 Zr:0.016250 Mo:0.483750",
+  "B:0.333333 C:0.166667 Cu:0.333333 Y:0.166667",
+  "B:0.333333 C:0.166667 Ni:0.333333 Y:0.131667 Gd:0.035000",
+  "B:0.500000 Mo:0.500000",
+  "B:0.666667 Re:0.333333",
+  "C:0.200000 Mg:0.200000 Ni:0.586800 Ru:0.013200",
+  "C:0.428571 Mo:0.571429",
+  "C:0.923077 Ca:0.076923",
+  "Co:0.142857 Cd:0.005714 In:0.708571 Ce:0.142857",
+  "Fe:0.175000 As:0.400000 Ru:0.225000 Ba:0.200000",
+  "Fe:0.416667 Se:0.416667 Sr:0.166667",
+  "Ge:0.080460 Pd:0.344828 La:0.574713",
+  "H:0.037975 C:0.904159 N:0.012658 Na:0.015069 K:0.030139",
+  "Hg:0.698000 Tl:0.302000",
+  "In:0.100000 Hg:0.900000",
+  "In:0.534884 Te:0.465116",
+  "In:0.714286 Ce:0.142857 Ir:0.142857",
+  "K:0.100000 Fe:0.376000 Zn:0.024000 As:0.400000 Ba:0.100000",
+  "Li:0.036667 B:0.666667 Mg:0.296667",
+  "Li:0.333333 B:0.166667 Pt:0.500000",
+  "Mo:0.810000 Pt:0.190000",
+  "Nb:0.110000 Ta:0.110000 Re:0.780000",
+  "Nb:0.750000 Rh:0.005000 Pt:0.245000",
+  "Nb:0.750000 Rh:0.175000 Os:0.075000",
+  "O:0.222500 F:0.027500 Mn:0.000250 Fe:0.249750 As:0.250000 La:0.250000",
+  "O:0.235000 F:0.015000 P:0.250000 Fe:0.250000 La:0.250000",
+  "O:0.237500 F:0.012500 P:0.132500 Fe:0.250000 As:0.117500 Ce:0.250000",
+  "O:0.366487 Al:0.126703 Ca:0.253405 Fe:0.126703 As:0.126703",
+  "O:0.600000 Ti:0.194000 Sr:0.200000 Zr:0.006000",
+  "O:0.600000 Ti:0.200000 Sr:0.185000 Ba:0.015000",
+  "O:0.702576 K:0.063232 W:0.234192",
+  "O:0.712617 Rb:0.053738 W:0.233645",
+  "P:0.333333 Rh:0.666667",
+  "P:0.500000 Pb:0.500000",
+  "Pd:0.500000 Sb:0.500000",
+  "Rh:0.014286 In:0.714286 Ce:0.142857 Ir:0.128571",
+  "S:0.640205 Nb:0.256082 Pd:0.103713",
+  "Sc:0.137931 Ge:0.655172 Rh:0.206897",
+  "Se:0.466667 Te:0.200000 Ta:0.333333",
+  "Si:0.333333 Ni:0.133333 La:0.333333 Pt:0.200000",
+  "Si:0.500000 Ga:0.166667 Sr:0.333333",
+  "Sn:0.375000 La:0.250000 Tl:0.375000",
+  "Ta:0.060000 Ir:0.940000",
+  "Te:0.500000 Tl:0.005000 Pb:0.495000",
+  "Te:0.545455 Ce:0.090909 Pb:0.072727 Bi:0.290909",
+  "V:0.980000 Sn:0.020000",
+  "Y:0.172414 Rh:0.206897 Sn:0.620690"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "n_labeled": 50,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "80e2a8b407aeb8c2",
+   "selected": [
+    {
+     "key": "B:0.250000 C:0.250000 Mo:0.450000 W:0.050000",
+     "tc": 6.82,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.444444 Zr:0.222222 Ru:0.333333",
+     "tc": 5.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.910000 Rh:0.040000 Pt:0.050000",
+     "tc": 4.3,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Co:0.566667 Ru:0.100000 Ce:0.333333",
+     "tc": 0.27,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Se:0.527778 Mo:0.416667 In:0.055556",
+     "tc": 1.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.955000 Pb:0.045000",
+     "tc": 3.69,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.666667 Lu:0.333333",
+     "tc": 2.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.571429 Cu:0.028571 Zn:0.114286 Ir:0.285714",
+     "tc": 0.47,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "N:0.500000 Nb:0.335000 Hf:0.165000",
+     "tc": 10.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Li:0.500000 Pb:0.500000",
+     "tc": 7.2,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7587,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 2,
+   "n_labeled": 60,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "2c9f15ec373e2f63",
+   "selected": [
+    {
+     "key": "Te:0.500000 Tl:0.006250 Pb:0.493750",
+     "tc": 1.35,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "As:0.705882 Ru:0.235294 Pr:0.058824",
+     "tc": 2.365,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.910000 Rh:0.040000 Hf:0.050000",
+     "tc": 1.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sn:0.562500 La:0.250000 Tl:0.187500",
+     "tc": 1.19,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "V:0.570000 Ru:0.430000",
+     "tc": 2.92,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.500000 Ti:0.080000 Mo:0.420000",
+     "tc": 12.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.250000 As:0.250000 Nb:0.500000",
+     "tc": 2.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.650000 Ru:0.200000 La:0.150000",
+     "tc": 3.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.374400 Co:0.008400 Cu:0.017200 As:0.400000 Ba:0.200000",
+     "tc": 4.3,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Be:0.533333 Zr:0.133333 Nb:0.333333",
+     "tc": 5.2,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7577,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 3,
+   "n_labeled": 70,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "d464e01c657b3907",
+   "selected": [
+    {
+     "key": "B:0.666667 V:0.016667 Zr:0.316667",
+     "tc": 8.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.250000 Fe:0.231250 As:0.250000 La:0.250000 Ir:0.018750",
+     "tc": 11.85,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.220000 F:0.030000 Fe:0.242500 Ni:0.007500 As:0.250000 Sm:0.250000",
+     "tc": 34.5,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Ru:0.964000 Ir:0.036000",
+     "tc": 0.41,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Pb:0.750000 Bi:0.250000",
+     "tc": 6.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.230769 C:0.256410 Ni:0.256410 Lu:0.256410",
+     "tc": 2.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sn:0.135000 Au:0.865000",
+     "tc": 0.435,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.360000 As:0.400000 Sr:0.200000 Pt:0.040000",
+     "tc": 15.8,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Ti:0.990000 Mn:0.010000",
+     "tc": 1.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.750000 In:0.250000",
+     "tc": 7.6,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7567,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 4,
+   "n_labeled": 80,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "b7f2604779b2cbf4",
+   "selected": [
+    {
+     "key": "N:0.484536 V:0.170103 Nb:0.345361",
+     "tc": 1.86,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "N:0.470238 O:0.125000 Al:0.047619 Nb:0.357143",
+     "tc": 7.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Na:0.310345 Fe:0.344828 As:0.344828",
+     "tc": 12.5,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Pb:0.033333",
+     "tc": 34.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.105000 Zr:0.610000 Pd:0.285000",
+     "tc": 2.09,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ga:0.100000 Au:0.900000",
+     "tc": 0.264,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Li:0.285714 B:0.285714 Pd:0.428571",
+     "tc": 8.19,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Rh:0.010000 Hf:0.990000",
+     "tc": 0.85,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.333333 Ta:0.333333 Pt:0.333333",
+     "tc": 3.54,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.200000 Fe:0.266667 As:0.266667 Tb:0.266667",
+     "tc": 34.8,
+     "is_target": false,
+     "family": "iron-based"
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7557,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 5,
+   "n_labeled": 90,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "7a41ecac339f8114",
+   "selected": [
+    {
+     "key": "Zr:0.750000 Pb:0.250000",
+     "tc": 0.76,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Pb:0.950000 Bi:0.050000",
+     "tc": 7.388,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.666667 Mg:0.323333 Co:0.010000",
+     "tc": 36.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.526316 Y:0.171053 Dy:0.092105 Os:0.210526",
+     "tc": 5.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Co:0.428571 Y:0.571429",
+     "tc": 2.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Zr:0.333333 W:0.666667",
+     "tc": 2.16,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.175439 Fe:0.385965 Se:0.438596",
+     "tc": 31.150000000000002,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "K:0.061200 Fe:0.365200 Co:0.034800 As:0.400000 Ba:0.138800",
+     "tc": 18.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Li:0.333333 B:0.166667 Pd:0.250000 Pt:0.250000",
+     "tc": 3.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.444444 Ru:0.444444 Lu:0.111111",
+     "tc": 2.0,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 0,
+   "pool": {
+    "n_unlabeled": 7547,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 6,
+   "n_labeled": 100,
+   "best_so_far_K": 38.0,
+   "y_star_K": 38.0,
+   "labeled_fingerprint": "8ed6a032665f073b",
+   "selected": [
+    {
+     "key": "Cr:0.400000 Re:0.600000",
+     "tc": 2.15,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.030000 Rh:0.430000 Ta:0.540000",
+     "tc": 10.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.625000 Tb:0.208333 Os:0.166667",
+     "tc": 3.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "P:0.500000 S:0.166667 Hf:0.333333",
+     "tc": 4.97,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Y:0.250000 Pd:0.050000 In:0.250000 Au:0.450000",
+     "tc": 2.27,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.193750 F:0.056250 Fe:0.250000 As:0.250000 Pr:0.250000",
+     "tc": 50.0,
+     "is_target": true,
+     "family": "iron-based"
+    },
+    {
+     "key": "Al:0.152000 Sn:0.848000",
+     "tc": 3.6835,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.220779 Fe:0.259740 As:0.259740 Ho:0.259740",
+     "tc": 49.1,
+     "is_target": true,
+     "family": "iron-based"
+    },
+    {
+     "key": "S:0.263158 Pd:0.736842",
+     "tc": 1.63,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.100000 Sn:0.239850 Te:0.500000 Pb:0.160150",
+     "tc": 4.16,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 7537,
+    "targets_remaining": 79
+   },
+   "request": {}
+  },
+  {
+   "round": 7,
+   "n_labeled": 110,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "7864b881f5be0034",
+   "selected": [
+    {
+     "key": "B:0.666667 Mg:0.233333 Al:0.050000 Zn:0.050000",
+     "tc": 28.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.400000 V:0.500000 Mo:0.100000",
+     "tc": 6.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Mn:0.010000 Ga:0.190000 Nb:0.800000",
+     "tc": 11.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.100000 Mn:0.016000 Fe:0.384000 As:0.400000 Ba:0.100000",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Li:0.333333 B:0.166667 Ni:0.100000 Pd:0.400000",
+     "tc": 6.91,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "La:0.225000 Pr:0.025000 Pb:0.750000",
+     "tc": 2.58,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Cd:0.200000 Sn:0.260000 Bi:0.540000",
+     "tc": 3.69,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.857143 Y:0.142857",
+     "tc": 6.65,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "N:0.106557 O:0.106557 Si:0.073770 Nb:0.713115",
+     "tc": 16.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.526316 Lu:0.263158 Ir:0.210526",
+     "tc": 3.8,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 7527,
+    "targets_remaining": 77
+   },
+   "request": {}
+  },
+  {
+   "round": 8,
+   "n_labeled": 120,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "44352eef03b1a552",
+   "selected": [
+    {
+     "key": "Si:0.500000 Cu:0.166667 Ba:0.333333",
+     "tc": 2.53,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sc:0.070000 Zr:0.930000",
+     "tc": 0.08,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Co:0.000320 Mo:0.999680",
+     "tc": 0.31,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.100000 Sn:0.280000 Te:0.500000 Pb:0.120000",
+     "tc": 3.87,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.200000 Pb:0.800000",
+     "tc": 6.95,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "P:0.333333 Ti:0.333333 Ru:0.333333",
+     "tc": 1.315,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.100000 Fe:0.360000 Zn:0.040000 As:0.400000 Ba:0.100000",
+     "tc": 26.299999999999997,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "La:0.990000 Lu:0.010000",
+     "tc": 5.595,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.666667 Mg:0.300000 Co:0.033333",
+     "tc": 34.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.374000 Co:0.018000 Zn:0.008000 As:0.400000 Ba:0.200000",
+     "tc": 13.42,
+     "is_target": false,
+     "family": "iron-based"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 7517,
+    "targets_remaining": 77
+   },
+   "request": {}
+  },
+  {
+   "round": 9,
+   "n_labeled": 130,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "a999295b76c24a2a",
+   "selected": [
+    {
+     "key": "O:0.250000 Fe:0.200000 As:0.250000 Rh:0.050000 Nd:0.250000",
+     "tc": 10.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Ti:0.039000 Ni:0.220000 Zr:0.741000",
+     "tc": 3.65,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.332226 C:0.166113 Co:0.006645 Ni:0.328904 Tm:0.166113",
+     "tc": 9.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.714286 Ce:0.142857 Ir:0.139714 Pt:0.003143",
+     "tc": 0.734,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.025000 Si:0.225000 V:0.750000",
+     "tc": 14.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.125000 Nb:0.750000 Sn:0.125000",
+     "tc": 16.05,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.500000 Nb:0.425000 Mo:0.075000",
+     "tc": 12.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.020000 Nb:0.980000",
+     "tc": 5.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.600000 Co:0.070000 Ce:0.200000 Ir:0.130000",
+     "tc": 0.75,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Zr:0.961039 Rh:0.038961",
+     "tc": 3.65,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 7507,
+    "targets_remaining": 77
+   },
+   "request": {}
+  },
+  {
+   "round": 10,
+   "n_labeled": 140,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "5b8fcc2139e3b7d2",
+   "selected": [
+    {
+     "key": "Fe:0.240000 As:0.400000 Ru:0.160000 Ba:0.200000",
+     "tc": 5.02,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.500000 Nb:0.500000",
+     "tc": 1.39,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Zr:0.590000 Rh:0.410000",
+     "tc": 2.44,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.039000 Fe:0.400000 As:0.400000 Ba:0.161000",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "B:0.333333 C:0.166667 Ni:0.333333 Y:0.116667 Tb:0.050000",
+     "tc": 8.565,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.666667 Mg:0.329333 Sc:0.004000",
+     "tc": 41.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.468750 Rh:0.531250",
+     "tc": 5.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "W:0.047000 Ir:0.953000",
+     "tc": 0.162,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Mo:0.750000 Ir:0.250000",
+     "tc": 8.262,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.350000 V:0.550000 Ge:0.100000",
+     "tc": 5.4,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 2,
+   "pool": {
+    "n_unlabeled": 7497,
+    "targets_remaining": 77
+   },
+   "request": {}
+  },
+  {
+   "round": 11,
+   "n_labeled": 150,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "ece733243a8c5831",
+   "selected": [
+    {
+     "key": "O:0.591837 K:0.106122 Ba:0.097959 Bi:0.204082",
+     "tc": 21.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.365200 Co:0.034800 As:0.400000 Sr:0.200000",
+     "tc": 9.5,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Na:0.200000 Fe:0.400000 Se:0.400000",
+     "tc": 46.0,
+     "is_target": true,
+     "family": "iron-based"
+    },
+    {
+     "key": "P:0.256000 Fe:0.400000 As:0.144000 Ba:0.200000",
+     "tc": 8.545,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Cu:0.500000 Ge:0.500000",
+     "tc": 3.3,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.245000 Se:0.005000 Nb:0.750000",
+     "tc": 18.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.750000 Ir:0.250000",
+     "tc": 5.1850000000000005,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.178112 Fe:0.392704 Se:0.429185",
+     "tc": 32.5,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Li:0.109792 N:0.296736 Cl:0.296736 Hf:0.296736",
+     "tc": 20.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.565217 La:0.434783",
+     "tc": 8.3,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7487,
+    "targets_remaining": 77
+   },
+   "request": {}
+  },
+  {
+   "round": 12,
+   "n_labeled": 160,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "1264be85c771619b",
+   "selected": [
+    {
+     "key": "Fe:0.416667 Se:0.364583 Rb:0.166667 Te:0.052083",
+     "tc": 22.2,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.600000 Ti:0.200000 Sr:0.200000",
+     "tc": 0.27,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Pt:0.333333 Tl:0.666667",
+     "tc": 1.58,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Se:0.285714 Pd:0.428571 Bi:0.285714",
+     "tc": 0.96,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.333333 C:0.166667 Ni:0.333333 Dy:0.083333 Ho:0.083333",
+     "tc": 5.905,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.150000 V:0.750000 Ga:0.100000",
+     "tc": 8.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Cr:0.720000 Os:0.280000",
+     "tc": 3.906,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Co:0.661017 Ce:0.338983",
+     "tc": 0.87,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "F:0.200000 S:0.400000 Sr:0.100000 Ce:0.100000 Bi:0.200000",
+     "tc": 2.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.237500 F:0.012500 P:0.075000 Fe:0.250000 As:0.175000 La:0.250000",
+     "tc": 15.75,
+     "is_target": false,
+     "family": "iron-based"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7477,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 13,
+   "n_labeled": 170,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "9c83f92a8fcc059e",
+   "selected": [
+    {
+     "key": "S:0.520494 Mo:0.413142 Sn:0.007807 Eu:0.058556",
+     "tc": 0.94,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.027000 V:0.745000 Ga:0.228000",
+     "tc": 13.05,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.950000 Bi:0.050000",
+     "tc": 4.65,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.189189 Fe:0.270270 As:0.270270 Ce:0.270270",
+     "tc": 40.2,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Ti:0.650000 Zr:0.100000 Nb:0.250000",
+     "tc": 7.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "K:0.060000 Fe:0.400000 As:0.400000 Ba:0.140000",
+     "tc": 36.95,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Cr:0.090000 Ir:0.910000",
+     "tc": 0.78,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.461538 Y:0.230769 Pt:0.307692",
+     "tc": 2.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "H:0.425287 Nb:0.459770 Pd:0.114943",
+     "tc": 4.07,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Se:0.680272 Rh:0.030612 Ir:0.289116",
+     "tc": 7.61,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7467,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 14,
+   "n_labeled": 180,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "31de279c5d45f350",
+   "selected": [
+    {
+     "key": "Be:0.200000 B:0.466667 Mg:0.333333",
+     "tc": 8.3,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.666667 Mg:0.326000 Al:0.007333",
+     "tc": 34.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.390244 Mo:0.609756",
+     "tc": 8.45,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.444444 Y:0.022222 Lu:0.088889 Ir:0.444444",
+     "tc": 3.04,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.996000 Hg:0.004000",
+     "tc": 3.396,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Te:0.650000 Au:0.350000",
+     "tc": 1.58,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.315789 Ge:0.210526 Lu:0.263158 Ir:0.210526",
+     "tc": 5.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.444444 Rh:0.266667 Dy:0.111111 Ir:0.177778",
+     "tc": 3.83,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Se:0.636364 Rh:0.363636",
+     "tc": 6.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.250000 C:0.250000 Ni:0.225000 Cu:0.025000 Lu:0.250000",
+     "tc": 3.3,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7457,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 15,
+   "n_labeled": 190,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "85aca50a09893f93",
+   "selected": [
+    {
+     "key": "B:0.444444 Er:0.111111 Ir:0.444444",
+     "tc": 2.2199999999999998,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Sn:0.190000 Pb:0.310000 Bi:0.500000",
+     "tc": 8.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.250000 Bi:0.750000",
+     "tc": 1.85,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.416667 Se:0.416667 Yb:0.166667",
+     "tc": 42.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Al:0.029000 Ti:0.971000",
+     "tc": 0.65,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.851852 Sr:0.074074 Ba:0.074074",
+     "tc": 5.3,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.333333 Ru:0.500000 La:0.153333 Tm:0.013333",
+     "tc": 6.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Fe:0.381200 Co:0.018800 As:0.400000 Ba:0.200000",
+     "tc": 17.15,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Si:0.851852 Sr:0.111111 Ba:0.037037",
+     "tc": 4.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Y:0.010000 La:0.990000",
+     "tc": 5.5,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7447,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 16,
+   "n_labeled": 200,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "04f997ab1dab995f",
+   "selected": [
+    {
+     "key": "Nb:0.375000 Mo:0.375000 Ir:0.125000 Pt:0.125000",
+     "tc": 6.13,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.574468 Ti:0.042553 Y:0.382979",
+     "tc": 10.7,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Y:0.250000 Pd:0.100000 In:0.250000 Au:0.400000",
+     "tc": 2.64,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Zr:0.300000 Nb:0.700000",
+     "tc": 10.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.625000 Pt:0.375000",
+     "tc": 3.73,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.105263 N:0.368421 Nb:0.526316",
+     "tc": 17.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.232500 F:0.017500 Fe:0.250000 As:0.250000 Sm:0.250000",
+     "tc": 33.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "P:0.705882 Ru:0.235294 Pr:0.058824",
+     "tc": 1.8,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.925000 Ru:0.075000",
+     "tc": 4.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "C:0.333333 Cl:0.166667 Br:0.166667 Y:0.333333",
+     "tc": 3.85,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7437,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 17,
+   "n_labeled": 210,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "0e6eed634abd62d5",
+   "selected": [
+    {
+     "key": "B:0.250000 N:0.250000 Nb:0.500000",
+     "tc": 4.4,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.250000 Ca:0.110000 Fe:0.250000 As:0.250000 Tb:0.140000",
+     "tc": 15.6,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Zr:0.900000 Ta:0.100000",
+     "tc": 3.76,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "B:0.425000 C:0.075000 Mg:0.500000",
+     "tc": 24.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.620192 Sb:0.139423 Ta:0.240385",
+     "tc": 3.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "N:0.484536 Ti:0.128866 Nb:0.386598",
+     "tc": 16.1,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Te:0.750000 Ir:0.250000",
+     "tc": 1.18,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Pd:0.500000 Te:0.500000",
+     "tc": 3.075,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ru:0.334000 Os:0.666000",
+     "tc": 0.569,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ge:0.375000 Nb:0.625000",
+     "tc": 0.455,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7427,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 18,
+   "n_labeled": 220,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "a2f6ab94c3524678",
+   "selected": [
+    {
+     "key": "B:0.005464 C:0.448087 Mo:0.546448",
+     "tc": 12.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Y:0.225000 Pd:0.500000 Sn:0.250000 Tm:0.025000",
+     "tc": 4.12,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Co:0.124138 Rh:0.082759 Sn:0.620690 Tm:0.172414",
+     "tc": 1.27,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.142000 F:0.058000 S:0.400000 Nd:0.200000 Bi:0.200000",
+     "tc": 5.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.200000 Fe:0.388000 Ni:0.012000 As:0.400000",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Fe:0.380400 Co:0.019600 As:0.400000 Ba:0.200000",
+     "tc": 15.8,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "O:0.237500 F:0.012500 P:0.112500 Fe:0.250000 As:0.137500 Ce:0.250000",
+     "tc": 15.0,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "Zr:0.400000 Nb:0.600000",
+     "tc": 10.525,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.100000 V:0.810000 Cr:0.090000",
+     "tc": 1.46,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Mo:0.330000 Re:0.670000",
+     "tc": 5.845,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7417,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 19,
+   "n_labeled": 230,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "ce815e44a90b8cf9",
+   "selected": [
+    {
+     "key": "B:0.597333 C:0.069333 Mg:0.333333",
+     "tc": 25.5,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.010500 Sn:0.489500 Te:0.500000",
+     "tc": 0.936,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "O:0.600000 Ba:0.200000 Pb:0.140000 Bi:0.060000",
+     "tc": 11.23,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.640000 Mo:0.200000 Pd:0.160000",
+     "tc": 0.94,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.526316 Mo:0.394737 Tm:0.078947",
+     "tc": 1.95,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.571429 La:0.368571 Pr:0.060000",
+     "tc": 2.69,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.526316 Rh:0.063158 Lu:0.263158 Ir:0.147368",
+     "tc": 5.66,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.600000 Cu:0.066667 Ba:0.333333",
+     "tc": 3.02,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Hg:0.322581 Pb:0.677419",
+     "tc": 5.85,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Si:0.392000 Cu:0.400000 Ge:0.008000 Ce:0.200000",
+     "tc": 0.385,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7407,
+    "targets_remaining": 76
+   },
+   "request": {}
+  },
+  {
+   "round": 20,
+   "n_labeled": 240,
+   "best_so_far_K": 50.0,
+   "y_star_K": 44.0,
+   "labeled_fingerprint": "75c67b4124e36bb7",
+   "selected": [
+    {
+     "key": "N:0.263158 Na:0.210526 Cl:0.263158 Hf:0.263158",
+     "tc": 19.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Nb:0.720000 Sn:0.280000",
+     "tc": 18.2,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "S:0.571429 Co:0.284286 Cu:0.142857 Ir:0.001429",
+     "tc": 3.04,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.140000 V:0.709000 Ga:0.151000",
+     "tc": 9.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ca:0.236098 Fe:0.243902 As:0.439024 Ho:0.007805 Pt:0.073171",
+     "tc": 19.5,
+     "is_target": false,
+     "family": "iron-based"
+    },
+    {
+     "key": "B:0.333333 C:0.166667 Ni:0.333333 Y:0.125000 Dy:0.041667",
+     "tc": 12.0,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ti:0.500000 Nb:0.250000 Ta:0.250000",
+     "tc": 8.6,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "In:0.900000 Bi:0.100000",
+     "tc": 5.05,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Al:0.180266 Ge:0.048071 Nb:0.771664",
+     "tc": 17.9,
+     "is_target": false,
+     "family": "other"
+    },
+    {
+     "key": "Ru:0.666667 Ce:0.266667 Tb:0.066667",
+     "tc": 2.56,
+     "is_target": false,
+     "family": "other"
+    }
+   ],
+   "found_cumulative": 3,
+   "pool": {
+    "n_unlabeled": 7397,
+    "targets_remaining": 76
+   },
+   "request": {}
+  }
+ ],
+ "status": "complete",
+ "machine": {
+  "host": "Kerems-MacBook-Air.local",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 10,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ }
+}
