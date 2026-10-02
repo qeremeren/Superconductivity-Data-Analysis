@@ -23,7 +23,7 @@ retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XG
 	uv run python -m experiments.02_xgb_tuning --trials 26
 
 notebooks:  ## Execute every notebook in place (they only read results/)
-	uv run --group notebooks python -c "import glob, nbclient, nbformat; [nbformat.write(nbclient.execute(nbformat.read(p, 4), cwd='notebooks'), p) for p in sorted(glob.glob('notebooks/*.ipynb'))]"
+	uv run --group notebooks python -c "import glob, nbclient, nbformat; [nbformat.write(nbclient.execute(nbformat.read(p, 4), cwd='notebooks', record_timing=False), p) for p in sorted(glob.glob('notebooks/*.ipynb'))]"
 
 reproduce:  ## Rebuild everything from committed caches; no API key needed (grows each phase)
 	$(MAKE) data
