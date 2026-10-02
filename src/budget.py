@@ -237,36 +237,52 @@ def pool_snapshot() -> dict[str, tuple[int, int, str]]:
     return {SEP: sep, OCT: (*_monthly(latest), latest["ts"])}
 
 
+def spent_by_experiment(record: Path = SPEND_RECORD) -> dict[str, int]:
+    """Requests per experiment in the committed spend record. The NOTES table uses this,
+    not the per-clone ledger, so it renders the same in every clone."""
+    spent: dict[str, int] = {}
+    for e in read_ledger(record):
+        spent[e["experiment"]] = spent.get(e["experiment"], 0) + e["requests"]
+    return spent
+
+
 def render_table() -> str:
+    spent = spent_by_experiment()
     rows = [
-        "| Phase | Experiment | Planned requests | Hard cap | Tokens at cap | Pool | Basis |",
-        "|---:|---|---:|---:|---:|---|---|",
+        "| Phase | Experiment | Planned requests | Hard cap | Spent | Tokens at cap | Pool "
+        "| Basis |",
+        "|---:|---|---:|---:|---:|---:|---|---|",
     ]
     for p in PLAN:
         tokens = p.cap * MIN_TOKENS_PER_REQUEST
         rows.append(
-            f"| {p.phase} | `{p.experiment}` | {p.requests:,} | {p.cap:,} | {tokens:,} "
-            f"| {p.pool} | {p.basis} |"
+            f"| {p.phase} | `{p.experiment}` | {p.requests:,} | {p.cap:,} "
+            f"| {spent.get(p.experiment, 0):,} | {tokens:,} | {p.pool} | {p.basis} |"
         )
 
     snapshot = pool_snapshot()
     rows += [
         "",
+        'Spend already made is inside "used"; the plan columns count only what is left of each',
+        "experiment's cap and plan.",
+        "",
         "| Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) "
-        "| Capped plan | Planned | Headroom at cap (requests) |",
+        "| Remaining caps | Remaining plan | Headroom at cap (requests) |",
         "|---|---:|---:|---|---:|---:|---:|---:|",
     ]
     for pool, (limit, used, as_of) in snapshot.items():
         if pool == SEP:
             rows.append(f"| {pool} | {limit:,} | {used:,} | {as_of} | closed | - | - | - |")
             continue
+        in_pool = [p for p in PLAN if p.pool == pool]
+        left_cap = sum(max(p.cap - spent.get(p.experiment, 0), 0) for p in in_pool)
+        left_plan = sum(max(p.requests - spent.get(p.experiment, 0), 0) for p in in_pool)
         usable = limit - used - POOL_RESERVE_TOKENS
-        capped = sum(p.cap for p in PLAN if p.pool == pool) * MIN_TOKENS_PER_REQUEST
-        planned = sum(p.requests for p in PLAN if p.pool == pool) * MIN_TOKENS_PER_REQUEST
-        headroom = usable - capped
+        headroom = usable - left_cap * MIN_TOKENS_PER_REQUEST
         rows.append(
-            f"| {pool} | {limit:,} | {used:,} | {as_of} | {usable:,} | {capped:,} "
-            f"| {planned:,} | {headroom:,} ({headroom // MIN_TOKENS_PER_REQUEST:,}) |"
+            f"| {pool} | {limit:,} | {used:,} | {as_of} | {usable:,} "
+            f"| {left_cap * MIN_TOKENS_PER_REQUEST:,} | {left_plan * MIN_TOKENS_PER_REQUEST:,} "
+            f"| {headroom:,} ({headroom // MIN_TOKENS_PER_REQUEST:,}) |"
         )
     return "\n".join(rows)
 
