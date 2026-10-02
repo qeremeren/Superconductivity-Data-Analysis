@@ -66,6 +66,7 @@ class Planned:
     cap: int  # hard cap, with headroom for reruns
     pool: str
     basis: str
+    tokens_per_request: int = MIN_TOKENS_PER_REQUEST  # planning figure for the table
 
 
 PLAN = [
@@ -76,6 +77,12 @@ PLAN = [
     Planned(2, "p2_grouped", 50, 60, OCT, "25 grouped 2/3-1/3 splits x 2 feature sets"),
     Planned(2, "p2_grouped_no_oxygen", 50, 60, OCT, "sensitivity: same, oxygen variants grouped"),
     Planned(2, "p2_leave_family_out", 6, 8, OCT, "3 held-out families x 2 feature sets"),
+    # Thinking: a fit (~14.6k tokens, medium effort) plus a predict (~59.7k) per split, so
+    # two requests averaging ~37.5k tokens (estimate_cost quotes, 2026-10-02).
+    Planned(2, "p2_thinking_probe", 2, 3, OCT, "Thinking + group_col, grouped split 0", 37_500),
+    Planned(
+        2, "p2_thinking", 20, 22, OCT, "Thinking add-on: grouped splits 0-9, composition", 37_500
+    ),
     Planned(3, "p3_learning_curves", 50, 60, OCT, "5 sizes (100-10k) x 5 seeds x 2 sets"),
     Planned(3, "p3_quantile_vs_full", 4, 6, OCT, "'full' vs quantile grid on 400 rows, 2 splits"),
     Planned(4, "p4_pilot", 240, 260, OCT, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
@@ -254,7 +261,7 @@ def render_table() -> str:
         "|---:|---|---:|---:|---:|---:|---|---|",
     ]
     for p in PLAN:
-        tokens = p.cap * MIN_TOKENS_PER_REQUEST
+        tokens = p.cap * p.tokens_per_request
         rows.append(
             f"| {p.phase} | `{p.experiment}` | {p.requests:,} | {p.cap:,} "
             f"| {spent.get(p.experiment, 0):,} | {tokens:,} | {p.pool} | {p.basis} |"
@@ -275,14 +282,17 @@ def render_table() -> str:
             rows.append(f"| {pool} | {limit:,} | {used:,} | {as_of} | closed | - | - | - |")
             continue
         in_pool = [p for p in PLAN if p.pool == pool]
-        left_cap = sum(max(p.cap - spent.get(p.experiment, 0), 0) for p in in_pool)
-        left_plan = sum(max(p.requests - spent.get(p.experiment, 0), 0) for p in in_pool)
+        left_cap = sum(
+            max(p.cap - spent.get(p.experiment, 0), 0) * p.tokens_per_request for p in in_pool
+        )
+        left_plan = sum(
+            max(p.requests - spent.get(p.experiment, 0), 0) * p.tokens_per_request for p in in_pool
+        )
         usable = limit - used - POOL_RESERVE_TOKENS
-        headroom = usable - left_cap * MIN_TOKENS_PER_REQUEST
+        headroom = usable - left_cap
         rows.append(
-            f"| {pool} | {limit:,} | {used:,} | {as_of} | {usable:,} "
-            f"| {left_cap * MIN_TOKENS_PER_REQUEST:,} | {left_plan * MIN_TOKENS_PER_REQUEST:,} "
-            f"| {headroom:,} ({headroom // MIN_TOKENS_PER_REQUEST:,}) |"
+            f"| {pool} | {limit:,} | {used:,} | {as_of} | {usable:,} | {left_cap:,} "
+            f"| {left_plan:,} | {headroom:,} ({headroom // MIN_TOKENS_PER_REQUEST:,}) |"
         )
     return "\n".join(rows)
 
