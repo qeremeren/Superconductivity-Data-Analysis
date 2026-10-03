@@ -12,7 +12,7 @@ calls, no fitting). Every test row gets the L1 distance to its nearest training 
                          mean over the splits that test them), with both models' predictions,
                          the Tc spread among the material's own duplicate rows, distance
   worst_summary.json     how the worst 1% of materials differ from all materials
-Per-row distances are cached (gitignored) in results/cache/05_why/ and rebuilt if missing.
+Per-row distances are cached (gitignored) by benchmark.nearest_training_all.
 
 Run from the repo root: `uv run python -m experiments.05_where_wins`.
 """
@@ -25,24 +25,10 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-from src import benchmark, config, data, splits
+from src import benchmark, config, data
 
 OUT = config.RESULTS_DIR / "05_why"
-CACHE = config.RESULTS_DIR / "cache" / "05_why"
 FEATURES = ("composition", "engineered")
-
-
-def nn_table(kind: str, um: pd.DataFrame) -> pd.DataFrame:
-    path = CACHE / f"nn_{kind}.parquet"
-    if path.is_file():
-        return pd.read_parquet(path)
-    rows = []
-    for s, is_test in enumerate(splits.load(kind)):
-        rows.append(benchmark.nearest_training_material(is_test, um).assign(split=s))
-    out = pd.concat(rows, ignore_index=True)
-    CACHE.mkdir(parents=True, exist_ok=True)
-    out.to_parquet(path, index=False)
-    return out
 
 
 def predictions(features: str) -> pd.DataFrame:
@@ -161,7 +147,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     um = data.load_unique_m()
     inputs = benchmark.load_inputs()
-    nn = nn_table("grouped", um)
+    nn = benchmark.nearest_training_all("grouped", um)
     rows, worst_summary = [], {}
     for features in FEATURES:
         d = predictions(features).merge(nn, on=["split", "row"], validate="one_to_one")

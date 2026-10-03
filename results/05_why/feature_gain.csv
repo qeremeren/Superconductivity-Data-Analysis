@@ -1,0 +1,164 @@
+variant,feature,gain_share
+published,range_ThermalConductivity,0.22994
+published,range_atomic_radius,0.11667
+published,wtd_std_ThermalConductivity,0.10376
+published,wtd_gmean_ThermalConductivity,0.04368
+published,wtd_entropy_Valence,0.03111
+published,wtd_gmean_Valence,0.02948
+published,wtd_mean_ThermalConductivity,0.02491
+published,wtd_mean_Valence,0.02375
+published,wtd_gmean_ElectronAffinity,0.02239
+published,wtd_range_ElectronAffinity,0.02197
+published,wtd_std_ElectronAffinity,0.02070
+published,wtd_entropy_atomic_mass,0.01751
+published,std_ThermalConductivity,0.01694
+published,std_atomic_mass,0.01462
+published,wtd_entropy_ThermalConductivity,0.01194
+published,wtd_mean_atomic_mass,0.01116
+published,wtd_std_Valence,0.00975
+published,wtd_std_atomic_mass,0.00781
+published,std_Density,0.00771
+published,wtd_entropy_FusionHeat,0.00767
+published,wtd_range_Valence,0.00718
+published,wtd_range_atomic_mass,0.00698
+published,wtd_entropy_fie,0.00684
+published,wtd_range_fie,0.00675
+published,wtd_range_ThermalConductivity,0.00671
+published,std_ElectronAffinity,0.00653
+published,wtd_entropy_Density,0.00642
+published,wtd_gmean_atomic_mass,0.00609
+published,gmean_Density,0.00601
+published,gmean_ElectronAffinity,0.00562
+published,wtd_entropy_atomic_radius,0.00559
+published,wtd_std_atomic_radius,0.00553
+published,range_fie,0.00549
+published,wtd_mean_fie,0.00536
+published,wtd_mean_ElectronAffinity,0.00504
+published,mean_atomic_mass,0.00501
+published,wtd_std_fie,0.00498
+published,wtd_std_Density,0.00488
+published,wtd_gmean_Density,0.00477
+published,wtd_entropy_ElectronAffinity,0.00474
+published,mean_Density,0.00471
+published,wtd_range_atomic_radius,0.00465
+published,wtd_mean_atomic_radius,0.00448
+published,wtd_std_FusionHeat,0.00438
+published,wtd_mean_Density,0.00434
+published,std_atomic_radius,0.00421
+published,wtd_gmean_fie,0.00400
+published,mean_ThermalConductivity,0.00399
+published,entropy_Density,0.00395
+published,wtd_gmean_FusionHeat,0.00379
+published,gmean_atomic_mass,0.00354
+published,wtd_mean_FusionHeat,0.00348
+published,wtd_range_Density,0.00346
+published,wtd_gmean_atomic_radius,0.00338
+published,entropy_atomic_mass,0.00320
+published,entropy_ThermalConductivity,0.00295
+published,wtd_range_FusionHeat,0.00284
+published,mean_atomic_radius,0.00274
+published,gmean_Valence,0.00274
+published,range_atomic_mass,0.00273
+published,range_ElectronAffinity,0.00270
+published,entropy_FusionHeat,0.00267
+published,mean_fie,0.00254
+published,entropy_fie,0.00246
+published,gmean_fie,0.00228
+published,entropy_Valence,0.00224
+published,entropy_atomic_radius,0.00202
+published,mean_ElectronAffinity,0.00198
+published,gmean_ThermalConductivity,0.00198
+published,mean_FusionHeat,0.00191
+published,std_fie,0.00191
+published,std_FusionHeat,0.00176
+published,gmean_atomic_radius,0.00169
+published,gmean_FusionHeat,0.00139
+published,entropy_ElectronAffinity,0.00134
+published,std_Valence,0.00132
+published,number_of_elements,0.00125
+published,range_Density,0.00109
+published,mean_Valence,0.00108
+published,range_FusionHeat,0.00057
+published,range_Valence,0.00027
+published + is_cuprate,is_cuprate,0.27728
+published + is_cuprate,range_ThermalConductivity,0.10489
+published + is_cuprate,range_atomic_radius,0.05921
+published + is_cuprate,wtd_gmean_ThermalConductivity,0.05908
+published + is_cuprate,wtd_std_ThermalConductivity,0.04592
+published + is_cuprate,wtd_entropy_Valence,0.02455
+published + is_cuprate,wtd_mean_ThermalConductivity,0.02304
+published + is_cuprate,wtd_mean_Valence,0.02294
+published + is_cuprate,wtd_gmean_Valence,0.02286
+published + is_cuprate,wtd_std_ElectronAffinity,0.02130
+published + is_cuprate,wtd_range_ElectronAffinity,0.01596
+published + is_cuprate,wtd_gmean_ElectronAffinity,0.01547
+published + is_cuprate,wtd_entropy_ThermalConductivity,0.01233
+published + is_cuprate,std_atomic_mass,0.01197
+published + is_cuprate,wtd_entropy_atomic_mass,0.01106
+published + is_cuprate,wtd_mean_atomic_mass,0.00994
+published + is_cuprate,std_Density,0.00919
+published + is_cuprate,wtd_std_Valence,0.00821
+published + is_cuprate,std_ThermalConductivity,0.00800
+published + is_cuprate,wtd_std_atomic_mass,0.00799
+published + is_cuprate,wtd_range_fie,0.00778
+published + is_cuprate,wtd_range_atomic_mass,0.00726
+published + is_cuprate,wtd_gmean_atomic_mass,0.00677
+published + is_cuprate,wtd_entropy_fie,0.00663
+published + is_cuprate,wtd_range_Valence,0.00621
+published + is_cuprate,wtd_entropy_Density,0.00611
+published + is_cuprate,wtd_entropy_FusionHeat,0.00590
+published + is_cuprate,mean_Density,0.00572
+published + is_cuprate,gmean_Density,0.00555
+published + is_cuprate,wtd_entropy_ElectronAffinity,0.00549
+published + is_cuprate,std_ElectronAffinity,0.00543
+published + is_cuprate,range_fie,0.00533
+published + is_cuprate,wtd_range_ThermalConductivity,0.00532
+published + is_cuprate,wtd_std_atomic_radius,0.00531
+published + is_cuprate,wtd_mean_fie,0.00523
+published + is_cuprate,gmean_ElectronAffinity,0.00519
+published + is_cuprate,wtd_std_fie,0.00513
+published + is_cuprate,wtd_mean_ElectronAffinity,0.00508
+published + is_cuprate,wtd_std_Density,0.00483
+published + is_cuprate,wtd_entropy_atomic_radius,0.00483
+published + is_cuprate,wtd_range_atomic_radius,0.00483
+published + is_cuprate,wtd_mean_atomic_radius,0.00474
+published + is_cuprate,mean_atomic_mass,0.00469
+published + is_cuprate,wtd_gmean_Density,0.00452
+published + is_cuprate,wtd_gmean_FusionHeat,0.00426
+published + is_cuprate,wtd_mean_Density,0.00422
+published + is_cuprate,wtd_std_FusionHeat,0.00413
+published + is_cuprate,entropy_Density,0.00409
+published + is_cuprate,wtd_gmean_fie,0.00395
+published + is_cuprate,std_atomic_radius,0.00395
+published + is_cuprate,wtd_gmean_atomic_radius,0.00385
+published + is_cuprate,wtd_mean_FusionHeat,0.00361
+published + is_cuprate,gmean_atomic_mass,0.00358
+published + is_cuprate,entropy_ThermalConductivity,0.00341
+published + is_cuprate,wtd_range_Density,0.00337
+published + is_cuprate,mean_ThermalConductivity,0.00325
+published + is_cuprate,entropy_atomic_mass,0.00314
+published + is_cuprate,mean_atomic_radius,0.00299
+published + is_cuprate,range_ElectronAffinity,0.00289
+published + is_cuprate,entropy_FusionHeat,0.00287
+published + is_cuprate,range_atomic_mass,0.00285
+published + is_cuprate,wtd_range_FusionHeat,0.00276
+published + is_cuprate,mean_fie,0.00261
+published + is_cuprate,entropy_fie,0.00238
+published + is_cuprate,gmean_ThermalConductivity,0.00223
+published + is_cuprate,gmean_fie,0.00211
+published + is_cuprate,mean_FusionHeat,0.00208
+published + is_cuprate,std_fie,0.00207
+published + is_cuprate,entropy_atomic_radius,0.00201
+published + is_cuprate,mean_ElectronAffinity,0.00189
+published + is_cuprate,std_FusionHeat,0.00186
+published + is_cuprate,gmean_Valence,0.00178
+published + is_cuprate,gmean_atomic_radius,0.00155
+published + is_cuprate,entropy_ElectronAffinity,0.00150
+published + is_cuprate,gmean_FusionHeat,0.00134
+published + is_cuprate,number_of_elements,0.00118
+published + is_cuprate,std_Valence,0.00113
+published + is_cuprate,mean_Valence,0.00108
+published + is_cuprate,entropy_Valence,0.00102
+published + is_cuprate,range_Density,0.00101
+published + is_cuprate,range_FusionHeat,0.00064
+published + is_cuprate,range_Valence,0.00027

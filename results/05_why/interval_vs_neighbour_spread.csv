@@ -1,0 +1,73 @@
+split_kind,held_out,model,knn10_tc_sd,rows,coverage_80,coverage_95,width_80,width_95,rmse
+grouped,all,tabpfn,< 2,44824,0.8371,0.9607,3.2473,6.3181,3.2159
+grouped,all,tabpfn,2-5,40308,0.8218,0.9570,8.5415,15.6914,5.2804
+grouped,all,tabpfn,5-10,41368,0.8148,0.9556,18.5830,32.4992,8.7742
+grouped,all,tabpfn,10-20,36683,0.8294,0.9619,28.2607,47.0375,12.1076
+grouped,all,tabpfn,20-30,12412,0.8186,0.9545,37.5652,59.8932,16.3836
+grouped,all,tabpfn,>= 30,1599,0.7730,0.9443,42.1955,67.1296,22.0799
+grouped,all,quantile_regression,< 2,44824,0.7734,0.9561,6.0221,33.5197,4.0562
+grouped,all,quantile_regression,2-5,40308,0.7039,0.9342,10.9663,36.7373,6.2830
+grouped,all,quantile_regression,5-10,41368,0.6934,0.9083,20.2761,44.5523,10.0555
+grouped,all,quantile_regression,10-20,36683,0.6536,0.8611,28.7928,51.2223,15.0547
+grouped,all,quantile_regression,20-30,12412,0.6232,0.8207,38.4032,58.1362,20.0100
+grouped,all,quantile_regression,>= 30,1599,0.5022,0.7323,41.0276,62.0010,26.4302
+grouped,all,conformal,< 2,44824,0.9866,0.9970,17.9181,43.9803,3.7208
+grouped,all,conformal,2-5,40308,0.9345,0.9897,17.9126,43.9670,5.9718
+grouped,all,conformal,5-10,41368,0.7534,0.9659,17.9249,44.0347,9.6419
+grouped,all,conformal,10-20,36683,0.5877,0.8889,17.9087,44.0087,14.0182
+grouped,all,conformal,20-30,12412,0.4639,0.7859,17.9171,43.9848,18.8092
+grouped,all,conformal,>= 30,1599,0.3896,0.7079,17.9809,44.0164,24.7478
+leave_family_out,cuprate,tabpfn,< 2,280,0.3607,0.7643,38.4726,83.8724,49.5910
+leave_family_out,cuprate,tabpfn,2-5,903,0.1661,0.5736,37.8680,82.0876,60.2605
+leave_family_out,cuprate,tabpfn,5-10,2833,0.2693,0.6837,39.3687,82.2883,54.1807
+leave_family_out,cuprate,tabpfn,10-20,1859,0.4190,0.8413,35.5447,77.7857,40.5993
+leave_family_out,cuprate,tabpfn,20-30,2372,0.3234,0.8153,38.0935,79.5592,46.0790
+leave_family_out,cuprate,tabpfn,>= 30,2285,0.5278,0.9107,74.0848,121.1811,51.8226
+leave_family_out,iron-based,tabpfn,< 2,801,0.2821,0.6542,12.6172,36.2353,18.9279
+leave_family_out,iron-based,tabpfn,2-5,679,0.1561,0.5493,8.9125,21.5416,18.7946
+leave_family_out,iron-based,tabpfn,5-10,116,0.1121,0.3534,7.3845,18.5030,29.8754
+leave_family_out,iron-based,tabpfn,10-20,5,0.6000,1.0000,31.1691,55.6164,10.7556
+leave_family_out,iron-based,tabpfn,20-30,50,0.3800,0.7000,26.0930,50.9069,24.6196
+leave_family_out,iron-based,tabpfn,>= 30,31,0.2258,0.8710,19.5681,45.3868,18.1726
+leave_family_out,other,tabpfn,< 2,49,0.6122,0.9184,50.7014,93.5223,19.5411
+leave_family_out,other,tabpfn,2-5,1023,0.4624,0.9365,48.3730,91.3939,22.1861
+leave_family_out,other,tabpfn,5-10,1928,0.5648,0.9544,57.4652,101.6327,24.1714
+leave_family_out,other,tabpfn,10-20,2439,0.5728,0.9508,74.5828,116.8467,31.6085
+leave_family_out,other,tabpfn,20-30,2525,0.5382,0.9485,83.6890,125.1194,34.8231
+leave_family_out,other,tabpfn,>= 30,1085,0.3346,0.9217,82.2252,119.6244,37.1947
+leave_family_out,cuprate,quantile_regression,< 2,280,0.0464,0.2429,11.9735,35.3925,56.5403
+leave_family_out,cuprate,quantile_regression,2-5,903,0.0476,0.1750,17.9771,38.6145,66.3390
+leave_family_out,cuprate,quantile_regression,5-10,2833,0.0815,0.2358,17.6905,36.3219,60.4969
+leave_family_out,cuprate,quantile_regression,10-20,1859,0.0995,0.4045,14.3978,32.6999,46.3930
+leave_family_out,cuprate,quantile_regression,20-30,2372,0.1121,0.3529,17.1019,36.2133,52.9872
+leave_family_out,cuprate,quantile_regression,>= 30,2285,0.0442,0.1939,14.9277,37.0517,71.2489
+leave_family_out,iron-based,quantile_regression,< 2,801,0.1248,0.7965,7.5845,32.4277,18.8429
+leave_family_out,iron-based,quantile_regression,2-5,679,0.0943,0.7187,6.5093,26.5955,18.8389
+leave_family_out,iron-based,quantile_regression,5-10,116,0.1121,0.6466,7.1870,33.1062,28.4300
+leave_family_out,iron-based,quantile_regression,10-20,5,0.8000,1.0000,25.6231,40.0859,13.8259
+leave_family_out,iron-based,quantile_regression,20-30,50,0.2600,0.6800,16.1124,34.2878,25.2263
+leave_family_out,iron-based,quantile_regression,>= 30,31,0.2258,0.8710,13.7269,38.5047,19.7364
+leave_family_out,other,quantile_regression,< 2,49,0.0612,0.2041,32.7771,45.1388,24.1762
+leave_family_out,other,quantile_regression,2-5,1023,0.0323,0.0528,23.6544,36.5166,21.2313
+leave_family_out,other,quantile_regression,5-10,1928,0.1546,0.2158,21.1283,34.6588,19.7822
+leave_family_out,other,quantile_regression,10-20,2439,0.1230,0.1816,22.2846,35.5719,22.8806
+leave_family_out,other,quantile_regression,20-30,2525,0.1541,0.1984,20.6459,35.2709,22.1431
+leave_family_out,other,quantile_regression,>= 30,1085,0.0599,0.1309,25.2069,39.4603,27.6752
+leave_family_out,cuprate,conformal,< 2,280,0.0500,0.0857,6.9606,16.6949,54.7306
+leave_family_out,cuprate,conformal,2-5,903,0.0233,0.0576,6.9606,16.6949,58.6630
+leave_family_out,cuprate,conformal,5-10,2833,0.0434,0.1031,6.9606,16.6949,52.1059
+leave_family_out,cuprate,conformal,10-20,1859,0.0592,0.1350,6.9606,16.6949,43.4609
+leave_family_out,cuprate,conformal,20-30,2372,0.0637,0.1509,6.9606,16.6949,45.5471
+leave_family_out,cuprate,conformal,>= 30,2285,0.0315,0.0849,6.9606,16.6949,62.6359
+leave_family_out,iron-based,conformal,< 2,801,0.2572,0.6454,16.8142,41.5068,20.5345
+leave_family_out,iron-based,conformal,2-5,679,0.3476,0.6480,16.8142,41.5068,19.9362
+leave_family_out,iron-based,conformal,5-10,116,0.1810,0.5172,16.8142,41.5068,30.7981
+leave_family_out,iron-based,conformal,10-20,5,0.4000,1.0000,16.8142,41.5068,11.2591
+leave_family_out,iron-based,conformal,20-30,50,0.1400,0.5400,16.8142,41.5068,27.1451
+leave_family_out,iron-based,conformal,>= 30,31,0.0645,0.3548,16.8142,41.5068,25.6441
+leave_family_out,other,conformal,< 2,49,0.2653,0.8776,25.2932,49.6263,22.0605
+leave_family_out,other,conformal,2-5,1023,0.1906,0.8983,25.2932,49.6263,20.3279
+leave_family_out,other,conformal,5-10,1928,0.3869,0.8932,25.2932,49.6263,18.2287
+leave_family_out,other,conformal,10-20,2439,0.4096,0.8442,25.2932,49.6263,20.1163
+leave_family_out,other,conformal,20-30,2525,0.3691,0.7798,25.2932,49.6263,21.2798
+leave_family_out,other,conformal,>= 30,1085,0.1438,0.5475,25.2932,49.6263,31.1331

@@ -757,3 +757,62 @@ Sources: `experiments/05_stalls.py` -> `results/05_why/stall_runs.csv`,
   that a less certain chemistry might be higher. EI on TabPFN's distribution scores the
   upper tail and goes there. GP EI has the same rule, but its distribution is not reliable
   enough on the hard pool (see the GP section).
+
+### Do TabPFN's intervals widen away from the training data?
+Sources: `experiments/05_intervals.py` -> `results/05_why/interval_vs_distance.csv`,
+`interval_vs_neighbour_spread.csv`, `width_drivers.csv`, `lfo_neighbours.csv`,
+`figures/interval_width_drivers.png`. Composition features; TabPFN and both XGBoost uncertainty
+baselines. "Neighbour Tc spread" = SD of the median Tc of the 10 nearest training materials
+(L1 over element fractions).
+- Grouped split: within each family, TabPFN's 80% interval widens with distance. Cuprates go
+  from 20.9 K (< 0.01) to 51.5 K (>= 0.2), iron-based from 13.3 to 31.5 K, other from 4.1 to
+  6.7 K. Coverage stays 0.77-0.86 (80%) and 0.945-0.972 (95%) in every family x distance
+  cell. Pooled over families the width falls with distance (16.7 to 10.8 K), only because
+  distant test materials are mostly low-Tc "other" materials.
+- What the width tracks on the grouped split. Spearman correlation of the 80% width (per split,
+  mean over 25):
+  - TabPFN: 0.83 with the neighbour Tc spread, 0.74 with |error|, -0.19 with distance.
+  - XGBoost quantile regression: 0.83, 0.64 and -0.29 (conformal widths are constant).
+
+  Both models' widths mostly reflect how much Tc varies among similar materials. TabPFN's
+  width tracks its own errors more closely.
+- Leave-family-out: held-out materials are far from everything in training (median distance
+  0.62 for cuprates, 0.80 iron-based, 1.45 other; at most 0.6% within 0.05). Within a
+  held-out family, the width barely tracks anything: Spearman with the neighbour spread 0.42
+  (cuprates), 0.01 (iron-based), 0.52 (other); with |error| 0.02, -0.03 and 0.67.
+- The iron-based case. In Phase 3, TabPFN's intervals got narrower when this family was held
+  out, with 22% coverage at 80%. The nearest training materials are low-Tc analogues from the
+  "other" family (99.9%): As-Ba-Pt (16% of rows), As-Ca-Pd (9%), As-F-La-Ni-O (8%), Fe-O-P-Sm
+  (7%), Fe-S-Te (7%). Their Tc is low and uniform (10 nearest: median mean 4.4 K, median SD
+  2.1 K). TabPFN predicts a median of 5.4 K (true median 20.0 K) with a median 80% width of
+  8.5 K. Neighbours of held-out cuprates and of held-out "other" materials vary far more (SD
+  16.5 and 17.4 K), giving wide intervals (median 41.8 and 77.6 K) that still under-cover
+  (36% and 52%).
+- The Phase 5 plan's hypothesis was that held-out iron-based materials sit close to training
+  materials. That is not supported: they are far. The explanation is that their nearest
+  analogues all have similar, low Tc.
+- Reading for the write-up: TabPFN's interval width reflects how much Tc varies among similar
+  training materials.
+  - Within the training distribution this is a good signal: coverage holds at every distance,
+    and width grows with distance within each family.
+  - It is not a novelty detector. When a whole family is unseen, the width comes from whichever
+    family is nearest, and a family whose nearest analogues are uniformly low-Tc gets
+    confidently wrong intervals.
+  - The hard-pool overconfidence in Phase 4 is consistent with this, although there the
+    iron-based family is not hidden.
+
+### Is Hamidieh's top feature a cuprate detector?
+Sources: `experiments/05_cuprate_detector.py` (`make why-xgb`, 76 s, local XGBoost fits) ->
+`results/05_why/cuprate_detector.json`, `feature_gain.csv`.
+- On its own, `range_ThermalConductivity` separates cuprates almost perfectly: ROC AUC 0.993.
+  98.9% of cuprate rows have the value 399.973 within 0.001 (Cu minus O; two near-identical
+  values, 399.97342 and 399.97417; Phase 1's 98.5% rounded to 3 decimals and counted only the
+  first), and no non-cuprate row has it.
+- Published XGBoost refit on grouped splits 0-4, engineered features. The refits reproduce the
+  committed Phase 2 predictions exactly (max difference 0.0).
+  - The feature carries 23.0% of the total gain on average; the paper reports about 30% on its
+    own fit.
+  - With an explicit `is_cuprate` column added, `is_cuprate` takes 27.7% of the gain,
+    `range_ThermalConductivity` falls to 10.5%, and test RMSE is unchanged (9.77 to 9.75 K).
+- Reading: the hypothesis holds. About half of the paper's most important feature is family
+  membership, which the element fractions already encode.

@@ -77,7 +77,7 @@ data/            download script output (gitignored raw), splits/
 src/             data.py, splits.py, models.py, metrics.py, discovery.py
 experiments/     one script per experiment, each writes to results/
 results/         cached predictions, metrics JSON/CSV, figures
-notebooks/       01_eda, 02_benchmark, 03_uncertainty, 04_discovery (read from results/, no heavy compute)
+notebooks/       01_eda, 02_benchmark, 03_uncertainty, 04_discovery, 05_why (read from results/, no heavy compute)
 demo/            formula -> Tc prediction with interval and P(Tc > 77 K)
 tests/           splits have no leakage, metrics are correct, seeds reproduce
 ```

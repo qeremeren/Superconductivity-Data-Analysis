@@ -1,0 +1,100 @@
+split_kind,held_out,family,model,distance,rows,coverage_80,coverage_95,width_80,width_95,rmse
+grouped,all,all,tabpfn,< 0.01,72162,0.8116,0.9506,16.7109,28.9173,8.9215
+grouped,all,all,tabpfn,0.01-0.05,56223,0.8388,0.9643,16.9211,28.9581,8.8936
+grouped,all,all,tabpfn,0.05-0.1,18522,0.8362,0.9638,15.0237,25.2554,8.9874
+grouped,all,all,tabpfn,0.1-0.2,13816,0.8181,0.9621,15.6092,25.6756,9.6850
+grouped,all,all,tabpfn,>= 0.2,16471,0.8290,0.9624,10.7968,18.1519,8.8096
+grouped,all,cuprate,tabpfn,< 0.01,51158,0.8097,0.9489,20.9296,36.0436,10.2250
+grouped,all,cuprate,tabpfn,0.01-0.05,27130,0.8384,0.9646,28.3221,47.8972,12.1024
+grouped,all,cuprate,tabpfn,0.05-0.1,5330,0.8203,0.9696,36.9355,60.5609,15.3897
+grouped,all,cuprate,tabpfn,0.1-0.2,3163,0.8331,0.9630,43.0237,68.3455,17.1284
+grouped,all,cuprate,tabpfn,>= 0.2,1276,0.8417,0.9702,51.4709,77.6102,20.8205
+grouped,all,iron-based,tabpfn,< 0.01,5283,0.7880,0.9445,13.3213,21.9972,7.1659
+grouped,all,iron-based,tabpfn,0.01-0.05,6212,0.8060,0.9596,14.5408,23.9441,6.6157
+grouped,all,iron-based,tabpfn,0.05-0.1,1328,0.8630,0.9721,16.7458,28.9382,6.3671
+grouped,all,iron-based,tabpfn,0.1-0.2,772,0.8225,0.9456,21.7156,35.6785,8.3812
+grouped,all,iron-based,tabpfn,>= 0.2,397,0.7733,0.9647,31.5362,45.9973,13.2850
+grouped,all,other,tabpfn,< 0.01,15721,0.8255,0.9583,4.1217,8.0527,2.8045
+grouped,all,other,tabpfn,0.01-0.05,22881,0.8482,0.9652,4.0490,7.8633,2.9675
+grouped,all,other,tabpfn,0.05-0.1,11864,0.8404,0.9603,4.9869,8.9818,3.8938
+grouped,all,other,tabpfn,0.1-0.2,9881,0.8130,0.9632,6.3564,11.2350,5.6348
+grouped,all,other,tabpfn,>= 0.2,14798,0.8294,0.9617,6.7332,12.2780,6.6536
+grouped,all,all,quantile_regression,< 0.01,72162,0.7246,0.9242,20.3234,44.4529,10.5073
+grouped,all,all,quantile_regression,0.01-0.05,56223,0.7076,0.9075,18.7142,43.3808,11.5952
+grouped,all,all,quantile_regression,0.05-0.1,18522,0.6964,0.9027,15.0792,40.1811,11.0352
+grouped,all,all,quantile_regression,0.1-0.2,13816,0.6606,0.8893,13.6936,39.1529,10.6376
+grouped,all,all,quantile_regression,>= 0.2,16471,0.6158,0.8687,9.8344,36.0671,9.7547
+grouped,all,cuprate,quantile_regression,< 0.01,51158,0.7175,0.9126,25.0280,48.4394,12.0536
+grouped,all,cuprate,quantile_regression,0.01-0.05,27130,0.6677,0.8716,29.4084,52.8399,15.7679
+grouped,all,cuprate,quantile_regression,0.05-0.1,5330,0.6058,0.8163,32.4512,55.7337,18.7014
+grouped,all,cuprate,quantile_regression,0.1-0.2,3163,0.5950,0.8157,32.4819,55.5257,19.2969
+grouped,all,cuprate,quantile_regression,>= 0.2,1276,0.5157,0.7320,34.9134,56.2666,23.1533
+grouped,all,iron-based,quantile_regression,< 0.01,5283,0.7007,0.9209,14.7206,37.3691,7.6136
+grouped,all,iron-based,quantile_regression,0.01-0.05,6212,0.6570,0.8954,15.2129,38.2990,7.7511
+grouped,all,iron-based,quantile_regression,0.05-0.1,1328,0.6446,0.8931,17.0149,39.2480,8.3769
+grouped,all,iron-based,quantile_regression,0.1-0.2,772,0.5415,0.8653,17.8051,39.7102,10.6597
+grouped,all,iron-based,quantile_regression,>= 0.2,397,0.3275,0.6675,18.5099,39.9831,14.7973
+grouped,all,other,quantile_regression,< 0.01,15721,0.7555,0.9632,6.8967,33.8611,3.8075
+grouped,all,other,quantile_regression,0.01-0.05,22881,0.7686,0.9535,6.9848,33.5448,4.3883
+grouped,all,other,quantile_regression,0.05-0.1,11864,0.7429,0.9425,7.0581,33.2984,5.0134
+grouped,all,other,quantile_regression,0.1-0.2,9881,0.6909,0.9148,7.3581,33.8683,5.4906
+grouped,all,other,quantile_regression,>= 0.2,14798,0.6322,0.8859,7.4392,34.2203,7.3358
+grouped,all,all,conformal,< 0.01,72162,0.7823,0.9543,17.9103,43.9967,9.9051
+grouped,all,all,conformal,0.01-0.05,56223,0.7704,0.9405,17.9217,43.9861,10.6475
+grouped,all,all,conformal,0.05-0.1,18522,0.8151,0.9408,17.9230,44.0303,10.1723
+grouped,all,all,conformal,0.1-0.2,13816,0.8267,0.9396,17.9151,43.9980,10.7297
+grouped,all,all,conformal,>= 0.2,16471,0.8930,0.9650,17.9248,43.9918,9.6126
+grouped,all,cuprate,conformal,< 0.01,51158,0.7159,0.9382,17.9065,43.9925,11.3318
+grouped,all,cuprate,conformal,0.01-0.05,27130,0.5906,0.8829,17.9117,43.9976,14.4520
+grouped,all,cuprate,conformal,0.05-0.1,5330,0.4884,0.8084,17.9215,43.9982,17.2962
+grouped,all,cuprate,conformal,0.1-0.2,3163,0.4404,0.7822,17.9067,43.9938,19.3927
+grouped,all,cuprate,conformal,>= 0.2,1276,0.3589,0.6936,17.8916,44.0897,23.2266
+grouped,all,iron-based,conformal,< 0.01,5283,0.8539,0.9843,17.9133,44.0976,7.4785
+grouped,all,iron-based,conformal,0.01-0.05,6212,0.7997,0.9850,17.9348,44.0165,7.6497
+grouped,all,iron-based,conformal,0.05-0.1,1328,0.7809,0.9864,17.9302,44.0408,7.8833
+grouped,all,iron-based,conformal,0.1-0.2,772,0.6839,0.9210,17.9018,44.0670,11.0522
+grouped,all,iron-based,conformal,>= 0.2,397,0.4282,0.7935,17.8997,44.0779,15.3215
+grouped,all,other,conformal,< 0.01,15721,0.9745,0.9965,17.9218,43.9764,3.6993
+grouped,all,other,conformal,0.01-0.05,22881,0.9757,0.9965,17.9300,43.9643,3.8776
+grouped,all,other,conformal,0.05-0.1,11864,0.9658,0.9952,17.9229,44.0435,4.4934
+grouped,all,other,conformal,0.1-0.2,9881,0.9615,0.9914,17.9189,43.9940,5.5718
+grouped,all,other,conformal,>= 0.2,14798,0.9515,0.9930,17.9283,43.9811,7.0734
+leave_family_out,cuprate,all,tabpfn,< 0.01,5,0.4000,1.0000,2.6745,4.7624,1.6342
+leave_family_out,cuprate,all,tabpfn,0.01-0.05,3,0.0000,0.6667,3.2236,5.7947,2.7684
+leave_family_out,cuprate,all,tabpfn,0.1-0.2,5,0.8000,1.0000,32.3575,59.9977,27.7313
+leave_family_out,cuprate,all,tabpfn,>= 0.2,10519,0.3574,0.7830,45.8250,89.4199,50.2086
+leave_family_out,iron-based,all,tabpfn,0.01-0.05,1,1.0000,1.0000,4.8405,34.9263,1.8186
+leave_family_out,iron-based,all,tabpfn,0.05-0.1,16,0.4375,0.8750,8.1683,21.1977,4.0909
+leave_family_out,iron-based,all,tabpfn,0.1-0.2,16,0.3750,0.6250,8.0792,14.1019,5.6648
+leave_family_out,iron-based,all,tabpfn,>= 0.2,1649,0.2183,0.5943,11.4111,29.9747,20.1674
+leave_family_out,other,all,tabpfn,< 0.01,6,0.8333,1.0000,3.8390,9.6807,1.4852
+leave_family_out,other,all,tabpfn,0.01-0.05,48,1.0000,1.0000,14.4805,26.3526,4.6097
+leave_family_out,other,all,tabpfn,0.05-0.1,19,0.8947,0.9474,10.2137,18.9780,12.8459
+leave_family_out,other,all,tabpfn,0.1-0.2,14,1.0000,1.0000,13.2748,22.4774,8.7425
+leave_family_out,other,all,tabpfn,>= 0.2,8962,0.5163,0.9452,71.8703,114.1192,31.0553
+leave_family_out,cuprate,all,quantile_regression,< 0.01,5,0.6000,1.0000,6.5933,26.0428,2.9178
+leave_family_out,cuprate,all,quantile_regression,0.01-0.05,3,0.6667,1.0000,6.6772,26.0226,3.3062
+leave_family_out,cuprate,all,quantile_regression,0.1-0.2,5,0.4000,0.8000,13.8125,27.2738,35.6382
+leave_family_out,cuprate,all,quantile_regression,>= 0.2,10519,0.0791,0.2770,16.2584,36.0000,59.7007
+leave_family_out,iron-based,all,quantile_regression,0.01-0.05,1,1.0000,1.0000,5.2238,35.4521,1.5614
+leave_family_out,iron-based,all,quantile_regression,0.05-0.1,16,0.3125,1.0000,6.5741,30.8043,3.8704
+leave_family_out,iron-based,all,quantile_regression,0.1-0.2,16,0.2500,1.0000,6.1965,24.4160,5.8945
+leave_family_out,iron-based,all,quantile_regression,>= 0.2,1649,0.1158,0.7483,7.5672,30.3595,20.0543
+leave_family_out,other,all,quantile_regression,< 0.01,6,1.0000,1.0000,19.9754,43.7784,3.0857
+leave_family_out,other,all,quantile_regression,0.01-0.05,48,0.3333,0.6458,21.2970,34.9635,13.3029
+leave_family_out,other,all,quantile_regression,0.05-0.1,19,0.1053,0.1579,11.1764,25.1649,14.1205
+leave_family_out,other,all,quantile_regression,0.1-0.2,14,0.2857,0.3571,15.0300,31.5274,9.9144
+leave_family_out,other,all,quantile_regression,>= 0.2,8962,0.1183,0.1697,22.1834,35.9477,22.5977
+leave_family_out,cuprate,all,conformal,< 0.01,5,1.0000,1.0000,6.9606,16.6949,1.0773
+leave_family_out,cuprate,all,conformal,0.01-0.05,3,0.6667,1.0000,6.9606,16.6949,2.5723
+leave_family_out,cuprate,all,conformal,0.1-0.2,5,0.4000,0.4000,6.9606,16.6949,34.8597
+leave_family_out,cuprate,all,conformal,>= 0.2,10519,0.0458,0.1104,6.9606,16.6949,52.5323
+leave_family_out,iron-based,all,conformal,0.01-0.05,1,1.0000,1.0000,16.8142,41.5068,2.3341
+leave_family_out,iron-based,all,conformal,0.05-0.1,16,1.0000,1.0000,16.8142,41.5068,4.2881
+leave_family_out,iron-based,all,conformal,0.1-0.2,16,0.8125,1.0000,16.8142,41.5068,6.5108
+leave_family_out,iron-based,all,conformal,>= 0.2,1649,0.2693,0.6228,16.8142,41.5068,21.6726
+leave_family_out,other,all,conformal,< 0.01,6,1.0000,1.0000,25.2932,49.6263,1.6820
+leave_family_out,other,all,conformal,0.01-0.05,48,1.0000,1.0000,25.2932,49.6263,6.8275
+leave_family_out,other,all,conformal,0.05-0.1,19,0.9474,0.9474,25.2932,49.6263,13.5043
+leave_family_out,other,all,conformal,0.1-0.2,14,0.9286,0.9286,25.2932,49.6263,8.5221
+leave_family_out,other,all,conformal,>= 0.2,8962,0.3298,0.8057,25.2932,49.6263,21.8087

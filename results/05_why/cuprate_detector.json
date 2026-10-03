@@ -1,0 +1,331 @@
+{
+ "feature": "range_ThermalConductivity",
+ "alone": {
+  "roc_auc_for_cuprate": 0.9932256768187038,
+  "most_common_value_among_cuprates": 399.973,
+  "share_cuprate_rows_at_that_value": 0.9892707937713635,
+  "share_non_cuprate_rows_at_that_value": 0.0,
+  "share_rows_at_that_value_that_are_cuprates": 1.0
+ },
+ "refits": [
+  {
+   "split": 0,
+   "variant": "published",
+   "rmse": 9.793064092721783,
+   "gain_share_range_ThermalConductivity": 0.21021819902205255,
+   "gain_share_is_cuprate": NaN,
+   "top5": [
+    [
+     "range_ThermalConductivity",
+     0.2102
+    ],
+    [
+     "range_atomic_radius",
+     0.1426
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.1033
+    ],
+    [
+     "wtd_entropy_Valence",
+     0.0436
+    ],
+    [
+     "wtd_mean_Valence",
+     0.0272
+    ]
+   ],
+   "max_abs_diff_vs_committed_phase2_predictions": 0.0
+  },
+  {
+   "split": 0,
+   "variant": "published + is_cuprate",
+   "rmse": 9.743988300124185,
+   "gain_share_range_ThermalConductivity": 0.09247213573083178,
+   "gain_share_is_cuprate": 0.24698923369614503,
+   "top5": [
+    [
+     "is_cuprate",
+     0.247
+    ],
+    [
+     "range_atomic_radius",
+     0.1186
+    ],
+    [
+     "range_ThermalConductivity",
+     0.0925
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0606
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.031
+    ]
+   ]
+  },
+  {
+   "split": 1,
+   "variant": "published",
+   "rmse": 9.978147300822638,
+   "gain_share_range_ThermalConductivity": 0.23573098362913356,
+   "gain_share_is_cuprate": NaN,
+   "top5": [
+    [
+     "range_ThermalConductivity",
+     0.2357
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.1683
+    ],
+    [
+     "range_atomic_radius",
+     0.0634
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0405
+    ],
+    [
+     "wtd_gmean_Valence",
+     0.0306
+    ]
+   ],
+   "max_abs_diff_vs_committed_phase2_predictions": 0.0
+  },
+  {
+   "split": 1,
+   "variant": "published + is_cuprate",
+   "rmse": 9.999843209903196,
+   "gain_share_range_ThermalConductivity": 0.11765271134903536,
+   "gain_share_is_cuprate": 0.32066103575831184,
+   "top5": [
+    [
+     "is_cuprate",
+     0.3207
+    ],
+    [
+     "range_ThermalConductivity",
+     0.1177
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0695
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.0331
+    ],
+    [
+     "range_atomic_radius",
+     0.0292
+    ]
+   ]
+  },
+  {
+   "split": 2,
+   "variant": "published",
+   "rmse": 9.296888329055099,
+   "gain_share_range_ThermalConductivity": 0.26065535065413087,
+   "gain_share_is_cuprate": NaN,
+   "top5": [
+    [
+     "range_ThermalConductivity",
+     0.2607
+    ],
+    [
+     "range_atomic_radius",
+     0.1476
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.049
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.0473
+    ],
+    [
+     "wtd_entropy_Valence",
+     0.0382
+    ]
+   ],
+   "max_abs_diff_vs_committed_phase2_predictions": 0.0
+  },
+  {
+   "split": 2,
+   "variant": "published + is_cuprate",
+   "rmse": 9.221285483213036,
+   "gain_share_range_ThermalConductivity": 0.1203130955181661,
+   "gain_share_is_cuprate": 0.22326488036276207,
+   "top5": [
+    [
+     "is_cuprate",
+     0.2233
+    ],
+    [
+     "range_ThermalConductivity",
+     0.1203
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.0774
+    ],
+    [
+     "range_atomic_radius",
+     0.0619
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0546
+    ]
+   ]
+  },
+  {
+   "split": 3,
+   "variant": "published",
+   "rmse": 9.970821007358188,
+   "gain_share_range_ThermalConductivity": 0.22771382709961724,
+   "gain_share_is_cuprate": NaN,
+   "top5": [
+    [
+     "range_ThermalConductivity",
+     0.2277
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.1146
+    ],
+    [
+     "range_atomic_radius",
+     0.0683
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0446
+    ],
+    [
+     "wtd_gmean_Valence",
+     0.0374
+    ]
+   ],
+   "max_abs_diff_vs_committed_phase2_predictions": 0.0
+  },
+  {
+   "split": 3,
+   "variant": "published + is_cuprate",
+   "rmse": 9.927752988578085,
+   "gain_share_range_ThermalConductivity": 0.11546780271287235,
+   "gain_share_is_cuprate": 0.26982689865921194,
+   "top5": [
+    [
+     "is_cuprate",
+     0.2698
+    ],
+    [
+     "range_ThermalConductivity",
+     0.1155
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0588
+    ],
+    [
+     "range_atomic_radius",
+     0.0407
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.038
+    ]
+   ]
+  },
+  {
+   "split": 4,
+   "variant": "published",
+   "rmse": 9.805057649744077,
+   "gain_share_range_ThermalConductivity": 0.21538649878762017,
+   "gain_share_is_cuprate": NaN,
+   "top5": [
+    [
+     "range_ThermalConductivity",
+     0.2154
+    ],
+    [
+     "range_atomic_radius",
+     0.1614
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.0853
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0604
+    ],
+    [
+     "wtd_gmean_Valence",
+     0.0362
+    ]
+   ],
+   "max_abs_diff_vs_committed_phase2_predictions": 0.0
+  },
+  {
+   "split": 4,
+   "variant": "published + is_cuprate",
+   "rmse": 9.83302160866517,
+   "gain_share_range_ThermalConductivity": 0.0785290881613656,
+   "gain_share_is_cuprate": 0.32566862532677066,
+   "top5": [
+    [
+     "is_cuprate",
+     0.3257
+    ],
+    [
+     "range_ThermalConductivity",
+     0.0785
+    ],
+    [
+     "wtd_gmean_ThermalConductivity",
+     0.0519
+    ],
+    [
+     "wtd_std_ThermalConductivity",
+     0.0502
+    ],
+    [
+     "range_atomic_radius",
+     0.0456
+    ]
+   ]
+  }
+ ],
+ "summary": {
+  "published": {
+   "splits": 5,
+   "rmse_mean": 9.768795675940357,
+   "gain_share_range_ThermalConductivity_mean": 0.2299409718385109,
+   "gain_share_is_cuprate_mean": NaN
+  },
+  "published + is_cuprate": {
+   "splits": 5,
+   "rmse_mean": 9.745178318096734,
+   "gain_share_range_ThermalConductivity_mean": 0.10488696669445426,
+   "gain_share_is_cuprate_mean": 0.2772821347606403
+  }
+ },
+ "machine": {
+  "host": "Kerems-MacBook-Air.local",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpu_count": 10,
+  "python": "3.12.14",
+  "xgboost": "3.4.1",
+  "numpy": "2.5.3"
+ },
+ "seconds": 74.8
+}

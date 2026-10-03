@@ -108,7 +108,7 @@ NN_LABELS = ("< 0.01", "0.01-0.05", "0.05-0.1", "0.1-0.2", ">= 0.2")
 
 def nearest_training_material(is_test: np.ndarray, unique_m: pd.DataFrame) -> pd.DataFrame:
     """For every test row: L1 distance (element fractions) to the nearest training material,
-    and that material's median Tc and family. Exact; ~1 s per split."""
+    and that material's composition key, median Tc and family. Exact; ~1 s per split."""
     from scipy.spatial.distance import cdist
 
     key = data.composition_key(unique_m).to_numpy()
@@ -129,6 +129,7 @@ def nearest_training_material(is_test: np.ndarray, unique_m: pd.DataFrame) -> pd
         {
             "row": np.flatnonzero(is_test),
             "nn_distance": dist[inverse],
+            "nn_key": train.index.to_numpy()[idx][inverse],
             "nn_tc": train.to_numpy()[idx][inverse],
             "nn_family": fam[first.loc[train.index].to_numpy()][idx][inverse],
         }
@@ -137,3 +138,69 @@ def nearest_training_material(is_test: np.ndarray, unique_m: pd.DataFrame) -> pd
 
 def nn_bin(distance) -> pd.Categorical:
     return pd.cut(np.asarray(distance), NN_BINS, right=False, labels=NN_LABELS)
+
+
+NN_CACHE = config.RESULTS_DIR / "cache" / "05_why"  # gitignored; rebuilt in ~20 s if missing
+
+
+def nearest_training_all(kind: str, unique_m: pd.DataFrame) -> pd.DataFrame:
+    """nearest_training_material for every saved split of one kind, with a split column."""
+    path = NN_CACHE / f"nn_v2_{kind}.parquet"
+    if path.is_file():
+        return pd.read_parquet(path)
+    out = pd.concat(
+        [
+            nearest_training_material(is_test, unique_m).assign(split=s)
+            for s, is_test in enumerate(splits.load(kind))
+        ],
+        ignore_index=True,
+    )
+    NN_CACHE.mkdir(parents=True, exist_ok=True)
+    out.to_parquet(path, index=False)
+    return out
+
+
+def neighbour_tc_spread(is_test: np.ndarray, unique_m: pd.DataFrame, k: int = 10) -> pd.DataFrame:
+    """For every test row: SD and mean of the median Tc of its k nearest training materials
+    (L1 over element fractions), and their mean distance."""
+    from scipy.spatial.distance import cdist
+
+    key = data.composition_key(unique_m).to_numpy()
+    fractions = data.composition_fractions(unique_m).to_numpy(float)
+    tc = unique_m[data.TARGET].to_numpy(float)
+    first = pd.Series(np.arange(len(key))).groupby(key).first()
+    train = pd.Series(tc[~is_test]).groupby(key[~is_test]).median()
+    train_vecs, train_tc = fractions[first.loc[train.index].to_numpy()], train.to_numpy()
+    test_keys, inverse = np.unique(key[is_test], return_inverse=True)
+    test_vecs = fractions[first.loc[test_keys].to_numpy()]
+    sd, mean, dist = (np.empty(len(test_keys)) for _ in range(3))
+    for start in range(0, len(test_keys), 1000):
+        d = cdist(test_vecs[start : start + 1000], train_vecs, metric="cityblock")
+        nn = np.argpartition(d, k, axis=1)[:, :k]
+        sd[start : start + 1000] = train_tc[nn].std(1)
+        mean[start : start + 1000] = train_tc[nn].mean(1)
+        dist[start : start + 1000] = np.take_along_axis(d, nn, 1).mean(1)
+    return pd.DataFrame(
+        {
+            "row": np.flatnonzero(is_test),
+            f"knn{k}_tc_sd": sd[inverse],
+            f"knn{k}_tc_mean": mean[inverse],
+            f"knn{k}_distance": dist[inverse],
+        }
+    )
+
+
+def neighbour_tc_spread_all(kind: str, unique_m: pd.DataFrame, k: int = 10) -> pd.DataFrame:
+    path = NN_CACHE / f"knn{k}_{kind}.parquet"
+    if path.is_file():
+        return pd.read_parquet(path)
+    out = pd.concat(
+        [
+            neighbour_tc_spread(is_test, unique_m, k).assign(split=s)
+            for s, is_test in enumerate(splits.load(kind))
+        ],
+        ignore_index=True,
+    )
+    NN_CACHE.mkdir(parents=True, exist_ok=True)
+    out.to_parquet(path, index=False)
+    return out
