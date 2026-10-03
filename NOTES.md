@@ -584,9 +584,8 @@ overnight command, 62.5 min) and `experiments/04_evaluate.py`; figures in
 | XGBoost greedy (published settings) | 35.6 (11.5-59.7) | 33.6 (10.0-57.2) |
 | random search | 2.1 (exact expectation 2.01) | 2.3 (exact 2.08) |
 - Enrichment over random at 200 experiments: EI 39.5x (main), 25.9x (hard).
-- Paired by seed, EI minus: greedy TabPFN +37.1 (main, EI better on 9/10 seeds) and +27.2 (hard,
-  7/10); greedy XGBoost +44.0 (main, 9/10) and +20.3 (hard, 6/10 better, 3 worse, 1 tie; 95%
-  interval +0.5 to +40.1); random +77.5 and +51.6 (10/10 each).
+- Paired by seed: see the next section. EI minus random: +77.5 (main) and +51.6 (hard), 10/10
+  seeds each.
 - Greedy XGBoost is fastest early (15.3 vs 10.3 targets after 50 experiments, main; 10.0 vs 5.7
   hard) and has the shortest median time to a first hit (2 experiments main, 27 hard, vs EI 20
   and 37), but 3 of its 10 runs found no target at all in either scenario. Every EI run found
@@ -596,6 +595,47 @@ overnight command, 62.5 min) and `experiments/04_evaluate.py`; figures in
   EI finds 538 iron-based targets and 1 other over 10 seeds and leads every method, but its
   margin over greedy XGBoost is the least certain result (6/10 seeds), and P(top 1%) is
   miscalibrated there (below).
+
+### Is the uncertainty doing the work? EI vs greedy, paired by seed
+Sources: `paired.csv`, `paired_seeds.csv`, `stalls.csv`, `paired_by_stall.csv`,
+`ablation_check.json`; figure `figures/per_seed.png`.
+- The clean ablation is EI vs greedy TabPFN: same model, same 50-material start set and the same
+  first fit. Round-1 training sets are identical on 10/10 seeds in both scenarios, and the 28
+  materials both methods picked in round 1 got identical predicted means. Only the selection
+  rule differs: the full predictive distribution (EI) or its mean (greedy). Greedy XGBoost is
+  the cross-model comparison.
+- After 200 experiments, EI minus greedy TabPFN: +37.1 targets (main, 95% interval +6.6 to +67.6,
+  EI better on 9/10 seeds) and +27.2 (hard, +7.4 to +47.0, 7/10). EI minus greedy XGBoost:
+  +44.0 (main, +17.8 to +70.2, 9/10) and +20.3 (hard, +0.5 to +40.1; 6 better, 3 worse, 1 tie).
+- The gap builds late. After 50 experiments, EI minus greedy TabPFN / greedy XGBoost is -0.4 /
+  -5.0 (main) and 0.0 / -4.3 (hard); after 100, +4.6 / +3.2 and +5.9 / -3.1. All of these
+  intervals include zero.
+- Most of the gap comes from greedy runs that stall. Post hoc, defined after seeing the per-seed
+  results: a run stalls if it finds at most 5 targets in 200 experiments (random expects ~2).
+  Both greedy methods stall on the same start sets: main seeds 0, 4, 8 (0 targets each) and hard
+  seeds 0-3 (at most 2). EI never stalls (fewest: 48 main, 23 hard). The cut-off does not drive
+  this: stalled runs found at most 2 targets, every other run at least 10. On those start sets
+  EI, with the same model and first fit as greedy TabPFN, found 74 (main) and 41 (hard) targets
+  on average. Why greedy stalls there is a Phase 5 question.
+- Where the greedy run did not stall, the gap is smaller. Vs greedy TabPFN: +21.3 (main, EI better
+  on 6/7 seeds; greedy TabPFN has the single best run, 111 vs EI's 52 on seed 1) and +18.3
+  (hard, 3 better, 3 worse). Vs greedy XGBoost: +31.1 (main, 6/7) and +6.8 (hard, 2 better,
+  3 worse, 1 tie).
+- Reading for the write-up: using the uncertainty mainly buys robustness (no run stalls), not a
+  uniformly faster search. On the hard pool, a greedy run that doesn't stall is about as good
+  as EI.
+
+### Caveats that stay in the write-up
+- Greedy XGBoost is faster to the first hit and ahead for the first 80 (main) / 120 (hard)
+  experiments.
+- The hard pool's margin over greedy XGBoost is narrow (6/10 seeds; interval down to +0.5), and
+  near zero on seeds where greedy XGBoost doesn't stall.
+- TabPFN's P(top 1%) is overconfident on the hard pool (below).
+- The stall cut-off is post hoc (the gap between 2 and 10 targets makes the split
+  insensitive to it); 10 seeds per method.
+- Simulated discovery: every pool material is a known superconductor (the data has no
+  non-superconductors), "measuring" reveals a recorded Tc, and the targets are known
+  materials. It tests how well each method ranks candidates, not whether new materials exist.
 
 ### Checks before believing the size of the effect
 - No label leakage path: each round fits only on measured materials (start set + earlier picks);

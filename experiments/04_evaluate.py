@@ -6,7 +6,15 @@ results/04_discovery/:
                    exact random-search expectation
   summary.csv      per phase, scenario and method: targets found at 50/100/200 experiments,
                    tries to the first hit (median, runs without a hit), enrichment over random
-  paired.csv       per-seed differences in targets found at the end, EI vs every other method
+  paired.csv       per-seed differences in targets found after 50/100/200 experiments, EI vs
+                   every other method (EI vs greedy TabPFN = same model with vs without
+                   uncertainty)
+  paired_seeds.csv targets found per seed and method after 200 experiments (main runs)
+  stalls.csv       post hoc: runs that stalled (at most discovery.STALL_MAX targets after 200
+                   experiments; random expects ~2) per method, and on which seeds
+  paired_by_stall.csv  EI vs each greedy method, split by whether the greedy run stalled
+  ablation_check.json  EI and greedy TabPFN start from the same training set and the same first
+                   fit: identical round-1 fingerprints and predicted means on shared picks
   novelty.csv      how new the found targets were: L1 distance (element fractions) to the
                    nearest material labeled before it was picked, and whether it was only an
                    oxygen variant of a labeled material
@@ -32,6 +40,7 @@ from src import config, data, discovery
 
 OUT = config.RESULTS_DIR / "04_discovery"
 CHECKPOINTS = (50, 100, 200)
+GREEDY = ("greedy_tabpfn", "greedy_xgb")
 
 
 def load_runs() -> list[dict]:
@@ -122,26 +131,31 @@ def summary(runs, scns) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def found_at(rec, n) -> int:
+    return rec["rounds"][n // rec["batch"] - 1]["found_cumulative"]
+
+
 def paired(runs) -> pd.DataFrame:
-    end = {
-        (r["phase"], r["scenario"], r["acquisition"], r["seed"]): r["rounds"][-1][
-            "found_cumulative"
-        ]
-        for r in runs
-    }
+    by = {(r["phase"], r["scenario"], r["acquisition"], r["seed"]): r for r in runs}
     rows = []
-    for phase in ("main",):
-        for sc in discovery.SCENARIOS:
-            seeds = sorted({k[3] for k in end if k[:3] == (phase, sc, "ei")})
-            for other in ("greedy_tabpfn", "greedy_xgb", "random"):
-                d = np.array([end[phase, sc, "ei", s] - end[phase, sc, other, s] for s in seeds])
+    for sc in discovery.SCENARIOS:
+        seeds = sorted({k[3] for k in by if k[:3] == ("main", sc, "ei")})
+        for other in ("greedy_tabpfn", "greedy_xgb", "random"):
+            for n in CHECKPOINTS:
+                d = np.array(
+                    [
+                        found_at(by["main", sc, "ei", s], n) - found_at(by["main", sc, other, s], n)
+                        for s in seeds
+                    ]
+                )
                 m, lo, hi = ci95(d)
                 rows.append(
                     {
-                        "phase": phase,
+                        "phase": "main",
                         "scenario": sc,
                         "a": "ei",
                         "b": other,
+                        "experiments": n,
                         "seeds": len(seeds),
                         "mean_diff": m,
                         "diff_lo": lo,
@@ -152,6 +166,86 @@ def paired(runs) -> pd.DataFrame:
                     }
                 )
     return pd.DataFrame(rows)
+
+
+def paired_seeds(runs) -> pd.DataFrame:
+    rows = [
+        {
+            "scenario": r["scenario"],
+            "seed": r["seed"],
+            "acquisition": r["acquisition"],
+            "found_200": found_at(r, 200),
+        }
+        for r in runs
+        if r["phase"] == "main"
+    ]
+    return (
+        pd.DataFrame(rows)
+        .pivot_table(index=["scenario", "seed"], columns="acquisition", values="found_200")
+        .reset_index()
+    )
+
+
+def stalls(seeds: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    rows, prow = [], []
+    for sc, d in seeds.groupby("scenario"):
+        for acq in ("ei", *GREEDY):
+            st = d[acq] <= discovery.STALL_MAX
+            rows.append(
+                {
+                    "scenario": sc,
+                    "acquisition": acq,
+                    "seeds": len(d),
+                    "stalled": int(st.sum()),
+                    "max_found_stalled": d[acq][st].max() if st.any() else np.nan,
+                    "min_found_not_stalled": d[acq][~st].min() if (~st).any() else np.nan,
+                    "stalled_seeds": " ".join(str(x) for x in d.seed[st]),
+                }
+            )
+        for other in GREEDY:
+            for stalled in (True, False):
+                m = (d[other] <= discovery.STALL_MAX) == stalled
+                diff = (d.ei - d[other])[m]
+                prow.append(
+                    {
+                        "scenario": sc,
+                        "b": other,
+                        "b_stalled": stalled,
+                        "seeds": int(m.sum()),
+                        "ei_mean": d.ei[m].mean(),
+                        "b_mean": d[other][m].mean(),
+                        "mean_diff": diff.mean(),
+                        "ei_better": int((diff > 0).sum()),
+                        "b_better": int((diff < 0).sum()),
+                        "ties": int((diff == 0).sum()),
+                    }
+                )
+    return pd.DataFrame(rows), pd.DataFrame(prow)
+
+
+def ablation_check(runs) -> dict:
+    """EI vs greedy TabPFN: same training set and same fit in round 1, so only the rule differs."""
+    by = {(r["phase"], r["scenario"], r["acquisition"], r["seed"]): r for r in runs}
+    out = {}
+    for sc in discovery.SCENARIOS:
+        seeds = sorted({k[3] for k in by if k[:3] == ("main", sc, "ei")})
+        same_set, shared, diffs = 0, 0, []
+        for s in seeds:
+            a = by["main", sc, "ei", s]["rounds"][0]
+            b = by["main", sc, "greedy_tabpfn", s]["rounds"][0]
+            same_set += a["labeled_fingerprint"] == b["labeled_fingerprint"]
+            mean_a = {x["key"]: x["mean"] for x in a["selected"]}
+            for x in b["selected"]:
+                if x["key"] in mean_a:
+                    shared += 1
+                    diffs.append(abs(mean_a[x["key"]] - x["mean"]))
+        out[sc] = {
+            "seeds": len(seeds),
+            "same_round1_training_set": same_set,
+            "round1_shared_picks": shared,
+            "round1_max_abs_mean_diff_K": max(diffs) if diffs else None,
+        }
+    return out
 
 
 def novelty(runs, scns) -> pd.DataFrame:
@@ -288,6 +382,12 @@ def main():
     curves(runs, scns).to_csv(OUT / "curves.csv", index=False, float_format="%.4f")
     summary(runs, scns).to_csv(OUT / "summary.csv", index=False, float_format="%.4f")
     paired(runs).to_csv(OUT / "paired.csv", index=False, float_format="%.4f")
+    seeds = paired_seeds(runs)
+    seeds.to_csv(OUT / "paired_seeds.csv", index=False)
+    stall, by_stall = stalls(seeds)
+    stall.to_csv(OUT / "stalls.csv", index=False)
+    by_stall.to_csv(OUT / "paired_by_stall.csv", index=False, float_format="%.2f")
+    (OUT / "ablation_check.json").write_text(json.dumps(ablation_check(runs), indent=1) + "\n")
     nov, fam = novelty(runs, scns)
     nov.to_csv(OUT / "novelty.csv", index=False, float_format="%.4f")
     fam.to_csv(OUT / "families.csv", index=False)

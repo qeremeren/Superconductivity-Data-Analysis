@@ -95,6 +95,10 @@ BATCH = 10
 ROUNDS = 20
 PILOT_SEEDS = (100, 101, 102)
 MAIN_SEEDS = tuple(range(10))
+# Post hoc (Phase 4 evaluation, chosen after seeing the per-seed results): a run "stalled" if
+# it found at most this many targets in 200 experiments (random search expects ~2).
+# stalls.csv reports the gap between stalled and other runs, so the cut-off's role is visible.
+STALL_MAX = 5
 SCENARIO_IDS = {"main": 1, "hard": 2}
 TABPFN_ACQUISITIONS = ("ei", "q90", "greedy_tabpfn")
 FREE_ACQUISITIONS = ("greedy_xgb", "random")

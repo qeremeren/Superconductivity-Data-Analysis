@@ -5,6 +5,8 @@ Writes results/04_discovery/figures/:
   first_hit.png         tries to the first target per seed (runs without a hit marked)
   novelty.png           how close each found target was to an already labeled material
   reliability.png       TabPFN EI runs: predicted P(top 1%) vs observed share, over the pool
+  per_seed.png          targets found per seed: EI vs greedy TabPFN (same model, with vs without
+                        uncertainty) and greedy XGBoost, same start set on each row
 """
 
 from __future__ import annotations
@@ -207,6 +209,50 @@ def reliability(rel):
     return fig
 
 
+def per_seed(seeds, stall_max):
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.9), sharey=True)
+    offsets = {"ei": 0.0, "greedy_tabpfn": -0.22, "greedy_xgb": 0.22}
+    for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
+        d = seeds[seeds.scenario == sc].sort_values("seed")
+        ax.axvspan(-5, stall_max + 0.5, color=INK_2, alpha=0.08, linewidth=0)
+        ax.text(stall_max + 2, -0.9, f"stalled (≤ {stall_max})", fontsize=7.5, color=INK_2)
+        for y, (_, r) in enumerate(d.iterrows()):
+            ax.plot(
+                [r.ei, r.greedy_tabpfn],
+                [y, y + offsets["greedy_tabpfn"]],
+                color=INK_2,
+                linewidth=0.8,
+                zorder=1,
+            )
+        for acq in ("greedy_xgb", "greedy_tabpfn", "ei"):
+            ax.scatter(
+                d[acq],
+                np.arange(len(d)) + offsets[acq],
+                s=34,
+                color=COLORS[acq],
+                edgecolors=SURFACE,
+                linewidths=1,
+                zorder=3,
+                label=LABELS[acq],
+            )
+        ax.set_yticks(range(len(d)), [f"seed {x}" for x in d.seed])
+        ax.set_ylim(len(d) - 0.4, -1.3)
+        ax.grid(axis="y", visible=False)
+        ax.set_xlim(-5, 120)
+        ax.set_title(TITLES[sc], fontsize=9, pad=4)
+        ax.set_xlabel("Targets found after 200 experiments")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles[::-1], labels[::-1], loc="lower center", ncol=3, fontsize=8)
+    top = title(
+        fig,
+        "Same start, same model: EI vs greedy, seed by seed",
+        "Each row: one seed, the same 50 starting materials for every method. "
+        "Line: EI vs greedy TabPFN (same model and first fit).",
+    )
+    fig.tight_layout(rect=(0, 0.07, 1, top))
+    return fig
+
+
 def main():
     plots.setup()
     curves = pd.read_csv(OUT / "curves.csv")
@@ -233,6 +279,7 @@ def main():
         "first_hit": first_hit(pd.DataFrame(runs)),
         "novelty": novelty(pd.read_csv(OUT / "novelty.csv")),
         "reliability": reliability(pd.read_csv(OUT / "reliability.csv")),
+        "per_seed": per_seed(pd.read_csv(OUT / "paired_seeds.csv"), discovery.STALL_MAX),
     }
     for name, fig in figures.items():
         plots.save(fig, FIG / f"{name}.png")

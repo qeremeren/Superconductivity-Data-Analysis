@@ -1,0 +1,14 @@
+{
+ "main": {
+  "seeds": 10,
+  "same_round1_training_set": 10,
+  "round1_shared_picks": 2,
+  "round1_max_abs_mean_diff_K": 0.0
+ },
+ "hard": {
+  "seeds": 10,
+  "same_round1_training_set": 10,
+  "round1_shared_picks": 26,
+  "round1_max_abs_mean_diff_K": 0.0
+ }
+}

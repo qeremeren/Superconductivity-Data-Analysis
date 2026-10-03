@@ -1,0 +1,9 @@
+scenario,b,b_stalled,seeds,ei_mean,b_mean,mean_diff,ei_better,b_better,ties
+hard,greedy_tabpfn,True,4,41.00,0.50,40.50,4,0,0
+hard,greedy_tabpfn,False,6,62.50,44.17,18.33,3,3,0
+hard,greedy_xgb,True,4,41.00,0.50,40.50,4,0,0
+hard,greedy_xgb,False,6,62.50,55.67,6.83,2,3,1
+main,greedy_tabpfn,True,3,74.00,0.00,74.00,3,0,0
+main,greedy_tabpfn,False,7,82.00,60.71,21.29,6,1,0
+main,greedy_xgb,True,3,74.00,0.00,74.00,3,0,0
+main,greedy_xgb,False,7,82.00,50.86,31.14,6,1,0
