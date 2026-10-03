@@ -655,3 +655,41 @@ Sources: `paired.csv`, `paired_seeds.csv`, `stalls.csv`, `paired_by_stall.csv`,
   bin: predicted 0.302, observed 0.283; >= 0.5: 0.652 vs 0.653). On the hard pool overconfident
   above 0.02 (0.20-0.50: 0.302 vs 0.169; >= 0.5: 0.607 vs 0.442) and underconfident below 0.001
   (0.0006 vs 0.0027), consistent with the iron-based leave-family-out result.
+
+## 2026-10-03 — Phase 5: why analysis (no API requests)
+
+### GP-EI discovery baseline (decided before running; reported as it came out)
+Question: does EI need TabPFN's predictive distribution, or does any uncertainty-aware model
+do? Configuration fixed in the Phase 5 plan before any GP run (`models.gp_predict`): scikit-learn
+GP, amplitude x Matern 5/2 with one length scale + white noise, normalised Tc, 3 optimizer
+restarts, element-fraction features, default hyperparameter bounds; closed-form EI with the same
+y*; seeds 0-9, same start sets, 20 rounds of 10, both scenarios. (The amplitude is the standard
+output scale of a Matern kernel; the plan did not spell it out, and it was set before any run.)
+Not part of the pre-registered Phase 4 design. `experiments/05_gp_discovery.py` (`make
+gp-discovery`, 48 s for all 20 runs); records in `results/04_discovery/runs/main/*/gp_ei/`, all
+pass the integrity checks; evaluated with the Phase 4 runs [summary.csv, paired.csv, stalls.csv,
+paired_by_stall.csv, batch_calibration.csv, reliability.csv, novelty.csv, gp_fits.json].
+- Targets found after 200 experiments: GP EI 28.8 (95% interval 11.7-45.9) main, 20.2 (1.8-38.6)
+  hard, vs TabPFN EI 79.6 and 53.9, greedy TabPFN 42.5 and 26.7. Median experiments to a first
+  hit 28 (main) and 76 (hard); 1 and 3 runs without any hit.
+- Paired by seed, TabPFN EI minus GP EI: +50.8 (main, +27.1 to +74.5, TabPFN EI better on 9/10
+  seeds) and +33.7 (hard, +16.7 to +50.7, 10/10). After 50 experiments +5.5 (main, 9 better,
+  1 worse) and +2.0 (hard); after 100, +15.2 and +12.2.
+- GP EI stalls too: main seeds 4, 7, 8 (at most 3 targets), hard seeds 0, 1, 2, 3, 6, 7 (at most
+  2); its other runs found at least 19 (main) and 44 (hard). On the seeds where it did not
+  stall, TabPFN EI is still ahead: +36.9 (main, 6/7) and +12.3 (hard, 4/4).
+- Its probabilities are not usable as probabilities. Pool level, GP P(top 1%) 0.10-0.20:
+  observed 0.0098 (main) and 0.0086 (hard); 0.20-0.50: 0.016 (main); the observed rate is
+  roughly flat at 1-2% from predicted 0.01 to 0.2. TabPFN's in the same bins: 0.130 (main,
+  predicted 0.137). Batch level, expected vs found targets: 370.0 vs 288 (main), 197.7 vs 202
+  (hard).
+- The fits are not degenerate: 2 and 4 convergence warnings in 200 fits per scenario; fitted
+  noise median 0.093 (main) and 0.156 (hard) of the normalised variance, length-scale medians
+  0.38 and 0.48 on element fractions [gp_fits.json].
+- Reading: with the same acquisition rule, swapping TabPFN's distribution for this GP's loses
+  most of the gain, and GP EI is below even greedy TabPFN on average. So the gain needs EI and
+  TabPFN's distribution together.
+- Caveat for the write-up: one GP configuration, fixed in advance and not tuned (single length
+  scale over 86 sparse element fractions). A GP with per-feature length scales, other
+  features or a warped output might do better; this tests a standard default, not GPs in
+  general.

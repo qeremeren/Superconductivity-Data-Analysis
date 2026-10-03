@@ -4,7 +4,8 @@ Writes results/04_discovery/figures/:
   discovery_curves.png  targets found vs experiments, main runs, 95% band over 10 seeds
   first_hit.png         tries to the first target per seed (runs without a hit marked)
   novelty.png           how close each found target was to an already labeled material
-  reliability.png       TabPFN EI runs: predicted P(top 1%) vs observed share, over the pool
+  reliability.png       predicted P(top 1%) vs observed share over the pool: TabPFN (EI runs)
+                        vs GP (GP EI runs)
   per_seed.png          targets found per seed: EI vs greedy TabPFN (same model, with vs without
                         uncertainty) and greedy XGBoost, same start set on each row
 """
@@ -18,17 +19,23 @@ import numpy as np
 import pandas as pd
 
 from src import config, discovery, plots
-from src.plots import FAMILY_COLORS, INK, INK_2, SURFACE
+from src.plots import INK, INK_2, SURFACE
 
 OUT = config.RESULTS_DIR / "04_discovery"
 FIG = OUT / "figures"
 # EI red, greedy TabPFN violet, greedy XGBoost yellow: validated all-pairs (yellow below 3:1
-# contrast, so always labeled). Random is a reference line in ink, not a series colour.
-COLORS = {"ei": "#e34948", "greedy_tabpfn": "#4a3aa7", "greedy_xgb": "#eda100"}
+# contrast, so always labeled). GP EI teal, chosen by simulated deutan/protan colour distance
+# to the other three (min dE76 39) with 3.7:1 contrast, and always dashed / diamond as well.
+# Random is a reference line in ink, not a series colour.
+COLORS = {"ei": "#e34948", "greedy_tabpfn": "#4a3aa7", "greedy_xgb": "#eda100", "gp_ei": "#0a8fa3"}
+STYLE = {"gp_ei": "--"}
+MARKER = {"gp_ei": "D"}
+METHODS = ("ei", "greedy_tabpfn", "greedy_xgb", "gp_ei")
 LABELS = {
     "ei": "TabPFN EI",
     "greedy_tabpfn": "TabPFN greedy (mean)",
     "greedy_xgb": "XGBoost greedy",
+    "gp_ei": "GP EI (Phase 5 baseline)",
     "random": "random search",
 }
 TITLES = {
@@ -49,7 +56,7 @@ def discovery_curves(curves):
     fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.9))
     for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
         d = c[c.scenario == sc]
-        for acq in ("ei", "greedy_tabpfn", "greedy_xgb"):
+        for acq in METHODS:
             a = d[d.acquisition == acq].sort_values("experiments")
             ax.fill_between(
                 a.experiments,
@@ -59,7 +66,13 @@ def discovery_curves(curves):
                 alpha=0.12,
                 linewidth=0,
             )
-            ax.plot(a.experiments, a.found_mean, color=COLORS[acq], label=LABELS[acq])
+            ax.plot(
+                a.experiments,
+                a.found_mean,
+                color=COLORS[acq],
+                linestyle=STYLE.get(acq, "-"),
+                label=LABELS[acq],
+            )
             ax.text(
                 a.experiments.iloc[-1] + 4,
                 a.found_mean.iloc[-1],
@@ -86,8 +99,8 @@ def discovery_curves(curves):
 
 
 def first_hit(summary_runs):
-    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.2), sharex=True)
-    order = ["ei", "greedy_tabpfn", "greedy_xgb", "random"]
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.6), sharex=True)
+    order = [*METHODS, "random"]
     for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
         d = summary_runs[summary_runs.scenario == sc]
         for i, acq in enumerate(order):
@@ -97,6 +110,7 @@ def first_hit(summary_runs):
             ax.scatter(
                 hit,
                 np.full(len(hit), i),
+                marker=MARKER.get(acq, "o"),
                 s=26,
                 color=color,
                 edgecolors=SURFACE,
@@ -133,8 +147,8 @@ def novelty(nov):
     d["≥ 0.1"] = d["share_beyond_l1_0.1"]
     bins = ["< 0.01", "0.01-0.05", "0.05-0.1", "≥ 0.1"]
     ramp = ["#104281", "#2a78d6", "#6da7ec", "#b7d3f6"]  # sequential blue, dark = closest
-    order = ["ei", "greedy_tabpfn", "greedy_xgb", "random"]
-    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.0), sharey=True)
+    order = [*METHODS, "random"]
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.3), sharey=True)
     for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
         s = d[d.scenario == sc].set_index("acquisition").reindex(order)
         left = np.zeros(len(order))
@@ -179,31 +193,33 @@ def novelty(nov):
 
 
 def reliability(rel):
-    r = rel[(rel.phase == "main") & (rel.acquisition == "ei") & (rel.n > 0)]
-    fig, ax = plt.subplots(figsize=(5.2, 4.4))
-    ax.plot([1e-4, 1], [1e-4, 1], color=INK_2, linewidth=0.8)
-    colors = {"main": FAMILY_COLORS["cuprate"], "hard": FAMILY_COLORS["iron-based"]}
-    labels = {"main": "main (targets: cuprates)", "hard": "hard (targets: iron-based)"}
-    for sc in discovery.SCENARIOS:
-        d = r[(r.scenario == sc) & (r.observed > 0)]
-        ax.plot(
-            d.predicted,
-            d.observed,
-            color=colors[sc],
-            marker="o",
-            markersize=5,
-            markeredgecolor=SURFACE,
-            label=labels[sc],
-        )
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlabel("Predicted P(top 1%), binned")
-    ax.set_ylabel("Observed share that are targets")
-    ax.legend(loc="lower right", fontsize=8)
+    r = rel[(rel.phase == "main") & (rel.n > 0) & (rel.observed > 0)]
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.9), sharey=True)
+    for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
+        ax.plot([1e-4, 1], [1e-4, 1], color=INK_2, linewidth=0.8)
+        for acq in ("ei", "gp_ei"):
+            d = r[(r.scenario == sc) & (r.acquisition == acq)]
+            ax.plot(
+                d.predicted,
+                d.observed,
+                color=COLORS[acq],
+                linestyle=STYLE.get(acq, "-"),
+                marker=MARKER.get(acq, "o"),
+                markersize=5,
+                markeredgecolor=SURFACE,
+                label={"ei": "TabPFN (EI runs)", "gp_ei": "GP (GP EI runs)"}[acq],
+            )
+        ax.set_xscale("log")
+        ax.set_yscale("log")
+        ax.set_title(TITLES[sc], fontsize=9, pad=4)
+        ax.set_xlabel("Predicted P(top 1%), binned")
+    axes[0].set_ylabel("Observed share that are targets")
+    axes[0].legend(loc="upper left", fontsize=8)
     top = title(
         fig,
-        "Is TabPFN's P(top 1%) reliable during discovery?",
-        "EI runs, every round's unlabeled pool, 10 seeds. Log axes; diagonal = calibrated.",
+        "Are the predicted P(top 1%) reliable during discovery?",
+        "Every round's unlabeled pool, 10 seeds. Log axes; diagonal = calibrated; "
+        "bins with no target omitted.",
     )
     fig.tight_layout(rect=(0, 0, 1, top))
     return fig
@@ -211,7 +227,7 @@ def reliability(rel):
 
 def per_seed(seeds, stall_max):
     fig, axes = plt.subplots(1, 2, figsize=(7.6, 3.9), sharey=True)
-    offsets = {"ei": 0.0, "greedy_tabpfn": -0.22, "greedy_xgb": 0.22}
+    offsets = {"ei": 0.0, "greedy_tabpfn": -0.24, "greedy_xgb": 0.16, "gp_ei": 0.32}
     for ax, sc in zip(axes, discovery.SCENARIOS, strict=True):
         d = seeds[seeds.scenario == sc].sort_values("seed")
         ax.axvspan(-5, stall_max + 0.5, color=INK_2, alpha=0.08, linewidth=0)
@@ -224,11 +240,12 @@ def per_seed(seeds, stall_max):
                 linewidth=0.8,
                 zorder=1,
             )
-        for acq in ("greedy_xgb", "greedy_tabpfn", "ei"):
+        for acq in ("gp_ei", "greedy_xgb", "greedy_tabpfn", "ei"):
             ax.scatter(
                 d[acq],
                 np.arange(len(d)) + offsets[acq],
-                s=34,
+                marker=MARKER.get(acq, "o"),
+                s=30 if acq == "gp_ei" else 34,
                 color=COLORS[acq],
                 edgecolors=SURFACE,
                 linewidths=1,
@@ -242,7 +259,7 @@ def per_seed(seeds, stall_max):
         ax.set_title(TITLES[sc], fontsize=9, pad=4)
         ax.set_xlabel("Targets found after 200 experiments")
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles[::-1], labels[::-1], loc="lower center", ncol=3, fontsize=8)
+    fig.legend(handles[::-1], labels[::-1], loc="lower center", ncol=4, fontsize=8)
     top = title(
         fig,
         "Same start, same model: EI vs greedy, seed by seed",

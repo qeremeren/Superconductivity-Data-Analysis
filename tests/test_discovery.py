@@ -123,3 +123,30 @@ def test_pilot_decision_rule():
     assert win["chosen"] == ["ei"] and not win["tie"]
     tie = discovery.pilot_decision({"ei": [5, 5, 5], "q90": [5, 5, 4]})
     assert tie["chosen"] == ["ei", "q90"] and tie["tie"]
+
+
+def test_gaussian_scores_match_numerical_integral():
+    from scipy.stats import norm
+
+    m, s, y_star, thr = np.array([100.0, 60.0]), np.array([10.0, 25.0]), 110.0, 119.0
+    sc = discovery.gaussian_scores(m, s, y_star, thr)
+    levels = (np.arange(200_000) + 0.5) / 200_000
+    q = m[:, None] + s[:, None] * norm.ppf(levels)[None, :]
+    ei_num = np.maximum(q - y_star, 0).mean(1)
+    np.testing.assert_allclose(sc.ei, ei_num, rtol=2e-3)
+    np.testing.assert_allclose(sc.q90, m + 1.2815516 * s, rtol=1e-6)
+    np.testing.assert_allclose(sc.p_top1, 1 - norm.cdf((thr - m) / s), rtol=1e-9)
+
+
+def test_run_loop_with_gaussian_predictor_is_valid():
+    scn = _toy_scenario()
+
+    def predict(X_train, y_train, X_pool, seed):
+        out = discovery.fake_predict(X_train, y_train, X_pool, seed)
+        return {"mean": out["mean"], "sd": np.full(len(out["mean"]), 15.0), "meta": {}}
+
+    rec = discovery.run_loop(scn, "gp_ei", 0, predict, rounds=3)
+    assert discovery.check_run(rec, scn, rounds=3) == []
+    assert all("sd" in s and "ei" in s for r in rec["rounds"] for s in r["selected"])
+    picked = [s["ei"] for s in rec["rounds"][0]["selected"]]
+    assert picked == sorted(picked, reverse=True)

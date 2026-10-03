@@ -1,9 +1,11 @@
 phase,scenario,acquisition,targets_found,share_within_l1_0.01,share_within_l1_0.05,share_beyond_l1_0.1,share_oxygen_variant_of_labeled,median_nn_l1
 main,hard,ei,539,0.0557,0.2746,0.5547,0.1206,0.1216
+main,hard,gp_ei,202,0.0545,0.2228,0.5594,0.1139,0.1266
 main,hard,greedy_tabpfn,267,0.0712,0.2959,0.5131,0.1161,0.1050
 main,hard,greedy_xgb,336,0.0744,0.3393,0.4048,0.1548,0.0632
 main,hard,random,23,0.0000,0.0870,0.8696,0.0435,0.2150
 main,main,ei,796,0.0930,0.4950,0.3405,0.1118,0.0508
+main,main,gp_ei,288,0.0660,0.3090,0.4931,0.0833,0.0987
 main,main,greedy_tabpfn,425,0.0965,0.5059,0.3059,0.0918,0.0492
 main,main,greedy_xgb,356,0.1039,0.5421,0.3006,0.0787,0.0435
 main,main,random,21,0.0000,0.1905,0.7619,0.0000,0.3275

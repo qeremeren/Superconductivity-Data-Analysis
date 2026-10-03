@@ -1,10 +1,13 @@
 phase,scenario,acquisition,family,targets_found
 main,hard,ei,iron-based,538
 main,hard,ei,other,1
+main,hard,gp_ei,iron-based,201
+main,hard,gp_ei,other,1
 main,hard,greedy_tabpfn,iron-based,267
 main,hard,greedy_xgb,iron-based,336
 main,hard,random,iron-based,23
 main,main,ei,cuprate,796
+main,main,gp_ei,cuprate,288
 main,main,greedy_tabpfn,cuprate,425
 main,main,greedy_xgb,cuprate,356
 main,main,random,cuprate,21

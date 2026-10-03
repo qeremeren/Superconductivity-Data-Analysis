@@ -1,4 +1,4 @@
-.PHONY: setup data splits audit benchmark uncertainty discovery xgb-phase3 retrain-local notebooks reproduce test lint check-api requirements
+.PHONY: setup data splits audit benchmark uncertainty discovery gp-discovery xgb-phase3 retrain-local notebooks reproduce test lint check-api requirements
 
 setup:  ## Create the locked environment (Python 3.12 via uv)
 	uv sync
@@ -30,6 +30,9 @@ discovery:  ## Phase 4 tables and figures from committed run records (integrity-
 xgb-phase3:  ## Slow, no API key: Phase 3 XGBoost learning curves and uncertainty baselines (resumable)
 	uv run python -m experiments.03_xgb_learning_curves
 	uv run python -m experiments.03_xgb_uncertainty
+
+gp-discovery:  ## No API key, ~1 min: rerun the Phase 5 GP-EI discovery baseline (records are committed)
+	uv run python -m experiments.05_gp_discovery
 
 retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XGBoost tuning (~3 h)
 	uv run python -m experiments.02_local_models

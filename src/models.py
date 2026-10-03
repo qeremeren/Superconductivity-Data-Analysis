@@ -50,6 +50,46 @@ def linear_regression():
     return make_pipeline(StandardScaler(), LinearRegression())
 
 
+# Phase 5 discovery baseline, fixed in the Phase 5 plan before any GP run: scikit-learn GP,
+# amplitude x Matern 5/2 with one length scale + white noise, normalised Tc, 3 optimizer
+# restarts, element-fraction features, sklearn's default hyperparameter bounds.
+GP_RESTARTS = 3
+
+
+def gp_predict(X_train, y_train, X_pool, seed: int) -> dict:
+    """Fit the GP baseline and return its predictive mean and SD (noise included) on the pool."""
+    import time
+    import warnings
+
+    from sklearn.exceptions import ConvergenceWarning
+    from sklearn.gaussian_process import GaussianProcessRegressor
+    from sklearn.gaussian_process.kernels import ConstantKernel, Matern, WhiteKernel
+
+    kernel = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5) + WhiteKernel(1.0)
+    gp = GaussianProcessRegressor(
+        kernel=kernel,
+        normalize_y=True,
+        n_restarts_optimizer=GP_RESTARTS,
+        random_state=int(seed),
+    )
+    t = time.perf_counter()
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always", ConvergenceWarning)
+        gp.fit(np.asarray(X_train, float), np.asarray(y_train, float))
+        mean, sd = gp.predict(np.asarray(X_pool, float), return_std=True)
+    n_warn = sum(issubclass(w.category, ConvergenceWarning) for w in caught)
+    return {
+        "mean": mean,
+        "sd": sd,
+        "quantiles": None,
+        "seconds": time.perf_counter() - t,
+        "meta": {
+            "model_path": "sklearn GaussianProcessRegressor",
+            "fitted": f"{gp.kernel_}" + (f" [{n_warn} convergence warnings]" if n_warn else ""),
+        },
+    }
+
+
 def hamidieh_xgb(seed: int, n_jobs: int = -1) -> XGBRegressor:
     return XGBRegressor(**HAMIDIEH_XGB, random_state=int(seed), n_jobs=n_jobs)
 

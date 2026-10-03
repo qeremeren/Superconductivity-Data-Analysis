@@ -12,7 +12,7 @@ results/04_discovery/:
   paired_seeds.csv targets found per seed and method after 200 experiments (main runs)
   stalls.csv       post hoc: runs that stalled (at most discovery.STALL_MAX targets after 200
                    experiments; random expects ~2) per method, and on which seeds
-  paired_by_stall.csv  EI vs each greedy method, split by whether the greedy run stalled
+  paired_by_stall.csv  EI vs each comparator, split by whether its run stalled
   ablation_check.json  EI and greedy TabPFN start from the same training set and the same first
                    fit: identical round-1 fingerprints and predicted means on shared picks
   novelty.csv      how new the found targets were: L1 distance (element fractions) to the
@@ -22,6 +22,7 @@ results/04_discovery/:
   reliability.csv  predicted P(top 1%) vs outcome over the unlabeled pool, all TabPFN rounds
   batch_calibration.csv  expected (sum of P) vs realized targets and Tc > 77 K hits per batch
   timing.json      request seconds
+  gp_fits.json     GP baseline fit diagnostics: convergence warnings, fitted noise and length scale
 `--check` re-runs the integrity checks on every record first (used by make reproduce).
 
 Run from the repo root: `uv run python -m experiments.04_evaluate [--check]`.
@@ -40,7 +41,7 @@ from src import config, data, discovery
 
 OUT = config.RESULTS_DIR / "04_discovery"
 CHECKPOINTS = (50, 100, 200)
-GREEDY = ("greedy_tabpfn", "greedy_xgb")
+COMPARATORS = ("greedy_tabpfn", "greedy_xgb", "gp_ei")  # each paired against EI
 
 
 def load_runs() -> list[dict]:
@@ -140,7 +141,7 @@ def paired(runs) -> pd.DataFrame:
     rows = []
     for sc in discovery.SCENARIOS:
         seeds = sorted({k[3] for k in by if k[:3] == ("main", sc, "ei")})
-        for other in ("greedy_tabpfn", "greedy_xgb", "random"):
+        for other in (*COMPARATORS, "random"):
             for n in CHECKPOINTS:
                 d = np.array(
                     [
@@ -189,7 +190,7 @@ def paired_seeds(runs) -> pd.DataFrame:
 def stalls(seeds: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows, prow = [], []
     for sc, d in seeds.groupby("scenario"):
-        for acq in ("ei", *GREEDY):
+        for acq in ("ei", *COMPARATORS):
             st = d[acq] <= discovery.STALL_MAX
             rows.append(
                 {
@@ -202,7 +203,7 @@ def stalls(seeds: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
                     "stalled_seeds": " ".join(str(x) for x in d.seed[st]),
                 }
             )
-        for other in GREEDY:
+        for other in COMPARATORS:
             for stalled in (True, False):
                 m = (d[other] <= discovery.STALL_MAX) == stalled
                 diff = (d.ei - d[other])[m]
@@ -324,7 +325,7 @@ def reliability(runs) -> pd.DataFrame:
 def batch_calibration(runs) -> pd.DataFrame:
     rows = []
     for rec in runs:
-        if rec["acquisition"] not in discovery.TABPFN_ACQUISITIONS:
+        if rec["acquisition"] not in discovery.TABPFN_ACQUISITIONS + discovery.GP_ACQUISITIONS:
             continue
         for r in rec["rounds"]:
             sel = r["selected"]
@@ -369,6 +370,35 @@ def timing(runs) -> dict:
     }
 
 
+def gp_fits(runs) -> dict:
+    """Fitted GP hyperparameters per round (from the kernel string the loop recorded)."""
+    import re
+
+    out = {}
+    for rec in runs:
+        if rec["acquisition"] not in discovery.GP_ACQUISITIONS or rec["phase"] != "main":
+            continue
+        a = out.setdefault(rec["scenario"], {"fits": 0, "warnings": 0, "noise": [], "ls": []})
+        for r in rec["rounds"]:
+            k = r["request"]["fitted"]
+            a["fits"] += 1
+            w = re.search(r"\[(\d+) convergence", k)
+            a["warnings"] += int(w.group(1)) if w else 0
+            a["noise"].append(float(re.search(r"noise_level=([\d.e+-]+)", k).group(1)))
+            a["ls"].append(float(re.search(r"length_scale=([\d.e+-]+)", k).group(1)))
+    return {
+        sc: {
+            "fits": a["fits"],
+            "convergence_warnings": a["warnings"],
+            "noise_normalised_median": float(np.median(a["noise"])),
+            "noise_normalised_range": [min(a["noise"]), max(a["noise"])],
+            "length_scale_median": float(np.median(a["ls"])),
+            "length_scale_range": [min(a["ls"]), max(a["ls"])],
+        }
+        for sc, a in out.items()
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
@@ -394,6 +424,7 @@ def main():
     reliability(runs).to_csv(OUT / "reliability.csv", index=False, float_format="%.5f")
     batch_calibration(runs).to_csv(OUT / "batch_calibration.csv", index=False, float_format="%.3f")
     (OUT / "timing.json").write_text(json.dumps(timing(runs), indent=1) + "\n")
+    (OUT / "gp_fits.json").write_text(json.dumps(gp_fits(runs), indent=1) + "\n")
     print(f"{len(runs)} runs evaluated")
 
 

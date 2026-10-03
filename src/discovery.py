@@ -16,6 +16,8 @@ scores every unlabeled material, and reveals the top BATCH. Acquisitions:
   greedy_tabpfn  TabPFN's predictive mean
   greedy_xgb     XGBoost (published settings) prediction
   random         uniform over unlabeled materials
+  gp_ei          Phase 5 baseline: EI in closed form from a Gaussian process's predictive
+                 normal distribution (models.gp_predict), same y*
 TabPFN scores come from the tail-dense quantile grid TAIL_LEVELS (0.01 steps up to the
 0.95 quantile, 0.001 steps above), so tail quantities resolve to 0.1%.
 """
@@ -102,6 +104,7 @@ STALL_MAX = 5
 SCENARIO_IDS = {"main": 1, "hard": 2}
 TABPFN_ACQUISITIONS = ("ei", "q90", "greedy_tabpfn")
 FREE_ACQUISITIONS = ("greedy_xgb", "random")
+GP_ACQUISITIONS = ("gp_ei",)  # Phase 5 baseline, run by experiments/05_gp_discovery.py
 P_BINS = (0.0, 0.001, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0)
 
 
@@ -133,6 +136,26 @@ def tabpfn_scores(mean, quantiles, levels, weights, y_star, threshold) -> pd.Dat
             "q90": q[:, i90],
             "p_top1": 1 - metrics.cdf_at(q, levels, threshold),
             "p_77K": 1 - metrics.cdf_at(q, levels, 77.0),
+        }
+    )
+
+
+def gaussian_scores(mean, sd, y_star, threshold) -> pd.DataFrame:
+    """The same scores as tabpfn_scores for a normal predictive distribution, in closed
+    form: EI = (m - y*) Phi(z) + s phi(z) with z = (m - y*) / s."""
+    from scipy.stats import norm
+
+    m = np.asarray(mean, float)
+    s = np.maximum(np.asarray(sd, float), 1e-9)
+    z = (m - y_star) / s
+    return pd.DataFrame(
+        {
+            "mean": m,
+            "sd": s,
+            "ei": (m - y_star) * norm.cdf(z) + s * norm.pdf(z),
+            "q90": m + norm.ppf(0.9) * s,
+            "p_top1": norm.sf((threshold - m) / s),
+            "p_77K": norm.sf((77.0 - m) / s),
         }
     )
 
@@ -242,14 +265,18 @@ def run_loop(
         else:
             out = predict(scn.X.iloc[lab], scn.tc[lab], scn.X.iloc[unl], seed)
             info = {"seconds": out.get("seconds"), "model": out.get("meta", {}).get("model_path")}
-            if out.get("quantiles") is None:
+            if out.get("meta", {}).get("fitted"):
+                info["fitted"] = out["meta"]["fitted"]
+            if out.get("sd") is not None:
+                sc = gaussian_scores(out["mean"], out["sd"], y_star, scn.threshold)
+            elif out.get("quantiles") is None:
                 sc = pd.DataFrame({"mean": np.asarray(out["mean"], float)})
             else:
                 sc = tabpfn_scores(
                     out["mean"], out["quantiles"], TAIL_LEVELS, TAIL_WEIGHTS, y_star, scn.threshold
                 )
                 raw = out
-            key_col = {"ei": "ei", "q90": "q90"}.get(acquisition, "mean")
+            key_col = {"ei": "ei", "q90": "q90", "gp_ei": "ei"}.get(acquisition, "mean")
             sc["score"] = sc[key_col]
         picked = select_batch(
             sc["score"].to_numpy(), sc["mean"].fillna(0).to_numpy(), unl, batch, rng
@@ -263,7 +290,7 @@ def run_loop(
                 "is_target": bool(scn.is_target[i]),
                 "family": str(scn.family[i]),
             }
-            for c in ("mean", "ei", "q90", "p_top1", "p_77K"):
+            for c in ("mean", "sd", "ei", "q90", "p_top1", "p_77K"):
                 if c in sc and not np.isnan(sc[c].iloc[p]):
                     row[c] = float(sc[c].iloc[p])
             selected.append(row)

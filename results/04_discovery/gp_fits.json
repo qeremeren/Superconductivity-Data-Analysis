@@ -1,0 +1,30 @@
+{
+ "hard": {
+  "fits": 200,
+  "convergence_warnings": 4,
+  "noise_normalised_median": 0.156,
+  "noise_normalised_range": [
+   1e-05,
+   0.595
+  ],
+  "length_scale_median": 0.4755,
+  "length_scale_range": [
+   0.0824,
+   1.36
+  ]
+ },
+ "main": {
+  "fits": 200,
+  "convergence_warnings": 2,
+  "noise_normalised_median": 0.09290000000000001,
+  "noise_normalised_range": [
+   1e-05,
+   0.648
+  ],
+  "length_scale_median": 0.3765,
+  "length_scale_range": [
+   0.0114,
+   1.18
+  ]
+ }
+}
