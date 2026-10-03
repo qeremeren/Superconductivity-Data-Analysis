@@ -1,0 +1,359 @@
+{
+ "main": {
+  "target_chemistry": "contains Hg or Tl",
+  "share_targets_in_target_chemistry": 0.9342105263157895,
+  "stall_seeds_both_greedy": [
+   0,
+   4,
+   8
+  ],
+  "top_systems_stalled_greedy_picks": [
+   [
+    "Ba-Cu-Y",
+    101,
+    0.084
+   ],
+   [
+    "Ba-Cu-Hg",
+    92,
+    0.077
+   ],
+   [
+    "Ba-Cu-La-Y",
+    75,
+    0.062
+   ],
+   [
+    "Ba-Cu-Pr-Y",
+    71,
+    0.059
+   ],
+   [
+    "Ba-Cu-Sr-Y",
+    47,
+    0.039
+   ]
+  ],
+  "top_systems_ei_picks_same_seeds": [
+   [
+    "Ba-Ca-Cu-Tl",
+    50,
+    0.083
+   ],
+   [
+    "Ba-Ca-Cu-Hg",
+    45,
+    0.075
+   ],
+   [
+    "Ba-Ca-Cu-Hg-Tl",
+    38,
+    0.063
+   ],
+   [
+    "Ba-Ca-Cu-Hg-Pb",
+    34,
+    0.057
+   ],
+   [
+    "Ba-Ca-Cu-F-Hg",
+    32,
+    0.053
+   ]
+  ]
+ },
+ "hard": {
+  "target_chemistry": "iron-based",
+  "share_targets_in_target_chemistry": 0.9620253164556962,
+  "stall_seeds_both_greedy": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "top_systems_stalled_greedy_picks": [
+   [
+    "B-C-Mg",
+    214,
+    0.134
+   ],
+   [
+    "Al-B-Mg",
+    193,
+    0.121
+   ],
+   [
+    "As-Ba-Fe-K",
+    69,
+    0.043
+   ],
+   [
+    "B-Li-Mg",
+    68,
+    0.043
+   ],
+   [
+    "B-Cu-Mg",
+    64,
+    0.04
+   ]
+  ],
+  "top_systems_ei_picks_same_seeds": [
+   [
+    "As-F-Fe-Nd",
+    30,
+    0.037
+   ],
+   [
+    "As-F-Fe-Sm",
+    28,
+    0.035
+   ],
+   [
+    "As-Fe-H-Sm",
+    23,
+    0.029
+   ],
+   [
+    "Al-B-Mg",
+    20,
+    0.025
+   ],
+   [
+    "As-Ce-Fe-H",
+    17,
+    0.021
+   ]
+  ]
+ },
+ "by_method_and_stall": [
+  {
+   "scenario": "hard",
+   "acquisition": "ei",
+   "stalled": false,
+   "runs": 10,
+   "mean_pick_tc": 28.52757625,
+   "mean_pick_pred": 30.98993475866318,
+   "best_tc_round_5": 46.26,
+   "best_tc_round_20": 55.375,
+   "share_picks_target_chem": 0.7015,
+   "median_pick_tc": 29.6025,
+   "start_max_tc": 36.476,
+   "best_tc_round_20_max": 55.6
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "gp_ei",
+   "stalled": false,
+   "runs": 4,
+   "mean_pick_tc": 28.20155485,
+   "mean_pick_pred": 30.892240341976517,
+   "best_tc_round_5": 46.575,
+   "best_tc_round_20": 55.449999999999996,
+   "share_picks_target_chem": 0.7612500000000001,
+   "median_pick_tc": 30.025,
+   "start_max_tc": 35.75,
+   "best_tc_round_20_max": 55.6
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "gp_ei",
+   "stalled": true,
+   "runs": 6,
+   "mean_pick_tc": 24.139139616666668,
+   "mean_pick_pred": 27.342837621486066,
+   "best_tc_round_5": 40.75833333333333,
+   "best_tc_round_20": 43.791666666666664,
+   "share_picks_target_chem": 0.10166666666666667,
+   "median_pick_tc": 29.210000000000004,
+   "start_max_tc": 36.96,
+   "best_tc_round_20_max": 50.0
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "greedy_tabpfn",
+   "stalled": false,
+   "runs": 6,
+   "mean_pick_tc": 33.30266916666667,
+   "mean_pick_pred": 34.460155568122865,
+   "best_tc_round_5": 47.85833333333333,
+   "best_tc_round_20": 53.82500000000001,
+   "share_picks_target_chem": 0.7124999999999999,
+   "median_pick_tc": 35.06666666666667,
+   "start_max_tc": 35.583333333333336,
+   "best_tc_round_20_max": 55.6
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "greedy_tabpfn",
+   "stalled": true,
+   "runs": 4,
+   "mean_pick_tc": 31.594725000000004,
+   "mean_pick_pred": 32.91680289030075,
+   "best_tc_round_5": 40.975,
+   "best_tc_round_20": 42.975,
+   "share_picks_target_chem": 0.2125,
+   "median_pick_tc": 34.6125,
+   "start_max_tc": 37.815,
+   "best_tc_round_20_max": 44.55
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "greedy_xgb",
+   "stalled": false,
+   "runs": 6,
+   "mean_pick_tc": 34.02070833333333,
+   "mean_pick_pred": 36.47876620451609,
+   "best_tc_round_5": 53.19166666666667,
+   "best_tc_round_20": 55.33333333333334,
+   "share_picks_target_chem": 0.9516666666666667,
+   "median_pick_tc": 35.49166666666667,
+   "start_max_tc": 35.583333333333336,
+   "best_tc_round_20_max": 55.6
+  },
+  {
+   "scenario": "hard",
+   "acquisition": "greedy_xgb",
+   "stalled": true,
+   "runs": 4,
+   "mean_pick_tc": 31.671456250000002,
+   "mean_pick_pred": 32.71124177455902,
+   "best_tc_round_5": 40.275,
+   "best_tc_round_20": 43.125,
+   "share_picks_target_chem": 0.265,
+   "median_pick_tc": 33.8125,
+   "start_max_tc": 37.815,
+   "best_tc_round_20_max": 47.2
+  },
+  {
+   "scenario": "main",
+   "acquisition": "ei",
+   "stalled": false,
+   "runs": 10,
+   "mean_pick_tc": 98.57887875,
+   "mean_pick_pred": 99.23753222322463,
+   "best_tc_round_5": 130.63000000000002,
+   "best_tc_round_20": 139.26,
+   "share_picks_target_chem": 0.7500000000000001,
+   "median_pick_tc": 112.55499999999999,
+   "start_max_tc": 102.9,
+   "best_tc_round_20_max": 143.0
+  },
+  {
+   "scenario": "main",
+   "acquisition": "gp_ei",
+   "stalled": false,
+   "runs": 7,
+   "mean_pick_tc": 76.83629668928572,
+   "mean_pick_pred": 91.48759765150463,
+   "best_tc_round_5": 123.74285714285715,
+   "best_tc_round_20": 134.3,
+   "share_picks_target_chem": 0.5042857142857142,
+   "median_pick_tc": 94.64285714285714,
+   "start_max_tc": 106.62857142857142,
+   "best_tc_round_20_max": 135.8
+  },
+  {
+   "scenario": "main",
+   "acquisition": "gp_ei",
+   "stalled": true,
+   "runs": 3,
+   "mean_pick_tc": 72.69214204166667,
+   "mean_pick_pred": 73.39988893383145,
+   "best_tc_round_5": 106.5,
+   "best_tc_round_20": 116.33333333333333,
+   "share_picks_target_chem": 0.016666666666666666,
+   "median_pick_tc": 83.95,
+   "start_max_tc": 94.2,
+   "best_tc_round_20_max": 130.0
+  },
+  {
+   "scenario": "main",
+   "acquisition": "greedy_tabpfn",
+   "stalled": false,
+   "runs": 7,
+   "mean_pick_tc": 108.93876428571427,
+   "mean_pick_pred": 110.40781868525913,
+   "best_tc_round_5": 129.7642857142857,
+   "best_tc_round_20": 136.62857142857143,
+   "share_picks_target_chem": 0.5857142857142856,
+   "median_pick_tc": 111.39642857142857,
+   "start_max_tc": 108.48571428571428,
+   "best_tc_round_20_max": 143.0
+  },
+  {
+   "scenario": "main",
+   "acquisition": "greedy_tabpfn",
+   "stalled": true,
+   "runs": 3,
+   "mean_pick_tc": 86.84190333333333,
+   "mean_pick_pred": 86.55473630269368,
+   "best_tc_round_5": 96.0,
+   "best_tc_round_20": 97.3,
+   "share_picks_target_chem": 0.12,
+   "median_pick_tc": 89.71666666666665,
+   "start_max_tc": 89.86666666666667,
+   "best_tc_round_20_max": 99.0
+  },
+  {
+   "scenario": "main",
+   "acquisition": "greedy_xgb",
+   "stalled": false,
+   "runs": 7,
+   "mean_pick_tc": 107.14058214285714,
+   "mean_pick_pred": 107.64954154968264,
+   "best_tc_round_5": 133.60714285714286,
+   "best_tc_round_20": 136.71428571428572,
+   "share_picks_target_chem": 0.49214285714285716,
+   "median_pick_tc": 110.375,
+   "start_max_tc": 108.48571428571428,
+   "best_tc_round_20_max": 143.0
+  },
+  {
+   "scenario": "main",
+   "acquisition": "greedy_xgb",
+   "stalled": true,
+   "runs": 3,
+   "mean_pick_tc": 85.50514166666666,
+   "mean_pick_pred": 87.15685866038005,
+   "best_tc_round_5": 96.16666666666667,
+   "best_tc_round_20": 98.46666666666665,
+   "share_picks_target_chem": 0.11666666666666665,
+   "median_pick_tc": 88.91666666666667,
+   "start_max_tc": 89.86666666666667,
+   "best_tc_round_20_max": 99.0
+  }
+ ],
+ "ei_on_stall_seeds": {
+  "main": {
+   "found": 74.0,
+   "best_tc_round_5": 128.83333333333334,
+   "best_tc_round_10": 133.15,
+   "share_picks_target_chem": 0.7316666666666666
+  },
+  "hard": {
+   "found": 41.0,
+   "best_tc_round_5": 39.8625,
+   "best_tc_round_10": 50.6375,
+   "share_picks_target_chem": 0.4975
+  }
+ },
+ "round1_ei_minus_greedy_tabpfn_mean_over_seeds": {
+  "main": {
+   "pred_mean": -21.93293228149414,
+   "pred_upper_spread": 16.951511573791503,
+   "p_top1": 0.020681650129071437,
+   "realised_tc": -42.66634999999999,
+   "targets": -1.4,
+   "share_target_chem": 0.09
+  },
+  "hard": {
+   "pred_mean": -6.65130337715149,
+   "pred_upper_spread": 4.372691831588746,
+   "p_top1": 0.0030831742532848373,
+   "realised_tc": -12.730649999999999,
+   "targets": 0.3,
+   "share_target_chem": -0.11000000000000001
+  }
+ }
+}

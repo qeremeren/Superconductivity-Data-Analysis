@@ -1,0 +1,46 @@
+{
+ "worst_1pct_by_tabpfn_error": {
+  "materials": 151,
+  "median_tc_range_within_material_K": 0.0,
+  "share_with_tc_range_over_20K": 0.07947019867549669,
+  "share_duplicated": 0.12582781456953643,
+  "share_oxygen_missing": 0.26490066225165565,
+  "median_nn_distance": 0.034708318981996784,
+  "family_shares": {
+   "cuprate": 0.9006622516556292,
+   "other": 0.08609271523178808,
+   "iron-based": 0.013245033112582781
+  },
+  "share_xgb_also_off_by_30K": 0.8410596026490066,
+  "share_flagged_suspect_in_phase1": 0.046357615894039736
+ },
+ "worst_25_by_tabpfn_error": {
+  "materials": 25,
+  "median_tc_range_within_material_K": 0.0,
+  "share_with_tc_range_over_20K": 0.08,
+  "share_duplicated": 0.12,
+  "share_oxygen_missing": 0.4,
+  "median_nn_distance": 0.06657859703020994,
+  "family_shares": {
+   "cuprate": 0.76,
+   "other": 0.24
+  },
+  "share_xgb_also_off_by_30K": 1.0,
+  "share_flagged_suspect_in_phase1": 0.24
+ },
+ "all_materials": {
+  "materials": 15163,
+  "median_tc_range_within_material_K": 0.0,
+  "share_with_tc_range_over_20K": 0.017608652641297896,
+  "share_duplicated": 0.1597309239596386,
+  "share_oxygen_missing": 0.09641891446283717,
+  "median_nn_distance": 0.022499999999999985,
+  "family_shares": {
+   "cuprate": 0.4952186242827936,
+   "other": 0.4255754138363121,
+   "iron-based": 0.07920596188089428
+  },
+  "share_xgb_also_off_by_30K": 0.01688320253248038,
+  "share_flagged_suspect_in_phase1": 0.0011211501681725252
+ }
+}

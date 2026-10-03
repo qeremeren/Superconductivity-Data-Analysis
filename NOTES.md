@@ -693,3 +693,67 @@ paired_by_stall.csv, batch_calibration.csv, reliability.csv, novelty.csv, gp_fit
   scale over 86 sparse element fractions). A GP with per-feature length scales, other
   features or a warped output might do better; this tests a standard default, not GPs in
   general.
+
+### Where TabPFN beats tuned XGBoost (grouped split, 25 repeats)
+Sources: `experiments/05_where_wins.py` -> `results/05_why/where_by_distance.csv`,
+`where_by_subgroup.csv`, `worst_materials.csv`, `worst_summary.json`. Uses the committed Phase 2
+predictions; distance = L1 over element fractions from each test row to the nearest training
+material (all 25 splits; matches Phase 1's split 0).
+- Distances: 40.7% of test rows are within 0.01 of a training material (mostly oxygen
+  variants), 31.7% at 0.01-0.05, 10.5% at 0.05-0.1, 7.8% at 0.1-0.2, 9.3% at 0.2 or more.
+- TabPFN is ahead in every distance bin on both feature sets. Composition features, per-split
+  RMSE difference: -0.72 K (< 0.01), -1.30 (0.01-0.05), -0.88 (0.05-0.1), -0.77 (0.1-0.2,
+  TabPFN better on 22/25 splits), -0.81 (>= 0.2, 24/25); 25/25 in the three nearest bins.
+  The nearest bin holds 40.7% of the rows but 30.7% of the MSE advantage (engineered:
+  25.5%), so the advantage is not a near-duplicate effect.
+- Within families, the gap grows with distance: cuprates -0.81 K (< 0.01) to -2.68 K (>= 0.2);
+  iron-based -0.14 K (< 0.01, 19/25 splits) to -2.10 K (0.1-0.2). The one cell without a
+  TabPFN edge: "other" materials at 0.1-0.2 (+0.13 K, interval -0.37 to +0.62, TabPFN better
+  on 14/25 splits).
+- By subgroup (composition): ahead in every family (cuprates -1.25 K, iron-based -0.71, other
+  -0.36 with 21/25 splits), every Tc band (-0.65 / -0.88 / -1.49 K for < 10, 10-77, >= 77 K)
+  and on missing-oxygen rows (-1.45 K). Cuprates carry 87.5% of the MSE advantage (50% of
+  rows) because their errors are largest. Per row, TabPFN is closer more often on "other"
+  materials (70.4% of rows) than on cuprates (56.9%).
+- Worst materials (mean absolute error over the splits that test each material): 6 of the 25
+  worst are among the 17 entries Phase 1 flagged as suspect (0.1% of all materials). They are
+  H2S (high pressure), two unconfirmed tungsten bronzes, a C60 compound and two formulas that
+  lost their Cu (Y1Ba23O at 90.4 K, Bi2Sr2Ca2O at 109 K). The worst 1% (151 materials) are
+  90% cuprates (49.5% overall) and 26.5% missing-oxygen rows (9.6% overall). XGBoost is also
+  off by more than 30 K on 84% of them, so these are mostly label and representation problems
+  both models share.
+
+### Why greedy search stalls (descriptive, post hoc)
+Sources: `experiments/05_stalls.py` -> `results/05_why/stall_runs.csv`,
+`stall_trajectories.csv`, `stall_round1.csv`, `stall_summary.json`, `figures/stalls.png`.
+- What the targets are: 93.4% of main-pool targets contain Hg or Tl; 96.2% of hard-pool targets
+  are iron-based.
+- Both greedy methods stalled on main seeds 0, 4, 8 and hard seeds 0-3. There they plateau just
+  below the threshold: best Tc at most 99 K after 200 experiments (main, threshold 119 K) and at
+  most 47.2 K (hard, threshold 44 K). By round 5 they were at about 96 K and 41 K and barely
+  moved afterwards.
+- Their picks are large families of near-threshold non-targets. Main, most-picked systems:
+  Ba-Cu-Y (8.4% of picks), Ba-Cu-Hg (7.7%), Ba-Cu-La-Y, Ba-Cu-Pr-Y, Ba-Cu-Sr-Y (YBCO type
+  and Hg-1201, median Tc of picks 89.7 / 88.9 K). Hard: B-C-Mg (13.4%), Al-B-Mg (12.1%),
+  B-Li-Mg, B-Cu-Mg (doped MgB2, median 34.6 / 33.8 K). Only 12% (main, Hg or Tl) and 21-26%
+  (hard, iron-based) of their picks are in the target chemistry.
+- The predictions behind these picks were accurate. Greedy TabPFN on the stall seeds
+  predicted 86.6 K and measured 86.8 K on average (main), 32.9 vs 31.6 K (hard). The model was
+  right that these materials are good; greedy search just kept measuring them.
+- TabPFN EI on the same start sets put 73% of its picks in the target chemistry (main: Tl-Ba-Ca-Cu,
+  Hg-Ba-Ca-Cu systems) and 50% (hard: Fe-As with Nd or Sm), found 74 and 41 targets on average,
+  with a mean best Tc of 128.8 K after round 5 (main) and 50.6 K after round 10 (hard).
+- Round 1, same fit, all 10 seeds: EI's first batch has a lower predicted mean than greedy's
+  (-21.9 K main, -6.7 K hard) and a wider upper tail (q90 - mean: +17.0 K, +4.4 K). It
+  realises lower Tc (-42.7 K, -12.7 K) and, on the main pool, 1.4 fewer targets in that
+  round. EI pays for exploring at the start, which is why its curve starts slower.
+- Start sets: on the main pool the three stall seeds have the weakest best start material
+  (mean 89.9 K vs 108.5 K for the other seeds). On the hard pool there is no such difference
+  (37.8 vs 35.6 K); no simple start-set feature predicts the hard-pool stalls.
+- GP EI stalls the same way on the hard pool (6 seeds; 10% of picks iron-based, best 43.8 K
+  on average).
+- Reading: greedy search is held back by correct predictions, not wrong ones. A large family
+  of materials just below the threshold looks best on the mean, and nothing in the mean says
+  that a less certain chemistry might be higher. EI on TabPFN's distribution scores the
+  upper tail and goes there. GP EI has the same rule, but its distribution is not reliable
+  enough on the hard pool (see the GP section).

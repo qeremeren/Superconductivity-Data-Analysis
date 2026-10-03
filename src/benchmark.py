@@ -100,3 +100,40 @@ def machine_info() -> dict:
         "xgboost": version("xgboost"),
         "numpy": version("numpy"),
     }
+
+
+NN_BINS = (0.0, 0.01, 0.05, 0.1, 0.2, np.inf)  # L1 over element fractions, as in Phase 4
+NN_LABELS = ("< 0.01", "0.01-0.05", "0.05-0.1", "0.1-0.2", ">= 0.2")
+
+
+def nearest_training_material(is_test: np.ndarray, unique_m: pd.DataFrame) -> pd.DataFrame:
+    """For every test row: L1 distance (element fractions) to the nearest training material,
+    and that material's median Tc and family. Exact; ~1 s per split."""
+    from scipy.spatial.distance import cdist
+
+    key = data.composition_key(unique_m).to_numpy()
+    fractions = data.composition_fractions(unique_m).to_numpy(float)
+    fam = data.family(unique_m).to_numpy()
+    tc = unique_m[data.TARGET].to_numpy(float)
+    first = pd.Series(np.arange(len(key))).groupby(key).first()
+    train = pd.Series(tc[~is_test]).groupby(key[~is_test]).median()
+    train_vecs = fractions[first.loc[train.index].to_numpy()]
+    test_keys, inverse = np.unique(key[is_test], return_inverse=True)
+    test_vecs = fractions[first.loc[test_keys].to_numpy()]
+    dist, idx = np.empty(len(test_keys)), np.empty(len(test_keys), dtype=int)
+    for start in range(0, len(test_keys), 1000):
+        d = cdist(test_vecs[start : start + 1000], train_vecs, metric="cityblock")
+        idx[start : start + 1000] = d.argmin(1)
+        dist[start : start + 1000] = d.min(1)
+    return pd.DataFrame(
+        {
+            "row": np.flatnonzero(is_test),
+            "nn_distance": dist[inverse],
+            "nn_tc": train.to_numpy()[idx][inverse],
+            "nn_family": fam[first.loc[train.index].to_numpy()][idx][inverse],
+        }
+    )
+
+
+def nn_bin(distance) -> pd.Categorical:
+    return pd.cut(np.asarray(distance), NN_BINS, right=False, labels=NN_LABELS)
