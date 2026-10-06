@@ -870,3 +870,7 @@ Sources: `experiments/05_cuprate_detector.py` (`make why-xgb`, 76 s, local XGBoo
   (cuprates 0.42, other 0.52 unchanged); iron-based neighbours' median mean / SD 4.4 / 2.1 K
   -> 4.2 / 2.0 K; neighbour SD for held-out cuprates / other 16.5 / 17.4 K -> 14.2 / 16.8 K.
   Widths, coverage and every other result are unchanged. The Phase 5 text above is updated.
+- Third CI run (37517073440, 2026-10-06): green. `make reproduce` on a fresh Ubuntu clone
+  (Python 3.12.3) passes all 90 tests, and every committed result matches the macOS commit
+  byte for byte apart from figures. The remaining difference had been the Python patch
+  version in notebook metadata, which the check now ignores.
