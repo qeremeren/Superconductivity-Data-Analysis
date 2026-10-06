@@ -1,0 +1,28 @@
+# Fresh Ubuntu clone, no API key: rebuild every result from the committed caches and
+# check that nothing changed. Figures are excepted (fonts differ by OS), and so are the
+# images embedded in the executed notebooks; everything else must be byte-identical.
+name: reproduce
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TABPFN_DISABLE_TELEMETRY: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Locked environment (Python 3.12 from uv.lock)
+        run: make setup
+      - name: make reproduce (downloads the data, never calls the TabPFN API)
+        run: make reproduce
+      - name: Results unchanged (figures and notebook images excepted)
+        run: uv run python .github/check_unchanged.py
