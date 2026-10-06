@@ -99,7 +99,7 @@ def duplicates(um, key, fam) -> tuple[dict, pd.DataFrame]:
             "tc_std": grp["tc"].std(),
         }
     )
-    dup = table[table.n_rows > 1].sort_values("n_rows", ascending=False)
+    dup = table[table.n_rows > 1].sort_values("n_rows", ascending=False, kind="stable")
 
     in_dup = g["key"].isin(dup.index)
     resid = g.loc[in_dup, "tc"] - grp["tc"].transform("mean")[in_dup]

@@ -26,3 +26,11 @@ jobs:
         run: make reproduce
       - name: Results unchanged (figures and notebook images excepted)
         run: uv run python .github/check_unchanged.py
+      - name: Save the diff when results changed
+        if: failure()
+        run: git diff -- . ':(exclude)*.png' > reproduce.diff; git status --porcelain >> reproduce.diff
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: reproduce-diff
+          path: reproduce.diff

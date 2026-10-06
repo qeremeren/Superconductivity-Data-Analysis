@@ -176,7 +176,9 @@ def neighbour_tc_spread(is_test: np.ndarray, unique_m: pd.DataFrame, k: int = 10
     sd, mean, dist = (np.empty(len(test_keys)) for _ in range(3))
     for start in range(0, len(test_keys), 1000):
         d = cdist(test_vecs[start : start + 1000], train_vecs, metric="cityblock")
-        nn = np.argpartition(d, k, axis=1)[:, :k]
+        # Stable sort, so ties at the k-th distance resolve by training order on every
+        # platform (argpartition picks different tied neighbours on x86 and ARM).
+        nn = np.argsort(d, axis=1, kind="stable")[:, :k]
         sd[start : start + 1000] = train_tc[nn].std(1)
         mean[start : start + 1000] = train_tc[nn].mean(1)
         dist[start : start + 1000] = np.take_along_axis(d, nn, 1).mean(1)
@@ -191,7 +193,7 @@ def neighbour_tc_spread(is_test: np.ndarray, unique_m: pd.DataFrame, k: int = 10
 
 
 def neighbour_tc_spread_all(kind: str, unique_m: pd.DataFrame, k: int = 10) -> pd.DataFrame:
-    path = NN_CACHE / f"knn{k}_{kind}.parquet"
+    path = NN_CACHE / f"knn{k}_v2_{kind}.parquet"
     if path.is_file():
         return pd.read_parquet(path)
     out = pd.concat(

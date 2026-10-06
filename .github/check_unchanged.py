@@ -23,6 +23,7 @@ def strip_images(notebook: dict) -> dict:
         for out in cell.get("outputs", []):
             for mime in IMAGE_MIMES:
                 out.get("data", {}).pop(mime, None)
+                out.get("metadata", {}).pop(mime, None)  # rendered width/height
     return notebook
 
 

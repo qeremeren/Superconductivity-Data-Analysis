@@ -1,4 +1,4 @@
 held_out,rows,nn_distance_median,share_nn_within_0.05,share_nn_family_cuprate,share_nn_family_iron-based,share_nn_family_other,tc_median,nn_tc_median,knn10_tc_mean_median,knn10_tc_sd_median,tabpfn_pred_median,spearman_tabpfn_pred_vs_knn10_tc_mean,tabpfn_width80_median,tabpfn_coverage_80,top_nn_systems
-cuprate,10532,0.6202,0.0008,0.0000,0.0052,0.9948,63.1000,22.0000,18.9430,16.5014,18.0676,0.2942,41.8486,0.3576,Bi-Ca-La-O-Sr (18%); Ba-Bi-K-O (14%); Ba-Bi-K-O-Pb (14%); Ba-La-Nd-O (9%); Bi-Ca-O-Sr (5%)
-iron-based,1682,0.8000,0.0006,0.0006,0.0000,0.9994,20.0000,2.8000,4.3735,2.0580,5.4395,0.2448,8.4728,0.2224,As-Ba-Pt (16%); As-Ca-Pd (9%); As-F-La-Ni-O (8%); Fe-O-P-Sm (7%); Fe-S-Te (7%)
-other,9049,1.4543,0.0060,0.6107,0.3893,0.0000,4.5000,20.0000,35.7800,17.3707,34.8781,0.7937,77.5935,0.5206,B-C-Ca-Cu-O-Sr (11%); Fe-Nb-S-Se (10%); Cu-Mo-O-S (7%); Fe-Se-Te (4%); Cu-Li-O-Ti (4%)
+cuprate,10532,0.6202,0.0008,0.0000,0.0052,0.9948,63.1000,22.0000,17.1750,14.2303,18.0676,0.3033,41.8486,0.3576,Bi-Ca-La-O-Sr (18%); Ba-Bi-K-O (14%); Ba-Bi-K-O-Pb (14%); Ba-La-Nd-O (9%); Bi-Ca-O-Sr (5%)
+iron-based,1682,0.8000,0.0006,0.0006,0.0000,0.9994,20.0000,2.8000,4.2175,1.9775,5.4395,0.2730,8.4728,0.2224,As-Ba-Pt (16%); As-Ca-Pd (9%); As-F-La-Ni-O (8%); Fe-O-P-Sm (7%); Fe-S-Te (7%)
+other,9049,1.4543,0.0060,0.6107,0.3893,0.0000,4.5000,20.0000,34.7700,16.8263,34.8781,0.7836,77.5935,0.5206,B-C-Ca-Cu-O-Sr (11%); Fe-Nb-S-Se (10%); Cu-Mo-O-S (7%); Fe-Se-Te (4%); Cu-Li-O-Ti (4%)

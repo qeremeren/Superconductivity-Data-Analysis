@@ -780,14 +780,14 @@ baselines. "Neighbour Tc spread" = SD of the median Tc of the 10 nearest trainin
 - Leave-family-out: held-out materials are far from everything in training (median distance
   0.62 for cuprates, 0.80 iron-based, 1.45 other; at most 0.6% within 0.05). Within a
   held-out family, the width barely tracks anything: Spearman with the neighbour spread 0.42
-  (cuprates), 0.01 (iron-based), 0.52 (other); with |error| 0.02, -0.03 and 0.67.
+  (cuprates), 0.09 (iron-based), 0.52 (other); with |error| 0.02, -0.03 and 0.67.
 - The iron-based case. In Phase 3, TabPFN's intervals got narrower when this family was held
   out, with 22% coverage at 80%. The nearest training materials are low-Tc analogues from the
   "other" family (99.9%): As-Ba-Pt (16% of rows), As-Ca-Pd (9%), As-F-La-Ni-O (8%), Fe-O-P-Sm
-  (7%), Fe-S-Te (7%). Their Tc is low and uniform (10 nearest: median mean 4.4 K, median SD
-  2.1 K). TabPFN predicts a median of 5.4 K (true median 20.0 K) with a median 80% width of
+  (7%), Fe-S-Te (7%). Their Tc is low and uniform (10 nearest: median mean 4.2 K, median SD
+  2.0 K). TabPFN predicts a median of 5.4 K (true median 20.0 K) with a median 80% width of
   8.5 K. Neighbours of held-out cuprates and of held-out "other" materials vary far more (SD
-  16.5 and 17.4 K), giving wide intervals (median 41.8 and 77.6 K) that still under-cover
+  14.2 and 16.8 K), giving wide intervals (median 41.8 and 77.6 K) that still under-cover
   (36% and 52%).
 - The Phase 5 plan's hypothesis was that held-out iron-based materials sit close to training
   materials. That is not supported: they are far. The explanation is that their nearest
@@ -856,3 +856,17 @@ Sources: `experiments/05_cuprate_detector.py` (`make why-xgb`, 76 s, local XGBoo
   `.github/check_unchanged.py` fails on any changed or new file except PNGs and the images
   embedded in executed notebooks (checked locally with a planted notebook-image change, which
   passes, and a planted metrics change, which fails).
+
+### Cross-platform determinism (found by the first CI run, 2026-10-06)
+- On Ubuntu (x86) `make reproduce` and all tests passed, but 4 CSVs differed from the macOS
+  (ARM) commit. Causes: `duplicates.csv` sorted by `n_rows` with an unstable sort (ties came
+  out in another order), and the 10-nearest-neighbour Tc spread (`src/benchmark.py`) used
+  `np.argpartition`, which picks different neighbours among tied distances on x86 and ARM.
+  Both now use a stable sort, so ties resolve by index on every platform. The notebook check
+  also ignores the rendered image size metadata (fonts).
+- Effect on reported numbers (kNN neighbour sets changed only where distances tie): the
+  grouped-split Spearman values are unchanged at 2 decimals (TabPFN 0.83, QR 0.83); in
+  leave-family-out, TabPFN width vs neighbour spread for held-out iron-based 0.01 -> 0.09
+  (cuprates 0.42, other 0.52 unchanged); iron-based neighbours' median mean / SD 4.4 / 2.1 K
+  -> 4.2 / 2.0 K; neighbour SD for held-out cuprates / other 16.5 / 17.4 K -> 14.2 / 16.8 K.
+  Widths, coverage and every other result are unchanged. The Phase 5 text above is updated.
