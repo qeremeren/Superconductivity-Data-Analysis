@@ -489,7 +489,6 @@ results/      cached TabPFN outputs, predictions, metrics CSV/JSON, figures (per
 notebooks/    01_eda … 05_why: walkthroughs that only read results/
 demo/         formula -> Tc prediction (predict.py) and the showcase (showcase.py)
 tests/        no leakage across splits, metric correctness, seeds, caches, budget guard, README tables
-docs/         hackathon submission text and video script
 NOTES.md      the running log of every decision and finding this README is written from
 ```
 

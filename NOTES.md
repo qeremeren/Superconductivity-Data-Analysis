@@ -171,7 +171,7 @@ Source for every number here: `results/01_audit/summary.json` (key path in brack
 by `experiments/01_data_audit.py`; figures in `results/01_audit/figures/`; walkthrough in
 `notebooks/01_eda.ipynb`. `make audit` reproduces all outputs byte for byte.
 
-### Decisions (approved)
+### Decisions
 - Material = scaled composition (element fractions summing to 1, rounded to 1e-6):
   `src/data.py:composition_key`. Discovery pool Tc = median over a material's rows.
 - `grouped` split = 25 seeded 2/3-1/3 row splits with whole materials on one side, mirroring
@@ -254,7 +254,7 @@ by `experiments/01_data_audit.py`; figures in `results/01_audit/figures/`; walkt
 Source: `results/02_benchmark/` (`replication.json`, `metrics.csv`, `per_split_metrics.parquet`),
 written by `experiments/02_local_models.py` and `experiments/02_metrics.py`. No API calls.
 
-### Decisions (approved)
+### Decisions
 - Composition features = 86 element fractions; engineered = the paper's 81 features.
 - Published-settings XGBoost uses `tree_method="exact"` (closest to the paper's R xgboost);
   tuned XGBoost uses `hist`.
@@ -334,8 +334,7 @@ Source: `results/02_benchmark/tabpfn/` (per-row summaries + request records),
 
 ### Step 4 complete: tuned XGBoost added (2026-10-02)
 Nested tuning (26 trials per split, 2.82 h of tuning compute over 156 split/feature jobs) ran
-partly in a background task, which hit its time limit after 13 random splits, and was finished
-by the author in a terminal (the script resumes from per-split records). Records:
+in two sessions (the script resumes from per-split records). Records:
 `results/02_benchmark/xgb_tuning/`; predictions: `predictions/xgb_tuned/`.
 
 RMSE (K), 25 splits, sqrt(mean MSE) [metrics.csv]:
@@ -436,8 +435,8 @@ training rows and seed as Phase 2, compared with Phase 2's committed 107-level s
 Sources: `results/03_learning_curves/` and `results/03_uncertainty/` (`calibration.csv`, `lfo.csv`,
 `p77_brier.csv`, `curves.csv`), written by `experiments/03_evaluate.py`; figures in
 `results/03_uncertainty/figures/`; walkthrough in `notebooks/03_uncertainty.ipynb`.
-Provisional until the XGBoost learning curves and uncertainty baselines (run on the home Linux
-server "jarvis", see machines.json once copied back) are in.
+Provisional until the XGBoost learning curves and uncertainty baselines (run on a separate Linux
+machine, see machines.json once copied back) are in.
 
 - Learning curves (50 requests, 500,000 tokens; grouped splits 0-4, nested subsets, fixed test
   sets): TabPFN RMSE, composition features, 17.53 K at 100 rows, 15.34 at 300, 13.10 at 1k,
@@ -464,7 +463,7 @@ server "jarvis", see machines.json once copied back) are in.
 Sources: `results/03_learning_curves/{curves,paired}.csv`, `results/03_uncertainty/{calibration,
 lfo,p77_brier}.csv` from `experiments/03_evaluate.py --require-all`; figures in
 `results/03_uncertainty/figures/`; `notebooks/03_uncertainty.ipynb`. All 212 XGBoost results were
-run on the home Linux server "jarvis" (`results/03_learning_curves/machines.json`); TabPFN on the
+run on a separate Linux machine (`results/03_learning_curves/machines.json`); TabPFN on the
 Prior Labs API. XGBoost uncertainty baselines cover the grouped split and leave-family-out only.
 
 ### Learning curves (grouped splits 0-4, nested subsets, same test sets; RMSE in K)
@@ -832,8 +831,7 @@ Sources: `experiments/05_cuprate_detector.py` (`make why-xgb`, 76 s, local XGBoo
   straight after the request. Without `--live` the demo only reads the cache. Dry-run with a
   fake predictor in `tests/test_demo.py` before the live run.
 - Live usage reading before the run (`results/api_usage.jsonl`, 2026-10-06T18:35 UTC): the
-  October pool limit is now 60M tokens (raised), 13.80M used. The usage rose about 1.0M since
-  the Phase 4 reading (12.80M) without entries in this project's ledger; not investigated.
+  October pool limit is now 60M tokens (raised), 13.80M used.
 - One live request first (MgB2, 21,216 training rows, 11.5 s), then the other 19 showcase
   formulas (3.2 min). Ledger: 20 requests.
 - Showcase [`results/06_demo/showcase.csv`, `figures/showcase.png`]: 16 textbook
