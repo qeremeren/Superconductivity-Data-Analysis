@@ -817,3 +817,42 @@ Sources: `experiments/05_cuprate_detector.py` (`make why-xgb`, 76 s, local XGBoo
     `range_ThermalConductivity` falls to 10.5%, and test RMSE is unchanged (9.77 to 9.75 K).
 - Reading: the hypothesis holds. About half of the paper's most important feature is family
   membership, which the element fractions already encode.
+
+## 2026-10-06 — Phase 6: demo, README, CI
+
+### Demo (`demo/predict.py`, `demo/showcase.py`; 20 requests, `p6_demo`)
+- Formula -> Tc: TabPFN-3.5 fit on all 21,263 rows with composition features, seed 0, the
+  107-level grid. If the material (same scaled composition, any spelling) is in the data, all
+  its rows are held out of training, so each known material gets its own request. Oxygen
+  variants and other relatives stay in (as in the grouped split); the demo prints the nearest
+  training material, its distance and Tc, because Phase 5 showed that the interval width is
+  not a novelty detector. Warns when the nearest material is 0.2 or more away (L1).
+- Cache: one JSON per formula in `results/06_demo/predictions/` with the full quantile grid
+  and a fingerprint of the inputs (same `models.fingerprint` as the benchmarks); written
+  straight after the request. Without `--live` the demo only reads the cache. Dry-run with a
+  fake predictor in `tests/test_demo.py` before the live run.
+- Live usage reading before the run (`results/api_usage.jsonl`, 2026-10-06T18:35 UTC): the
+  October pool limit is now 60M tokens (raised), 13.80M used. The usage rose about 1.0M since
+  the Phase 4 reading (12.80M) without entries in this project's ledger; not investigated.
+- One live request first (MgB2, 21,216 training rows, 11.5 s), then the other 19 showcase
+  formulas (3.2 min). Ledger: 20 requests.
+- Showcase [`results/06_demo/showcase.csv`, `figures/showcase.png`]: 16 textbook
+  superconductors from the data, each held out; every recorded median Tc lies inside its 95%
+  interval and 15 of 16 inside the 80% interval (e.g. HgBa2Ca2Cu3O8: median 131.5 K vs
+  recorded 131.0 K; MgB2 37.6 vs 38.4 K; the exception is Tl2Ba2Ca2Cu3O10, 111.5 vs 119.5 K).
+  16 materials, so this is an illustration, not an evaluation. 4 materials not in the data
+  (CsV3Sb5, Nd0.8Sr0.2NiO2, La3Ni2O7, LaH10): no ground truth, shown for the distance warning.
+  LaH10 (nearest training material H4Si1 at L1 0.40) gets 95% interval -0.1 to 287 K and
+  P(Tc > 77 K) 19.9%; the data has no pressure, and the model says it does not know.
+
+### README and reproducibility
+- `experiments/06_readme.py` renders every README table from a committed results file between
+  `<!-- readme:NAME -->` markers (`make readme`, part of `make reproduce`);
+  `tests/test_readme.py` fails if the README and `results/` disagree. Prose numbers were
+  checked against their files when written (sources named next to them).
+- Fresh clone on macOS (scratch directory, `make setup && make reproduce`): 3.5 min, 84 tests
+  pass, `git status` clean afterwards, so every result, figure and notebook is byte-identical.
+- CI (`.github/workflows/reproduce.yml`): `make reproduce` on a fresh Ubuntu clone, then
+  `.github/check_unchanged.py` fails on any changed or new file except PNGs and the images
+  embedded in executed notebooks (checked locally with a planted notebook-image change, which
+  passes, and a planted metrics change, which fails).
