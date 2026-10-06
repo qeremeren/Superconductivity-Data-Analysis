@@ -2,7 +2,7 @@
 
 [![reproduce](https://github.com/qeremeren/Superconductivity-Data-Analysis/actions/workflows/reproduce.yml/badge.svg)](https://github.com/qeremeren/Superconductivity-Data-Analysis/actions/workflows/reproduce.yml)
 
-Entry for the Prior Labs TabPFN-3.5 Hackathon. We take the standard superconductor dataset
+We take the standard superconductor dataset
 (21,263 records from NIMS SuperCon, Hamidieh 2018) and ask three questions:
 
 1. **Is TabPFN-3.5 more accurate than XGBoost**, the model of the original paper, once the
