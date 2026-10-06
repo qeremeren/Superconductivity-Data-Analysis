@@ -45,6 +45,9 @@ gp-discovery:  ## No API key, ~1 min: rerun the Phase 5 GP-EI discovery baseline
 demo:  ## Phase 6 demo showcase table and figure from the committed cache (no API)
 	uv run python -m demo.showcase
 
+readme:  ## Render the README tables from results/ (tests/test_readme.py checks they match)
+	uv run python -m experiments.06_readme
+
 retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XGBoost tuning (~3 h)
 	uv run python -m experiments.02_local_models
 	uv run python -m experiments.02_xgb_tuning --trials 26
@@ -61,6 +64,7 @@ reproduce:  ## Rebuild everything from committed caches; no API key needed (grow
 	$(MAKE) discovery
 	$(MAKE) why
 	$(MAKE) demo
+	$(MAKE) readme
 	$(MAKE) notebooks
 	uv run pytest
 
