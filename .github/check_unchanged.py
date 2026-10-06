@@ -1,8 +1,9 @@
 """Fail if `make reproduce` changed any committed file other than figures.
 
 PNG files and the images embedded in executed notebooks are excepted, because fonts and
-anti-aliasing differ by OS. Every other file (tables, JSON, CSV, parquet, notebook text
-and numbers) must match the commit byte for byte, and no untracked file may appear.
+anti-aliasing differ by OS, and so is the Python patch version in notebook metadata. Every
+other file (tables, JSON, CSV, parquet, notebook text and numbers) must match the commit
+byte for byte, and no untracked file may appear.
 """
 
 from __future__ import annotations
@@ -19,6 +20,9 @@ def git(*args: str) -> str:
 
 
 def strip_images(notebook: dict) -> dict:
+    """Drop what depends on the OS rather than the results: rendered images, their sizes,
+    and the interpreter's patch version recorded by the kernel."""
+    notebook.get("metadata", {}).get("language_info", {}).pop("version", None)
     for cell in notebook.get("cells", []):
         for out in cell.get("outputs", []):
             for mime in IMAGE_MIMES:
