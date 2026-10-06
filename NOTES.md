@@ -129,6 +129,7 @@ hard cap enforces (a test fails if this table and the code drift apart). Tokens 
 | 4 | `p4_pilot` | 240 | 260 | 240 | 2,600,000 | Oct | EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios |
 | 4 | `p4_main` | 400 | 620 | 400 | 6,200,000 | Oct | top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3) |
 | 4 | `p4_hard` | 400 | 620 | 404 | 6,200,000 | Oct | non-cuprate pool and top-1% target, same design |
+| 6 | `p6_demo` | 20 | 40 | 20 | 400,000 | Oct | demo: 20 showcase formulas, one request each |
 
 Spend already made is inside "used"; the plan columns count only what is left of each
 experiment's cap and plan.
@@ -136,7 +137,7 @@ experiment's cap and plan.
 | Pool | Limit | Used at reading | Reading | Usable (minus 1M reserve) | Remaining caps | Remaining plan | Headroom at cap (requests) |
 |---|---:|---:|---|---:|---:|---:|---:|
 | Sep (closed) | 20,000,000 | 4,930,000 | 2026-09-28 | closed | - | - | - |
-| Oct | 20,000,000 | 12,802,160 | 2026-10-02T22:25:38+00:00 | 6,197,840 | 5,162,500 | 20,000 | 1,035,340 (103) |
+| Oct | 60,000,000 | 13,804,949 | 2026-10-06T18:35:44+00:00 | 45,195,051 | 5,362,500 | 20,000 | 39,832,551 (3,983) |
 <!-- budget-table:end -->
 
 ## 2026-09-28 — Discovery loop design (decided, revised the same day)

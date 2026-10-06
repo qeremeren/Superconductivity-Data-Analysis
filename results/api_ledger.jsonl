@@ -1281,3 +1281,23 @@
 {"ts": "2026-10-02T21:55:17+00:00", "experiment": "p4_hard", "requests": 1, "tokens_estimated": 10000, "run": "main/hard/greedy_tabpfn/8", "attempt": 0}
 {"ts": "2026-10-02T21:55:27+00:00", "experiment": "p4_hard", "requests": 1, "tokens_estimated": 10000, "run": "main/hard/greedy_tabpfn/8", "attempt": 0}
 {"ts": "2026-10-02T21:55:34+00:00", "experiment": "p4_hard", "requests": 1, "tokens_estimated": 10000, "run": "main/hard/greedy_tabpfn/8", "attempt": 0}
+{"ts": "2026-10-06T18:35:51+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "MgB2"}
+{"ts": "2026-10-06T18:36:07+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Hg"}
+{"ts": "2026-10-06T18:36:18+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Pb"}
+{"ts": "2026-10-06T18:36:28+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Nb"}
+{"ts": "2026-10-06T18:36:39+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "NbN"}
+{"ts": "2026-10-06T18:36:49+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Nb3Sn"}
+{"ts": "2026-10-06T18:36:59+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "K3C60"}
+{"ts": "2026-10-06T18:37:08+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "FeSe"}
+{"ts": "2026-10-06T18:37:20+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "LaFeAsO0.9F0.1"}
+{"ts": "2026-10-06T18:37:30+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Ba0.6K0.4Fe2As2"}
+{"ts": "2026-10-06T18:37:39+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "SmFeAsO0.85F0.15"}
+{"ts": "2026-10-06T18:37:49+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "La1.85Sr0.15CuO4"}
+{"ts": "2026-10-06T18:38:00+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "YBa2Cu3O7"}
+{"ts": "2026-10-06T18:38:11+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Bi2Sr2Ca2Cu3O10"}
+{"ts": "2026-10-06T18:38:19+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Tl2Ba2Ca2Cu3O10"}
+{"ts": "2026-10-06T18:38:30+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "HgBa2Ca2Cu3O8"}
+{"ts": "2026-10-06T18:38:40+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "CsV3Sb5"}
+{"ts": "2026-10-06T18:38:51+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "Nd0.8Sr0.2NiO2"}
+{"ts": "2026-10-06T18:38:59+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "La3Ni2O7"}
+{"ts": "2026-10-06T18:39:09+00:00", "experiment": "p6_demo", "requests": 1, "tokens_estimated": 10000, "formula": "LaH10"}

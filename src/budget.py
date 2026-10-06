@@ -89,6 +89,7 @@ PLAN = [
     Planned(4, "p4_pilot", 240, 260, OCT, "EI vs q90: 3 seeds x 2 acq. x 20 rounds x 2 scenarios"),
     Planned(4, "p4_main", 400, 620, OCT, "top-1% target: 10 seeds x 2 acq. x 20 rounds (cap: 3)"),
     Planned(4, "p4_hard", 400, 620, OCT, "non-cuprate pool and top-1% target, same design"),
+    Planned(6, "p6_demo", 20, 40, OCT, "demo: 20 showcase formulas, one request each"),
 ]
 PLAN_BY_NAME = {p.experiment: p for p in PLAN}
 

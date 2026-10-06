@@ -1,4 +1,4 @@
-.PHONY: setup data splits audit benchmark uncertainty discovery why why-xgb gp-discovery xgb-phase3 retrain-local notebooks reproduce test lint check-api requirements
+.PHONY: setup data splits audit benchmark uncertainty discovery why why-xgb gp-discovery xgb-phase3 retrain-local demo readme notebooks reproduce test lint check-api requirements
 
 setup:  ## Create the locked environment (Python 3.12 via uv)
 	uv sync
@@ -42,6 +42,9 @@ why-xgb:  ## No API key, ~1-2 min: Phase 5 cuprate-detector test (refits XGBoost
 gp-discovery:  ## No API key, ~1 min: rerun the Phase 5 GP-EI discovery baseline (records are committed)
 	uv run python -m experiments.05_gp_discovery
 
+demo:  ## Phase 6 demo showcase table and figure from the committed cache (no API)
+	uv run python -m demo.showcase
+
 retrain-local:  ## Optional, slow: refit local baselines (~20 min) and nested XGBoost tuning (~3 h)
 	uv run python -m experiments.02_local_models
 	uv run python -m experiments.02_xgb_tuning --trials 26
@@ -57,6 +60,7 @@ reproduce:  ## Rebuild everything from committed caches; no API key needed (grow
 	$(MAKE) uncertainty
 	$(MAKE) discovery
 	$(MAKE) why
+	$(MAKE) demo
 	$(MAKE) notebooks
 	uv run pytest
 
